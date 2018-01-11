@@ -88,11 +88,11 @@
         setInterval(e => {
           if (eInput.value !== prev) {
             let pos = (eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value)).length;
-            eOutput.setSelectionRange(0, pos);
             prev = eInput.value;
           }
         }, tPause);
         eCopy.onclick = function () {
+          eOutput.setSelectionRange(0, pos);
           eOutput.select();
           document.execCommand('Copy');
         }
