@@ -71,40 +71,59 @@
     let question = decodeURI(window.location.search).slice(1);
     document.getElementsByTagName('title')[0].innerHTML = question;
     // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
-    let t = 320;
-    let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
     let eAnswer = document.getElementById('answer');
     let eTellMe = document.getElementsByTagName('button')[0];
-    eTellMe.onclick = function () {
-      setTimeout(e => {
-        let eInput = document.createElement('input');
-        eAnswer.appendChild(eInput);
-        let questionIndex = 0;
-        let timer = setInterval(e => {
-          let pos = (eInput.value = question.substring(0, ++questionIndex)).length;
-          eInput.focus();
-          eInput.setSelectionRange(pos, pos);
-          if (questionIndex === question.length) {
-            setTimeout(e => {
-              let eSearch = document.createElement('button');
-              eSearch.innerHTML = 'Search';
-              eInput.style['margin-right'] = '10px';
-              eAnswer.appendChild(eSearch);
-              eSearch.focus();
-              setTimeout(e => {
-                eSearch.classList.add('active');
-                setTimeout(e => {
-                  eSearch.classList.remove('active');
-                  window.location.href = 'https://www.baidu.com/s?wd=' + eInput.value;
-                }, tClick);
-              }, tWait);
-            }, tClick);
-            clearInterval(timer);
-          }
+    let t = 320;
+    let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
+    if (question === '') {
+      eTellMe.onclick = function () {
+        let eInput = eAnswer.appendChild(document.createElement('input'));
+        let eOutput = eAnswer.appendChild(document.createElement('input'));
+        let eCopy = eAnswer.appendChild(document.createElement('button'));
+        eInput.textContent = 'Input Question';
+        eOutput.textContent = 'Output URL';
+        eCopy.innerHTML = 'Copy';
+        setInterval(e => {
+          let pos = (eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value)).length;
+          eOutput.setSelectionRange(0, pos);
         }, tPause);
-      }, tInstant);
-      this.onclick = null;
-    };
+        eCopy.onclick = function () {
+          eOutput.select();
+          document.execCommand('Copy');
+        }
+        this.onclick = null;
+      };
+    } else {
+      eTellMe.onclick = function () {
+        setTimeout(e => {
+          let eInput = eAnswer.appendChild(document.createElement('input'));
+          let questionIndex = 0;
+          let timer = setInterval(e => {
+            let pos = (eInput.value = question.substring(0, ++questionIndex)).length;
+            eInput.focus();
+            eInput.setSelectionRange(pos, pos);
+            if (questionIndex === question.length) {
+              setTimeout(e => {
+                let eSearch = document.createElement('button');
+                eSearch.innerHTML = 'Search';
+                eInput.style['margin-right'] = '10px';
+                eAnswer.appendChild(eSearch);
+                eSearch.focus();
+                setTimeout(e => {
+                  eSearch.classList.add('active');
+                  setTimeout(e => {
+                    eSearch.classList.remove('active');
+                    window.location.href = 'https://www.baidu.com/s?wd=' + eInput.value;
+                  }, tClick);
+                }, tWait);
+              }, tClick);
+              clearInterval(timer);
+            }
+          }, tPause);
+        }, tInstant);
+        this.onclick = null;
+      };
+    }
 
     setTimeout(e => {
       eTellMe.focus();
@@ -112,7 +131,7 @@
         eTellMe.classList.add('active');
         setTimeout(e => {
           eTellMe.classList.remove('active');
-          eTellMe.onclick();
+          if (eTellMe.click !== null) eTellMe.onclick();
         }, tClick);
       }, tWait)
     }, tWait);
