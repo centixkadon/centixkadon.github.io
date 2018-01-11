@@ -87,12 +87,12 @@
         let prev = '';
         setInterval(e => {
           if (eInput.value !== prev) {
-            let pos = (eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value)).length;
+            eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value);
             prev = eInput.value;
           }
         }, tPause);
         eCopy.onclick = function () {
-          eOutput.setSelectionRange(0, pos);
+          eOutput.setSelectionRange(0, eOutput.value.length);
           eOutput.select();
           document.execCommand('Copy');
         }
