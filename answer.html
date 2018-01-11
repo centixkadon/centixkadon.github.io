@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Answer</title>
+
+  <!-- <link rel="stylesheet" href="external/bootstrap/css/bootstrap.css">
+  <script src="external/jquery/js/jquery-3.2.1.js"></script> -->
+  <style>
+    html {
+      font-size: 20px;
+    }
+
+    #answer {
+      display: -webkit-flex;
+      display: flex;
+      padding-top: 30px;
+    }
+
+    button,
+    input {
+      padding: 6px 12px 6px 12px;
+      font-size: 20px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    button {
+      background-image: -webkit-gradient(linear, right top, left bottom, from(#EEE), to(#DDD));
+      background-image: -webkit-linear-gradient(top, #EEE, #DDD);
+      background-image: -moz-linear-gradient(top, #EEE, #DDD);
+      background-image: linear-gradient(to bottom, #EEE, #DDD);
+      border: none;
+      height: 47px;
+      width: 100px;
+      flex: none;
+    }
+
+    button:active,
+    button.active {
+      background-image: -webkit-gradient(linear, right top, left bottom, from(#AAA), to(#999));
+      background-image: -webkit-linear-gradient(top, #AAA, #999);
+      background-image: -moz-linear-gradient(top, #AAA, #999);
+      background-image: linear-gradient(to bottom, #AAA, #999);
+    }
+
+    input {
+      border: #000 solid 1px;
+      margin-right: 110px;
+      max-width: 480px;
+      height: 32px;
+      width: auto;
+      flex: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>How to get the answer in China?</h1>
+    <div>
+      <button>Tell me!</button>
+      <div id="answer"></div>
+    </div>
+  </div>
+
+  <script>
+    let question = decodeURI(window.location.search).slice(1);
+    document.getElementsByTagName('title')[0].innerHTML = question;
+    // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
+    let t = 320;
+    let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
+    let eAnswer = document.getElementById('answer');
+    let eTellMe = document.getElementsByTagName('button')[0];
+    eTellMe.onclick = function () {
+      setTimeout(e => {
+        let eInput = document.createElement('input');
+        eAnswer.appendChild(eInput);
+        let questionIndex = 0;
+        let timer = setInterval(e => {
+          let pos = (eInput.value = question.substring(0, ++questionIndex)).length;
+          eInput.focus();
+          eInput.setSelectionRange(pos, pos);
+          if (questionIndex === question.length) {
+            setTimeout(e => {
+              let eSearch = document.createElement('button');
+              eSearch.innerHTML = 'Search';
+              eInput.style['margin-right'] = '10px';
+              eAnswer.appendChild(eSearch);
+              eSearch.focus();
+              setTimeout(e => {
+                eSearch.classList.add('active');
+                setTimeout(e => {
+                  eSearch.classList.remove('active');
+                  window.location.href = 'https://www.baidu.com/s?wd=' + eInput.value;
+                }, tClick);
+              }, tWait);
+            }, tClick);
+            clearInterval(timer);
+          }
+        }, tPause);
+      }, tInstant);
+      this.onclick = null;
+    };
+
+    setTimeout(e => {
+      eTellMe.focus();
+      setTimeout(e => {
+        eTellMe.classList.add('active');
+        setTimeout(e => {
+          eTellMe.classList.remove('active');
+          eTellMe.onclick();
+        }, tClick);
+      }, tWait)
+    }, tWait);
+  </script>
+</body>
+
+</html>
