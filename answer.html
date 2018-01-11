@@ -73,17 +73,24 @@
     let eTellMe = document.getElementsByTagName('button')[0];
     let t = 320;
     let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
+    eAnswer.style['display'] = 'block';
     if (question === '') {
       eTellMe.onclick = function () {
         let eInput = eAnswer.appendChild(document.createElement('input'));
+        eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
         let eOutput = eAnswer.appendChild(document.createElement('input'));
+        eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
         let eCopy = eAnswer.appendChild(document.createElement('button'));
         eInput.textContent = 'Input Question';
         eOutput.textContent = 'Output URL';
         eCopy.innerHTML = 'Copy';
+        let prev = '';
         setInterval(e => {
-          let pos = (eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value)).length;
-          eOutput.setSelectionRange(0, pos);
+          if (eInput.value !== prev) {
+            let pos = (eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value)).length;
+            eOutput.setSelectionRange(0, pos);
+            prev = eInput.value;
+          }
         }, tPause);
         eCopy.onclick = function () {
           eOutput.select();
