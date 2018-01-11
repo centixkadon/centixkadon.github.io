@@ -69,8 +69,6 @@
 
   <script>
     let question = decodeURI(window.location.search).slice(1);
-    document.getElementsByTagName('title')[0].innerHTML = question;
-    // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
     let eAnswer = document.getElementById('answer');
     let eTellMe = document.getElementsByTagName('button')[0];
     let t = 320;
@@ -94,6 +92,8 @@
         this.onclick = null;
       };
     } else {
+      document.getElementsByTagName('title')[0].innerHTML = question;
+      // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
       eTellMe.onclick = function () {
         setTimeout(e => {
           let eInput = eAnswer.appendChild(document.createElement('input'));
