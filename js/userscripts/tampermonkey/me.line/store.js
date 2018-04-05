@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         line_store
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.1
-// @description  View all images from a gallery on one page.
+// @version      0.2
+// @description  Enable download at line store.
 // @author       centixkadon
 // @match        https://store.line.me/stickershop/product/*
 // @require      https://raw.githubusercontent.com/Stuk/jszip/master/dist/jszip.min.js
