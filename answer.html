@@ -68,26 +68,45 @@
   </div>
 
   <script>
-    let question = decodeURI(window.location.search).slice(1);
+    function decodeSearch(search) {
+      let ans = {};
+      let kvs = search.slice(1).split('&');
+      for (let i = 0; i < kvs.length; ++i) {
+        let [key, value] = kvs[i].split('=');
+        ans[decodeURIComponent(key)] = decodeURIComponent(value);
+      }
+      return ans;
+    }
+    function encodeSearch(search) {
+      let kvs = [];
+      for (let key in search) {
+        kvs.push(encodeURIComponent(key) + '=' + encodeURIComponent(search[key]));
+      }
+      return '?' + kvs.join('&');
+    }
+    let question = decodeSearch(window.location.search).wd;
     let eAnswer = document.getElementById('answer');
     let eTellMe = document.getElementsByTagName('button')[0];
     let t = 320;
     let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
     eAnswer.style['display'] = 'block';
-    if (question === '') {
+    if (question === undefined) {
       eTellMe.onclick = function () {
         let eInput = eAnswer.appendChild(document.createElement('input'));
         eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
         let eOutput = eAnswer.appendChild(document.createElement('input'));
         eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
         let eCopy = eAnswer.appendChild(document.createElement('button'));
-        eInput.textContent = 'Input Question';
-        eOutput.textContent = 'Output URL';
-        eCopy.innerHTML = 'Copy';
+        let eJump = eAnswer.appendChild(document.createElement('button'));
+        eInput.textContent = "Input Question";
+        eOutput.textContent = "Output URL";
+        eCopy.innerHTML = "Copy";
+        eJump.innerHTML = "Jump";
         let prev = '';
         setInterval(e => {
           if (eInput.value !== prev) {
-            eOutput.value = encodeURI('https://centixkadon.github.io/answer.html?' + eInput.value);
+            eOutput.value = 'https://centixkadon.github.io/answer.html' +
+              encodeSearch({ wd: eInput.value });
             prev = eInput.value;
           }
         }, tPause);
@@ -96,10 +115,13 @@
           eOutput.select();
           document.execCommand('Copy');
         }
+        eJump.onclick = function () {
+          window.location.href = eOutput.value;
+        }
         this.onclick = null;
       };
     } else {
-      document.getElementsByTagName('title')[0].innerHTML = question;
+      document.getElementsByTagName('title')[0].innerHTML = question + "（你不会百度吗）";
       // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
       eTellMe.onclick = function () {
         setTimeout(e => {
@@ -120,7 +142,7 @@
                   eSearch.classList.add('active');
                   setTimeout(e => {
                     eSearch.classList.remove('active');
-                    window.location.href = 'https://www.baidu.com/s?wd=' + eInput.value;
+                    window.location.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent(eInput.value);
                   }, tClick);
                 }, tWait);
               }, tClick);
