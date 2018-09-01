@@ -121,7 +121,7 @@
         this.onclick = null;
       };
     } else {
-      document.getElementsByTagName('title')[0].innerHTML = question + "（你不会百度吗）";
+      document.getElementsByTagName('title')[0].innerHTML = question + "（这个问题非常简单，我会帮你找到答案）";
       // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
       eTellMe.onclick = function () {
         setTimeout(e => {
@@ -129,8 +129,14 @@
           let questionIndex = 0;
           let timer = setInterval(e => {
             let pos = (eInput.value = question.substring(0, ++questionIndex)).length;
-            eInput.focus();
-            eInput.setSelectionRange(pos, pos);
+            if (eInput.setSelectionRange) {
+              eInput.setSelectionRange(pos, pos);
+              eInput.focus();
+            } else if (eInput.createTextRange) {
+              let tmp = eInput.createTextRange();
+              tmp.moveEnd("character", 0);
+              tmp.select();
+            }
             if (questionIndex === question.length) {
               setTimeout(e => {
                 let eSearch = document.createElement('button');
