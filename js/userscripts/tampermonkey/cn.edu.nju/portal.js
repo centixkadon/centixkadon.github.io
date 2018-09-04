@@ -13,6 +13,8 @@ function nju_portal_run(g) {
     $('#username').val(g.username);
     $('#password').val(g.password);
     if ($("#pcLoginCont").is(":visible")) loginRequest();
+
+    infoRequest();
   }, 1000);
 }
 
