@@ -10,19 +10,19 @@
 
 function nju_portal_run(g) {
   setInterval(() => {
-    $('#username').val(g.username);
-    $('#password').val(g.password);
+    if (g.username !== "") $('#username').val(g.username);
+    if (g.password !== "") $('#password').val(g.password);
     if ($("#pcLoginCont").is(":visible")) loginRequest();
 
     infoRequest();
-  }, g.infoRequestTimeout);
+  }, g.infoRequestIntervalMs);
 }
 
 (function () {
   var nju_portal_global = {
     username: "",
     password: "",
-    infoRequestTimeout: 1000 * 60 * 2, // 2min
+    infoRequestIntervalMs: 1000 * 60 * 2, // 2min
   };
 
   $(document).ready(function () {
