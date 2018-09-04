@@ -15,13 +15,14 @@ function nju_portal_run(g) {
     if ($("#pcLoginCont").is(":visible")) loginRequest();
 
     infoRequest();
-  }, 1000);
+  }, g.infoRequestTimeout);
 }
 
 (function () {
   var nju_portal_global = {
     username: "",
     password: "",
+    infoRequestTimeout: 1000 * 60 * 2, // 2min
   };
 
   $(document).ready(function () {
