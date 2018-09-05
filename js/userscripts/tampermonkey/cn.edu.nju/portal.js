@@ -10,7 +10,7 @@
 
 function nju_portal_run(g) {
   setInterval(() => {
-    if (globalVar.userinfo.username !== null && g.username !== "" && globalVar.userinfo.username !== g.username) logoutRequest();
+    if (globalVar.userinfo.username !== null && g.username !== "" && globalVar.userinfo.username !== g.username.toLowerCase()) logoutRequest();
     if ($("#pcLoginCont").is(":visible")) {
       if (g.username !== "") $('#username').val(g.username);
       if (g.password !== "") $('#password').val(g.password);
