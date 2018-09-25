@@ -2,71 +2,39 @@
 <html lang="en">
 
 <head>
+  <base href=".">
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Answer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <!-- <link rel="stylesheet" href="external/bootstrap/css/bootstrap.css">
-  <script src="external/jquery/js/jquery-3.2.1.js"></script> -->
-  <style>
-    html {
-      font-size: 20px;
-    }
+  <link rel="stylesheet" href="javascript/bootstrap/css/bootstrap.min.css">
 
-    #answer {
-      display: -webkit-flex;
-      display: flex;
-      padding-top: 30px;
-    }
-
-    button,
-    input {
-      padding: 6px 12px 6px 12px;
-      font-size: 20px;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    button {
-      background-image: -webkit-gradient(linear, right top, left bottom, from(#EEE), to(#DDD));
-      background-image: -webkit-linear-gradient(top, #EEE, #DDD);
-      background-image: -moz-linear-gradient(top, #EEE, #DDD);
-      background-image: linear-gradient(to bottom, #EEE, #DDD);
-      border: none;
-      height: 47px;
-      width: 100px;
-      flex: none;
-    }
-
-    button:active,
-    button.active {
-      background-image: -webkit-gradient(linear, right top, left bottom, from(#AAA), to(#999));
-      background-image: -webkit-linear-gradient(top, #AAA, #999);
-      background-image: -moz-linear-gradient(top, #AAA, #999);
-      background-image: linear-gradient(to bottom, #AAA, #999);
-    }
-
-    input {
-      border: #000 solid 1px;
-      margin-right: 110px;
-      max-width: 480px;
-      height: 32px;
-      width: auto;
-      flex: auto;
-    }
-  </style>
+  <title>自动搜索生成器</title>
 </head>
 
 <body>
-  <div>
-    <h1>How to get the answer in China?</h1>
-    <div>
-      <button>Tell me!</button>
-      <div id="answer"></div>
-    </div>
+  <div class="container">
+    <main class="my-3">
+      <h1 class="mb-5"><b>How</b> to get the answer?</h1>
+      <button id="tellme" class="btn btn-secondary mb-3">Tell me!</button>
+      <div id="answer" style="display: none;">
+        <div class="input-group mb-3">
+          <input id="input" type="text" class="form-control" placeholder="Question" aria-label="Question">
+          <button id="search" style="display: none;" class="btn btn-primary ml-1">Search</button>
+        </div>
+        <div id="generate" style="display: none;">
+          <div class="input-group mb-3">
+            <input id="output" type="text" class="form-control" placeholder="QuestionURL" aria-label="QuestionURL">
+          </div>
+          <button id="copy" style="display: none;" class="btn btn-secondary mb-3">Copy</button>
+          <button id="jump" class="btn btn-secondary mb-3">Jump</button>
+        </div>
+      </div>
+    </main>
   </div>
 
+  <script src="javascript/jquery/jquery.min.js"></script>
+  <script src="js/suffix.js"></script>
   <script>
     function decodeSearch(search) {
       let ans = {};
@@ -84,71 +52,52 @@
       }
       return '?' + kvs.join('&');
     }
-    let question = decodeSearch(window.location.search).wd;
-    let eAnswer = document.getElementById('answer');
-    let eTellMe = document.getElementsByTagName('button')[0];
+
+    $("#copy").click(function () {
+      eOutput.setSelectionRange(0, eOutput.value.length);
+      eOutput.select();
+      document.execCommand('Copy');
+    });
+    $("#jump").click(function () {
+      location.href = $("#output").val();
+    });
+
+    location.originpath = location.href;
+    if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
+    let question = decodeSearch(location.search).wd;
     let t = 320;
     let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
-    eAnswer.style['display'] = 'block';
     if (question === undefined) {
-      eTellMe.onclick = function () {
-        let eInput = eAnswer.appendChild(document.createElement('input'));
-        eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
-        let eOutput = eAnswer.appendChild(document.createElement('input'));
-        eAnswer.appendChild(document.createElement('div')).style['display'] = 'block';
-        let eCopy = eAnswer.appendChild(document.createElement('button'));
-        let eJump = eAnswer.appendChild(document.createElement('button'));
-        eInput.textContent = "Input Question";
-        eOutput.textContent = "Output URL";
-        eCopy.innerHTML = "Copy";
-        eJump.innerHTML = "Jump";
-        let prev = '';
-        setInterval(e => {
-          if (eInput.value !== prev) {
-            eOutput.value = 'https://centixkadon.github.io/answer.html' +
-              encodeSearch({ wd: eInput.value });
-            prev = eInput.value;
+      $("#tellme").click(function () {
+        $("#answer").show();
+        $("#generate").show();
+
+        let prev = "";
+        setInterval(() => {
+          if ($("#input").val() !== prev) {
+            $("#output").val(location.originpath + encodeSearch({ wd: $("#input").val() }));
+            prev = $("#input").val();
           }
         }, tPause);
-        eCopy.onclick = function () {
-          eOutput.setSelectionRange(0, eOutput.value.length);
-          eOutput.select();
-          document.execCommand('Copy');
-        }
-        eJump.onclick = function () {
-          window.location.href = eOutput.value;
-        }
-        this.onclick = null;
-      };
+      });
+
     } else {
-      document.getElementsByTagName('title')[0].innerHTML = question + "（这个问题非常简单，我会帮你找到答案）";
-      // document.getElementsByTagName('h1')[0].innerHTML = 'How to get the answer of '+ question +' in China?';
-      eTellMe.onclick = function () {
-        setTimeout(e => {
-          let eInput = eAnswer.appendChild(document.createElement('input'));
+      $('title').html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+      $("#tellme").click(function () {
+        $("#answer").show();
+
+        setTimeout(() => {
           let questionIndex = 0;
-          let timer = setInterval(e => {
-            let pos = (eInput.value = question.substring(0, ++questionIndex)).length;
-            if (eInput.setSelectionRange) {
-              eInput.setSelectionRange(pos, pos);
-              eInput.focus();
-            } else if (eInput.createTextRange) {
-              let tmp = eInput.createTextRange();
-              tmp.moveEnd("character", 0);
-              tmp.select();
-            }
+          let timer = setInterval(() => {
+            $("#input").val(question.substring(0, ++questionIndex));
             if (questionIndex === question.length) {
-              setTimeout(e => {
-                let eSearch = document.createElement('button');
-                eSearch.innerHTML = 'Search';
-                eInput.style['margin-right'] = '10px';
-                eAnswer.appendChild(eSearch);
-                eSearch.focus();
-                setTimeout(e => {
-                  eSearch.classList.add('active');
-                  setTimeout(e => {
-                    eSearch.classList.remove('active');
-                    window.location.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent(eInput.value);
+              setTimeout(() => {
+                $("#search").show();
+                setTimeout(() => {
+                  $("#search").addClass("active");
+                  setTimeout(() => {
+                    $("#search").removeClass("active");
+                    location.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent($("#input").val());
                   }, tClick);
                 }, tWait);
               }, tClick);
@@ -156,17 +105,16 @@
             }
           }, tPause);
         }, tInstant);
-        this.onclick = null;
-      };
+      });
     }
 
-    setTimeout(e => {
-      eTellMe.focus();
-      setTimeout(e => {
-        eTellMe.classList.add('active');
-        setTimeout(e => {
-          eTellMe.classList.remove('active');
-          if (eTellMe.click !== null) eTellMe.onclick();
+    setTimeout(() => {
+      $("#tellme").focus();
+      setTimeout(() => {
+        $("#tellme").addClass('active');
+        setTimeout(() => {
+          $("#tellme").removeClass('active');
+          $("#tellme").click();
         }, tClick);
       }, tWait)
     }, tWait);
