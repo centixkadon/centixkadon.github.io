@@ -56,7 +56,7 @@
     $("#copy").click(function () {
       eOutput.setSelectionRange(0, eOutput.value.length);
       eOutput.select();
-      document.execCommand('Copy');
+      document.execCommand("Copy");
     });
     $("#jump").click(function () {
       if ($("#output").val() === "") {
@@ -68,10 +68,10 @@
 
     location.originpath = location.href;
     if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
-    let question = decodeSearch(location.search).wd || "你的问题在哪里？";
+    let question = decodeSearch(location.search).wd;
     let t = 320;
     let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
-    if (question === undefined) {
+    if (question === undefined || question === "") {
       $("#tellme").click(function () {
         $("#answer").show();
         $("#generate").show();
@@ -88,7 +88,7 @@
       });
 
     } else {
-      $('title').html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+      $("title").html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
 
       $("#tellme").click(function () {
         $("#answer").show();
@@ -120,9 +120,9 @@
     setTimeout(() => {
       $("#tellme").focus();
       setTimeout(() => {
-        $("#tellme").addClass('active');
+        $("#tellme").addClass("active");
         setTimeout(() => {
-          $("#tellme").removeClass('active');
+          $("#tellme").removeClass("active");
           $("#tellme").click();
         }, tClick);
       }, tWait)
