@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="..">
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="javascript/qunit/qunit.css">
+  <link rel="stylesheet" href="javascript/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="test/web.css">
+
+  <!-- HTML title -->
+  <title>Web development</title>
+</head>
+
+<body>
+  <!-- HTML QUnit -->
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+
+  <!-- HTML Bootstrap -->
+  <div class="container">
+    <main>
+      <h1>Web development</h1>
+
+      <h2>HTML
+        <small class="text-muted">Hypertext Markup Language</small>
+      </h2>
+      <p>HTML is the language for describing the structure of Web pages.</p>
+
+      <h3>SVG
+        <small class="text-muted">Scalable Vector Graphics</small>
+      </h3>
+      <p>HTML is an XML-based markup language for describing two dimensional based vector graphics.</p>
+      <svg class="container-fluid .invisible">
+        <line x1="170" y1="10" x2="10" y2="130" fill="none" stroke="Red" stroke-width="5" stroke-linecap="round"></line>
+        <line x1="10" y1="10" x2="170" y2="130" fill="none" stroke="Cyan" stroke-width="5" stroke-linecap="round"></line>
+        <rect x="10" y="10" width="160" height="120" fill="none" stroke="DarkRed" stroke-width="5"></rect>
+        <text x="200" y="130" fill="Black" font-size="170" stroke-width="5">SVG</text>
+        <polyline points="301 16 339 124 346 124 386 16" fill="none" stroke="White" stroke-width="4"></polyline>
+      </svg>
+
+      <h3>MathML
+        <small class="text-muted">Mathematical Markup Language</small>
+      </h3>
+      <math>
+        <mtext>MathML:</mtext>
+        <msqrt>
+          <mn>2</mn>
+        </msqrt>
+        <msup>
+          <mi>a</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>+</mo>
+        <msup>
+          <mi>b</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>=</mo>
+        <msup>
+          <mi>c</mi>
+          <mn>2</mn>
+        </msup>
+      </math>
+
+      <h2>CSS
+        <small class="text-muted">Cascading Style Sheets</small>
+      </h2>
+      <p>CSS is the language for describing the presentation of Web pages, including colors, layout, and fonts.</p>
+
+      <h3>Bootstrap</h3>
+      <p>Bootstrap is an open source toolkit for developing with HTML, CSS, and JS.</p>
+
+      <h2>JS
+        <small class="text-muted">JavaScript</small>
+      </h2>
+      <p>JavaScript</p>
+      <p>The most common scripting language ECMAscript (more widely known as JavaScript).</p>
+
+      <h3>jQuery</h3>
+      <p>jQuery is a fast, small, and feature-rich JavaScript library.</p>
+
+      <h2>Graphics</h2>
+
+      <h3>Canvas</h3>
+      <p>Canvas is used to draw graphics via scripting in JavaScript.</p>
+      <canvas></canvas>
+
+      <h3>WebGL
+        <small class="text-muted">Web Graphics Library</small>
+      </h3>
+      <p>WebGL is a JavaScript API for rendering interactive 3D and 2D graphics without the use of plug-ins. </p>
+      <canvas></canvas>
+
+      <h3>Video</h3>
+
+      <h2>WebFonts</h2>
+      <p>WebFonts is fonts on demand over the Web without requiring installation.</p>
+    </main>
+  </div>
+
+  <!-- JS QUnit jQuery -->
+  <script src="javascript/qunit/qunit.js"></script>
+  <script src="javascript/jquery/jquery.js"></script>
+
+  <!-- JS QUnit test -->
+  <script src="test/web.js"></script>
+</body>
+
+</html>
