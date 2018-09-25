@@ -59,12 +59,16 @@
       document.execCommand('Copy');
     });
     $("#jump").click(function () {
-      location.href = $("#output").val();
+      if ($("#output").val() === "") {
+        $("#input").val("先填问题好不好？");
+      } else {
+        location.href = $("#output").val();
+      }
     });
 
     location.originpath = location.href;
     if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
-    let question = decodeSearch(location.search).wd;
+    let question = decodeSearch(location.search).wd || "你的问题在哪里？";
     let t = 320;
     let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
     if (question === undefined) {
@@ -79,10 +83,13 @@
             prev = $("#input").val();
           }
         }, tPause);
+
+        $("#tellme").off("click");
       });
 
     } else {
       $('title').html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+
       $("#tellme").click(function () {
         $("#answer").show();
 
@@ -105,6 +112,8 @@
             }
           }, tPause);
         }, tInstant);
+
+        $("#tellme").off("click");
       });
     }
 
