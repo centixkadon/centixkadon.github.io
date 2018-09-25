@@ -10,14 +10,21 @@
 
 function nju_portal_run(g) {
   setInterval(() => {
-    if (globalVar.userinfo.username !== null && g.username !== "" && globalVar.userinfo.username !== g.username.toLowerCase()) logoutRequest();
+    let s = "";
+    if (globalVar.userinfo !== null && g.username !== "" && globalVar.userinfo.username !== g.username.toLowerCase()) {
+      logoutRequest();
+      s += "logout ";
+    }
     if ($("#pcLoginCont").is(":visible")) {
       if (g.username !== "") $('#username').val(g.username);
       if (g.password !== "") $('#password').val(g.password);
       loginRequest();
+      s += "login ";
     }
 
     infoRequest();
+
+    if (s !== "") console.log(new Date().format("yyyy-MM-dd hh:mm:ss") + ": " + s);
   }, g.infoRequestIntervalMs);
 }
 
