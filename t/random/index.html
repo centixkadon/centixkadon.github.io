@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="../..">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="javascript/bootstrap/css/bootstrap.min.css">
+  <style>
+    #rd1 {
+      height: calc(100vh - 6rem);
+      line-height: calc(82vh - 5.4rem);
+      overflow: hidden;
+    }
+  </style>
+
+  <title>随机数生成器</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <main class="my-3">
+      <div class="row mb-3">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">下界(含)</span>
+          </div>
+          <input id="n1" type="text" class="form-control" placeholder="下界">
+        </div>
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">上界(含)</span>
+          </div>
+          <input id="n2" type="text" class="form-control" placeholder="上界">
+        </div>
+        <div class="col-2 input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">字体大小</span>
+          </div>
+          <input id="k" type="text" class="form-control" placeholder="字体">
+        </div>
+      </div>
+      <div class="row">
+        <div id="rd1" class="btn btn-block" style="font-size: 0;">0</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="javascript/jquery/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      let tid = -1;
+      let [n1, n2] = [1, 100];
+
+      if ($("#n1").val() === "") $("#n1").val(n1);
+      if ($("#n2").val() === "") $("#n2").val(n2);
+      if ($("#k").val() === "") $("#k").val(1);
+
+      $("body").keydown(function (e) {
+        if (e.keyCode === 13) {
+          if (tid === -1) {
+            n1 = Math.trunc($("#n1").val());
+            n2 = Math.trunc($("#n2").val()) + 1;
+            tid = setInterval(function () {
+              $("#rd1").html(Math.trunc(n1 + Math.random() * (n2 - n1)));
+            }, 0);
+          } else {
+            clearInterval(tid);
+            tid = -1;
+          }
+        }
+      });
+
+      $("#k").change((function () {
+        $("#rd1").css("font-size", "calc((100vh - 6.5rem) * " + $("#k").val() + ")");
+        return arguments.callee;
+      })());
+    });
+
+  </script>
+</body>
+
+</html>
