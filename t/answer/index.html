@@ -17,16 +17,16 @@
     <main class="my-3">
       <h1 class="mb-5">去哪找答案？</h1>
       <button id="tellme" class="btn btn-secondary mb-3">求求你告诉我！</button>
-      <div id="answer" style="display: none;">
+      <div id="answer" class="d-none">
         <div class="input-group mb-3">
           <input id="input" type="text" class="form-control" placeholder="这里填问题" aria-label="这里填问题">
-          <button id="search" style="display: none;" class="btn btn-primary ml-1">搜索一下</button>
+          <button id="search" class="btn btn-primary ml-1 d-none">搜索一下</button>
         </div>
-        <div id="generate" style="display: none;">
+        <div id="generate" class="d-none">
           <div class="input-group mb-3">
             <input id="output" type="text" class="form-control" placeholder="这里找答案" aria-label="这里找答案">
           </div>
-          <button id="copy" style="display: none;" class="btn btn-secondary mb-3">复制</button>
+          <button id="copy" class="btn btn-secondary mb-3 d-none">复制</button>
           <button id="jump" class="btn btn-secondary mb-3">去找答案</button>
         </div>
       </div>
@@ -69,12 +69,12 @@
     location.originpath = location.href;
     if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
     let question = decodeSearch(location.search).wd;
-    let t = 320;
-    let [tInstant, tPause, tClick, tWait] = [t / 8, t / 2, t, t * 2];
+    let t = 40;
+    let [tInstant, tPause, tClick, tWait] = [t, t * 4, t * 8, t * 16];
     if (question === undefined || question === "") {
       $("#tellme").click(function () {
-        $("#answer").show();
-        $("#generate").show();
+        $("#answer").removeClass("d-none");
+        $("#generate").removeClass("d-none");
 
         let prev = "";
         setInterval(() => {
@@ -91,7 +91,7 @@
       $("title").html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
 
       $("#tellme").click(function () {
-        $("#answer").show();
+        $("#answer").removeClass("d-none");
 
         setTimeout(() => {
           let questionIndex = 0;
@@ -99,7 +99,7 @@
             $("#input").val(question.substring(0, ++questionIndex));
             if (questionIndex === question.length) {
               setTimeout(() => {
-                $("#search").show();
+                $("#search").removeClass("d-none");
                 setTimeout(() => {
                   $("#search").addClass("active");
                   setTimeout(() => {
@@ -118,7 +118,6 @@
     }
 
     setTimeout(() => {
-      $("#tellme").focus();
       setTimeout(() => {
         $("#tellme").addClass("active");
         setTimeout(() => {
