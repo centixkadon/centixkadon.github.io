@@ -82,13 +82,11 @@
       let [n1, n2, k] = [1, 100, 1];
       $("#n1").change((function () {
         let n1_ = Math.round(checkNumber($("#n1").val(), n1));
-        if (n1_ >= n2) n1_ = n1;
         $("#n1").val(n1 = n1_);
         return arguments.callee;
       })());
       $("#n2").change((function () {
         let n2_ = Math.round(checkNumber($("#n2").val(), n2));
-        if (n1 >= n2_) n2_ = n2;
         $("#n2").val(n2 = n2_);
         return arguments.callee;
       })());
@@ -115,15 +113,14 @@
       function toggleRandom() {
         if (tid === -1) {
           tid = setInterval(function () {
-            let t;
-            $("#rd1").html(t = Math.floor(n1 + Math.random() * (n2 - n1 + 1)));
+            $("#rd1").html(Math.floor(Math.min(n1, n2) + Math.random() * (Math.abs(n2 - n1) + 1)));
           }, 0);
         } else {
           clearInterval(tid);
           tid = -1;
         }
       }
-      $("body").keydown(function (e) { if (e.keyCode === 13) { toggleRandom(); } });
+      $("body").keydown(function (e) { e.keyCode === 13 && toggleRandom(); });
       $("#rd1").click(toggleRandom);
 
     });
