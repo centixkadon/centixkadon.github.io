@@ -36,96 +36,99 @@
   <script src="javascript/jquery/jquery.min.js"></script>
   <script src="js/suffix.js"></script>
   <script>
-    function decodeSearch(search) {
-      let ans = {};
-      let kvs = search.slice(1).split('&');
-      for (let i = 0; i < kvs.length; ++i) {
-        let [key, value] = kvs[i].split('=');
-        ans[decodeURIComponent(key)] = decodeURIComponent(value);
+    $(function () {
+      function decodeSearch(search) {
+        let ans = {};
+        let kvs = search.slice(1).split('&');
+        for (let i = 0; i < kvs.length; ++i) {
+          let [key, value] = kvs[i].split('=');
+          ans[decodeURIComponent(key)] = decodeURIComponent(value);
+        }
+        return ans;
       }
-      return ans;
-    }
-    function encodeSearch(search) {
-      let kvs = [];
-      for (let key in search) {
-        kvs.push(encodeURIComponent(key) + '=' + encodeURIComponent(search[key]));
+      function encodeSearch(search) {
+        let kvs = [];
+        for (let key in search) {
+          kvs.push(encodeURIComponent(key) + '=' + encodeURIComponent(search[key]));
+        }
+        return '?' + kvs.join('&');
       }
-      return '?' + kvs.join('&');
-    }
 
-    $("#copy").click(function () {
-      eOutput.setSelectionRange(0, eOutput.value.length);
-      eOutput.select();
-      document.execCommand("Copy");
-    });
-    $("#jump").click(function () {
-      if ($("#output").val() === "") {
-        $("#input").val("先填问题好不好？");
-      } else {
-        location.href = $("#output").val();
-      }
-    });
-
-    location.originpath = location.href;
-    if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
-    let question = decodeSearch(location.search).wd;
-    let t = 40;
-    let [tInstant, tPause, tClick, tWait] = [t, t * 4, t * 8, t * 16];
-    if (question === undefined || question === "") {
-      $("#tellme").click(function () {
-        $("#answer").removeClass("d-none");
-        $("#generate").removeClass("d-none");
-
-        let prev = "";
-        setInterval(() => {
-          if ($("#input").val() !== prev) {
-            $("#output").val(location.originpath + encodeSearch({ wd: $("#input").val() }));
-            prev = $("#input").val();
-          }
-        }, tPause);
-
-        $("#tellme").off("click");
+      $("#copy").click(function () {
+        eOutput.setSelectionRange(0, eOutput.value.length);
+        eOutput.select();
+        document.execCommand("Copy");
+      });
+      $("#jump").click(function () {
+        if ($("#output").val() === "") {
+          $("#input").val("先填问题好不好？");
+        } else {
+          location.href = $("#output").val();
+        }
       });
 
-    } else {
-      $("title").html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+      location.originpath = location.href;
+      if (location.search.length !== 0) location.originpath = location.originpath.slice(0, -location.search.length);
+      let question = decodeSearch(location.search).wd;
+      let t = 40;
+      let [tInstant, tPause, tClick, tWait] = [t, t * 4, t * 8, t * 16];
+      if (question === undefined || question === "") {
+        $("#tellme").click(function () {
+          $("#answer").removeClass("d-none");
+          $("#generate").removeClass("d-none");
 
-      $("#tellme").click(function () {
-        $("#answer").removeClass("d-none");
-
-        setTimeout(() => {
-          let questionIndex = 0;
-          let timer = setInterval(() => {
-            $("#input").val(question.substring(0, ++questionIndex));
-            if (questionIndex === question.length) {
-              setTimeout(() => {
-                $("#search").removeClass("d-none");
-                setTimeout(() => {
-                  $("#search").addClass("active");
-                  setTimeout(() => {
-                    $("#search").removeClass("active");
-                    location.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent($("#input").val());
-                  }, tClick);
-                }, tWait);
-              }, tClick);
-              clearInterval(timer);
+          let prev = "";
+          setInterval(() => {
+            if ($("#input").val() !== prev) {
+              $("#output").val(location.originpath + encodeSearch({ wd: $("#input").val() }));
+              prev = $("#input").val();
             }
           }, tPause);
-        }, tInstant);
 
-        $("#tellme").off("click");
-      });
-    }
+          $("#tellme").off("click");
+        });
 
-    setTimeout(() => {
+      } else {
+        $("title").html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+
+        $("#tellme").click(function () {
+          $("#answer").removeClass("d-none");
+
+          setTimeout(() => {
+            let questionIndex = 0;
+            let timer = setInterval(() => {
+              $("#input").val(question.substring(0, ++questionIndex));
+              if (questionIndex === question.length) {
+                setTimeout(() => {
+                  $("#search").removeClass("d-none");
+                  setTimeout(() => {
+                    $("#search").addClass("active");
+                    setTimeout(() => {
+                      $("#search").removeClass("active");
+                      location.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent($("#input").val());
+                    }, tClick);
+                  }, tWait);
+                }, tClick);
+                clearInterval(timer);
+              }
+            }, tPause);
+          }, tInstant);
+
+          $("#tellme").off("click");
+        });
+      }
+
       setTimeout(() => {
-        $("#tellme").addClass("active");
         setTimeout(() => {
-          $("#tellme").removeClass("active");
-          $("#tellme").click();
-        }, tClick);
-      }, tWait)
-    }, tWait);
+          $("#tellme").addClass("active");
+          setTimeout(() => {
+            $("#tellme").removeClass("active");
+            $("#tellme").click();
+          }, tClick);
+        }, tWait)
+      }, tWait);
+
+    });
   </script>
 </body>
 
