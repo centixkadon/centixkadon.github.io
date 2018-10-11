@@ -1,5 +1,10 @@
 
-$(document).ready(function () {
+$(function () {
+  // (function () {
+  //   $("main").children("h1").addClass("mt-5");
+  //   $("main").children("h2,h3").addClass("mt-5 mb-4");
+  // })();
+
   $(window).resize((function () {
     let canvas = $("canvas");
     canvas.each(function () { $(this).attr("width", $(this).parent().innerWidth()); });

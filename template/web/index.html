@@ -11,7 +11,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="javascript/qunit/qunit.css">
   <link rel="stylesheet" href="javascript/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="test/web/web.css">
+  <link rel="stylesheet" href="css/bootstrap-overrides.css">
 
   <!-- HTML title -->
   <title>Web development</title>
@@ -36,7 +36,7 @@
         <small class="text-muted">Scalable Vector Graphics</small>
       </h3>
       <p>HTML is an XML-based markup language for describing two dimensional based vector graphics.</p>
-      <svg class="container-fluid .invisible">
+      <svg class="container-fluid border rounded .invisible">
         <line x1="170" y1="10" x2="10" y2="130" fill="none" stroke="Red" stroke-width="5" stroke-linecap="round"></line>
         <line x1="10" y1="10" x2="170" y2="130" fill="none" stroke="Cyan" stroke-width="5" stroke-linecap="round"></line>
         <rect x="10" y="10" width="160" height="120" fill="none" stroke="DarkRed" stroke-width="5"></rect>
@@ -89,13 +89,13 @@
 
       <h3>Canvas</h3>
       <p>Canvas is used to draw graphics via scripting in JavaScript.</p>
-      <canvas></canvas>
+      <canvas class="border rounded"></canvas>
 
       <h3>WebGL
         <small class="text-muted">Web Graphics Library</small>
       </h3>
       <p>WebGL is a JavaScript API for rendering interactive 3D and 2D graphics without the use of plug-ins. </p>
-      <canvas></canvas>
+      <canvas class="border rounded"></canvas>
 
       <h3>Video</h3>
 
