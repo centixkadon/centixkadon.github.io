@@ -45,11 +45,11 @@ main > h3, .h3 {
 
 main > h4, .h4 {
   font-size: 1.25rem;
+  font-weight: bolder;
 }
 
 main > h5, .h5 {
-  font-size: 1rem;
-  font-weight: bolder;
+  font-size: 1.25rem;
 }
 
 main > h6, .h6 {
