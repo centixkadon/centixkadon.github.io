@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="../..">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="javascript/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-overrides.css">
+
+  <title>shadowsocks client setup guide</title>
+</head>
+
+<body>
+  <div class="container">
+    <main>
+      <h1>Shadowsocks Client Setup Guide</h1>
+
+      <h2>Download</h2>
+      <p>Download the lastest release of shadowsocks-windows from
+        <a href="https://github.com/shadowsocks/shadowsocks-windows/releases">github release page</a>.</p>
+
+      <h2>Requirements</h2>
+      <p>Download and install Microsoft .NET Framework 4.6.2 or higher
+        (e.g. <a href="https://www.microsoft.com/net/download/thank-you/net472-offline">Microsoft .NET Framework 4.7.2</a>),
+        <a href="https://go.microsoft.com/fwlink/?LinkId=615459">Microsoft Visual C++ 2015 Redistributable (x86)</a>.</p>
+
+      <h2>Run</h2>
+      <p>Choose a path (e.g. D:\Portable\shadowsocks\), extract an exe file from the zip package and run without install.</p>
+
+      <h2>Setup</h2>
+      <h3>Surfing when using system</h3>
+      <ol>
+        <li>Double click shadowsocks.exe (e.g. D:\Portable\shadowsocks\shadowsocks.exe).</li>
+        <li>Find shadowsocks <span title="系统托盘图标">icon</span> in the <span title="通知区域">notification area</span>.</li>
+        <li>Double click the shadowsocks icon.</li>
+        <li>Configure:
+          <ul>
+            <li><abbr title="服务器地址">Server Addr</abbr>: server <span title="eelab: 172.104.113.206">ip</span> or host.</li>
+            <li><abbr title="服务器端口">Server Port</abbr> & <abbr title="密码">Password</abbr>: server port and password.</li>
+            <li><abbr title="加密">Encryption</abbr>: choose a <span title="eelab: aes-256-gcm">encryption</span>.</li>
+            <li><abbr title="备注">Remarks</abbr>: fill <span title="e.g. eelab">something</span>.</li>
+            <li>Click <abbr title="确定">OK</abbr>.</li>
+          </ul>
+        <li>Right click the shadowsocks icon → select <abbr title="启用系统代理">Enable System Proxy</abbr>.</li>
+        <li>Do somethine more:
+          <ul>
+            <li>Right click the shadowsocks icon → <abbr title="帮助">Help</abbr> → <abbr title="详细记录日志">Verbose Logging</abbr>.</li>
+            <li>Right click the shadowsocks icon → <abbr title="系统代理模式">Mode</abbr> → <abbr title="PAC 模式">PAC</abbr>.</li>
+            <li>Right click the shadowsocks icon → PAC → <abbr title="从 GFWList 更新本地 PAC">Update Local PAC from GFWList</abbr>.</li>
+            <li>Right click the shadowsocks icon → PAC → unselect <abbr title="保护本地 PAC">Secure Local PAC</abbr>.</li>
+          </ul>
+        </li>
+        <li>Test <a href="https://www.google.com/">Google</a> and success.</li>
+        <li>Query <a href="https://www.baidu.com/s?wd=ip">ip</a> and show China.</li>
+        <li>Now you could <span title="番〇习〇习丨丨土〇啬">surf the Internet</span>.</li>
+      </ol>
+
+      <h3>Only surfing when using browser</h3>
+      <ol>
+        <li>Recommends: <a href="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US">Firefox</a> or
+          <a href="https://www.google.com/intl/en/chrome/?standalone=1">Chrome</a>.</li>
+        <li>
+          <ul>
+            <li>Firefox: Install <a href="https://addons.mozilla.org/firefox/addon/switchyomega/">Proxy SwitchyOmega</a> add-ons.
+            <li>Chrome: Install <a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy SwitchyOmega</a> extension.</li>
+          </ul>
+        </li>
+        <li>Find SwitchyOmega icon.</li>
+        <li>Click the SwitchyOmega icon → <abbr title="选项">Options</abbr>.</li>
+        <li><abbr title="新建情景模式...">New profile...</abbr> → <abbr title="情景模式名称">Profile name</abbr>: Shadowsocks All →
+          select <abbr title="代理服务器">Proxy Profile</abbr> → click <abbr title="创建">Create</abbr>.</li>
+        <li>Configure:
+          <ul>
+            <li><abbr title="代理协议">Protocol</abbr>: SOCKS5.</li>
+            <li><abbr title="代理服务器">Server</abbr>: 127.0.0.1.</li>
+            <li><abbr title="代理端口">Port</abbr>: 1080.</li>
+            <li>Click <abbr title="应用选项">Apply changes</abbr>.</li>
+          </ul>
+        </li>
+        <li><abbr title="新建情景模式...">New profile...</abbr> → <abbr title="情景模式名称">Profile name</abbr>: Shadowsocks →
+          select <abbr title="自动切换模式">Switch Profile</abbr> → click <abbr title="创建">Create</abbr>.</li>
+        <li>Click <abbr title="添加规则列表">Add a rule list</abbr> and configure:
+          <ul>
+            <li><abbr title="规则列表格式">Rule List Format</abbr>: AutoProxy.</li>
+            <li><abbr title="规则列表网址">Rule List URL</abbr>: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt.</li>
+            <li>Click <abbr title="立即更新情景模式">Download Profile Now</abbr>.</li>
+            <li><abbr title="切换规则">Switch rules</abbr> → <abbr title="条件类型">Condition Type</abbr> →
+              <abbr title="规则列表规则">Rule list rules</abbr> → Shadowsocks All.</li>
+            <li>Click <abbr title="应用选项">Apply changes</abbr>.</li>
+          </ul>
+        </li>
+        <li>Right click the shadowsocks icon → unselect <abbr title="启用系统代理">Enable System Proxy</abbr>.</li>
+        <li>Click the SwitchyOmega icon and select different profiles,
+          test <a href="https://www.google.com/">Google</a> and query <a href="https://www.baidu.com/s?wd=ip">ip</a> to see difference.</li>
+        <li>Now you could only <span title="番〇习〇习丨丨土〇啬">surf the Internet</span> when using the browser.</li>
+      </ol>
+
+      <h3>Optional</h3>
+      <ul>
+        <li>Right click the shadowsocks icon → <abbr title="开机启动">Start on Boot</abbr>.</li>
+        <li>Right click the shadowsocks icon → <abbr title="允许其他设备连入">Allow other Devices to connect</abbr>.</li>
+      </ul>
+
+      <h3>Debug</h3>
+      <p>If you have any problem while using shadowsocks, try the following method:</p>
+      <p>Turn off shadowsocks, surf the Internet and check network connection.</p>
+      <p>Right click the shadowsocks icon → <abbr title="帮助">Help</abbr> → <abbr title="显示日志...">Show Logs...</abbr>.</p>
+      <p>If there are many <i>timeout</i> s, it means bad network connection.</p>
+      <p>If there are many <i>System.Net.Sockets.SocketException</i> s, please contact shadowsocks administrator.</p>
+
+      <h2>More</h2>
+      <p>Read <a href="https://github.com/shadowsocks/shadowsocks-windows/blob/master/README.md">shadowsocks-windows README.md</a>.</p>
+    </main>
+  </div>
+
+  <script src="javascript/jquery/jquery.min.js"></script>
+</body>
+
+</html>
