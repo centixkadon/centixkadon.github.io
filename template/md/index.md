@@ -41,9 +41,11 @@ int main(int argc, char * argv[]) {
 
 [GitHub Pages](https://pages.github.com/)
 
-## Section links
+### Section links
 
-## Relative links
+[Section links](#section-links)
+
+### Relative links
 
 ## Lists
 
@@ -75,9 +77,9 @@ int main(int argc, char * argv[]) {
 
 ### Task lists
 
-- [x] list item
 - [ ] list item
-- [x] list item
+- [ ] unchecked list item
+- [x] checked list item
 
 ## Tables
 
@@ -87,25 +89,6 @@ int main(int argc, char * argv[]) {
 | table row | table data | table data | table data |
 | very long, very very long | very long, very very long | very long, very very long | very long, very very long |
 
-## Autolink
-
-### URLs
-
-https://github.com/
-
-### Mention people and teams
-
-`@centixkadon`
-
-### Reference issues and pull requests
-
-`#number` or `username/repository#number`
-
-## Emoji
-
-`:EMOJICODE:`, e.g. :+1:, :shipit:.
-Check out [emoji cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/).
-
 ## Paragraphs and line breaks
 
 First paragraph first sentence.
@@ -113,6 +96,24 @@ First paragraph second sentence.
 
 Second paragraph.
 
-## Ignoring Markdown formatting
+## Ignore Markdown formatting
 
 Use `\`.
+
+## Invalid in GitHub Pages
+
+### Autolink
+
+URLs:
+https://github.com/
+
+Mention people and teams:
+`@centixkadon`
+
+Reference issues and pull requests:
+`#number` or `username/repository#number`
+
+### Emoji
+
+`:EMOJICODE:`, e.g. :+1:, :shipit:.
+Check out [emoji cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/).
