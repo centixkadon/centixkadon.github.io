@@ -89,7 +89,7 @@
         });
 
       } else {
-        $("title").html(question + "（" + titleSuffixs[Math.round(Math.random() * titleSuffixs.length)]);
+        $("title").html(question + "（" + titleSuffixs[Math.trunc(Math.random() * titleSuffixs.length)]);
 
         $("#tellme").click(function () {
           $("#answer").removeClass("d-none");
