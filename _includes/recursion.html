@@ -1,0 +1,10 @@
+{%- if include.obj.first -%}
+<ul>
+  {%- for kv in include.obj %}
+  {%- assign obj = include.obj[kv] -%}
+  <li>{{ kv }}
+    {% include recursion.html obj = obj %}
+  </li>
+  {%- endfor %}
+</ul>
+{%- endif -%}
