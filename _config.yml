@@ -1,0 +1,78 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+# ===== Site settings =====
+# github: [metadata] # https://help.github.com/en/articles/repository-metadata-on-github-pages
+title: centixkadon
+email: centixkadon@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Twenty four, student.
+# twitter_username: jekyllrb
+github_username: centixkadon
+
+# ===== Global Configuration =====
+# source: . # Change the directory where Jekyll will read files # https://help.github.com/en/articles/configuring-jekyll
+destination: ./_site # Change the directory where Jekyll will write files
+# safe: true # Disable custom plugins, and ignore symbolic links # https://help.github.com/en/articles/configuring-jekyll
+exclude: # Exclude directories and/or files from the conversion
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - test
+include: # Force inclusion of directories and/or files in the conversion
+  - .htaccess
+keep_files: # When clobbering the site destination, keep the selected files
+  - .git
+  - .svn
+timezone: Asia/Shanghai # Set the time zone for site generation
+encoding: utf-8 # Set the encoding of files by name
+
+# ===== Build Command Options =====
+show_drafts: false # Process and render draft posts
+future: true # Publish posts or collection documents with a future date
+unpublished: false # Render posts that were marked as unpublished
+lsi: false # Produce an index for related posts # https://help.github.com/en/articles/configuring-jekyll
+# limit_posts: 100 # Limit the number of posts to parse and publish
+incremental: false # Enable the experimental incremental build feature # https://help.github.com/en/articles/configuring-jekyll
+profile: true # Generate a Liquid rendering profile to help you identify performance bottlenecks
+strict_front_matter: true # Cause a build to fail if there is a YAML syntax error in a page's front matter
+plugins: # https://help.github.com/en/articles/configuring-jekyll-plugins
+  - jekyll-avatar
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-mentions
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jemoji
+
+# ===== Serve Command Options =====
+port: 4000 # Listen on the given port
+host: 0.0.0.0 # Listen at the given hostname
+baseurl: # Serve the website from the given base URL
+detach: false # Detach the server from the terminal
+show_dir_listing: false
+
+# ===== Where things are =====
+includes_dir: _includes
+layouts_dir: _layouts
+data_dir: _data
+collections:
+  blogs:
+    output: true
+    permalink: /b/:path/
+  navs:
+    output: true
+    permalink: /:title/

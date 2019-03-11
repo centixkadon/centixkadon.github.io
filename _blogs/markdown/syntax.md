@@ -1,5 +1,9 @@
-
-# Github Markdown Syntax
+---
+layout: blog
+title: Github Markdown Syntax
+date: 2018-10-24 22:00:00 +0800
+tags: 
+---
 
 This guide is based on [Writing on GitHub - Github Help](https://help.github.com/categories/writing-on-github/).
 
