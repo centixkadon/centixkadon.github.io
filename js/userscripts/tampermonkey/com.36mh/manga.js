@@ -44,6 +44,7 @@
           }
         }
       }
+      $('head').append($('<style>').html(".img_info { display: none; } .tbCenter img { border-top: 0px; border-bottom: 0px; }"));
     }
   }
 })();
