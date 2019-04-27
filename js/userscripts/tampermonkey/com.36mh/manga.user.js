@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         36mh_manga
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.2
+// @version      1.0
 // @description  Save chapter data.
 // @author       centixkadon
 // @match        https://www.36mh.com/manhua/*

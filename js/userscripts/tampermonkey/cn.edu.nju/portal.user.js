@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         nju_portal
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.2
+// @version      1.0
 // @description  Auto login NJU Real-Name Authentication System (p.nju.edu.cn).
 // @author       centixkadon
 // @match        http://p.nju.edu.cn/portal/index.html*
