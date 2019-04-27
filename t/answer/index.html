@@ -113,7 +113,8 @@
                     $('#search').addClass("active");
                     setTimeout(() => {
                       $('#search').removeClass("active");
-                      location.href = "/t/jump/?url=" + btoa("https://www.baidu.com/s?wd=" + encodeURIComponent(question));
+                      // location.href = "/t/jump/?url=" + btoa("https://www.baidu.com/s?wd=" + encodeURIComponent(question));
+                      location.href = "https://www.baidu.com/s?wd=" + encodeURIComponent(question);
                     }, tClick);
                   }, tWait);
                 }, tClick);
