@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili_subscribe
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.1
+// @version      0.2
 // @description  Highlight subscribe.
 // @author       centixkadon
 // @match        https://space.bilibili.com/*/bangumi
@@ -47,6 +47,11 @@
           }, 16);
         });
       }
+    });
+
+    $('.pgc-space-follow-page').each(function () {
+      this.__vue__._data.pageSize = 50;
+      this.__vue__.pageChanged();
     });
   }
 })();
