@@ -1,94 +1,125 @@
 // ==UserScript==
 // @name         exhentai_gallery
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      1.0
+// @version      1.1
 // @description  View all images from a gallery on one page.
 // @author       centixkadon
 // @match        https://exhentai.org/g/*
+// @match        https://exhentai.org/s/*
 // @grant        none
-// @require      https://code.jquery.com/jquery-3.2.1.min.js
 // ==/UserScript==
 
 (function () {
-  const exhentai_gallery_global = {
-    configs: {
-      loading_thread_count: 1,
-      loading_timeout_ms: 10000,
-      loading_check_interval_ms: 1000,
+  function decodeSearch(search) {
+    let ans = {};
+    let kvs = search.slice(1).split("&");
+    for (let i = 0; i < kvs.length; ++i) {
+      let [key, value] = kvs[i].split("=");
+      key = decodeURIComponent(key);
+      value = decodeURIComponent(value);
+      ans[key] = ans[key] || [];
+      ans[key].push(value);
     }
-  };
+    return ans;
+  }
 
-  (function (g) {
-    let configs = g.configs;
+  switch (location.pathname.split('/')[1]) {
+    case "g": // gallery
+      (function (loadCount, loadIntervalMs, loadTimeoutMs) {
+        let all = document.createElement("td");
+        all.innerHTML = "All";
+        all.addEventListener("click", function () {
+          document.querySelectorAll('iframe').forEach(function (iframe) { iframe.remove(); });
 
-    let comments = $('[name=comments]')[0];
-    let hrefs = $('#gdt').find('a');
-    let hrefsTimeout = [500 + Math.random() * 200];
-    for (let i = 1; i < hrefs.length; ++i) {
-      hrefsTimeout.push(hrefsTimeout[hrefsTimeout.length - 1] + 500 + Math.random() * 200);
-    }
-    $('.ptb').find('tr').append($('<td>All</td>').click(function () {
-      $('iframe').remove();
+          let hrefs = [];
+          document.querySelectorAll('#gdt>.gdtm a').forEach(function (href) { hrefs.push(href.href); });
+          console.log(hrefs);
 
-      let herfsLoadingIndex = 0;
-      let herfsLoadingThreadCount = configs.loading_thread_count;
+          let hrefsIndex = 0;
+          function loadiframe() {
+            if (hrefsIndex === hrefs.length) return;
+            let index = hrefsIndex;
+            let iframe = document.createElement("iframe");
+            iframe.src = hrefs[index];
+            iframe.style = "display: block; width: 100%; height: 768px; ";
+            iframe.scrolling = "no";
+            iframe.frameBorder = "0";
 
-      let herfsLoadingIndexTmp = 0;
-      let herfsLoadingThreadCountInterval = setInterval(function () {
-        if (herfsLoadingIndex === herfsLoadingIndexTmp) {
-          herfsLoadingThreadCount++;
-          console.log('loading timeout: increase loading thread to ' + herfsLoadingThreadCount);
-          if (herfsLoadingThreadCount >= hrefs.length) clearInterval(herfsLoadingThreadCountInterval);
-        } else {
-          herfsLoadingIndexTmp = herfsLoadingIndex;
-        }
-      }, configs.loading_timeout_ms);
-
-      hrefs.each(function (index) {
-        // if (index >= 3) return;
-        let imgHref = $(this).attr('href');
-
-        // let ifm = $('<iframe src="'+ imgHref + '" style="display: block; width: 100%;" scrolling="no" frameborder="0"></iframe>');
-        let ifm = $('<iframe style="display: block; width: 100%;" scrolling="no" frameborder="0"></iframe>');
-        ifm.insertBefore(comments);
-        let ifmReadyCount = 0;
-        ifm[0].onload = (function () {
-          let ifm = $(this);
-          let ifmDoc = ifm.contents();
-          let ifmWin = $(ifm[0].contentWindow);
-          ifmWin.resize(function () {
-            ifm.css('height', (Math.max(ifmDoc.find('body').height(), 300) + 10) + 'px');
-          });
-          ifmDoc.ready(function () {
-            if (ifmReadyCount !== null) {
-              if (ifmReadyCount < 1) ifmReadyCount++;
-              else {
-                herfsLoadingIndex += 1;
-                ifmReadyCount = null;
-                // if (herfsLoadingIndex === hrefs.length) alert('load finish.');
+            let complete = false;
+            iframe.addEventListener("load", function (e) {
+              console.log("iframe " + index + " load");
+              setTimeout(loadiframe, loadIntervalMs);
+              complete = true;
+            });
+            setTimeout(function () {
+              if (!complete) {
+                console.log("iframe " + index + " timeout");
+                loadiframe();
               }
-            }
-          });
-          ifmDoc.find('#i1').children('[id!=i2][id!=i3]').remove();
-          ifmDoc.find('.ip').remove();
-          let ifmPageInfo = ifmDoc.find('#i2').children('.sn');
-          ifmPageInfo.remove();
-          ifmDoc.find('#i2').html('<div class="c3">' + ifmPageInfo.children('div').text() + ' (' + ifmDoc.find('#i2').text() + ')</div>').append($('<div class="c4">Reload</div>').click(function () {
-            ifm.css('height', '');
-            ifm.attr('src', ifm.attr('src'));
-          }));
-          ifmWin.resize();
+            }, loadTimeoutMs);
 
-        });
+            let comments = document.querySelector('[name="comments"]');
+            comments.parentNode.insertBefore(iframe, comments);
 
-        let waitLoadedInterval = setInterval(function () {
-          if (index < herfsLoadingIndex + herfsLoadingThreadCount) {
-            ifm.attr('src', imgHref);
-            clearInterval(waitLoadedInterval);
+            ++hrefsIndex;
           }
-        }, configs.loading_check_interval_ms);
-      });
-    }));
 
-  })(exhentai_gallery_global);
+          for (let i = 0; i < loadCount; ++i) setTimeout(loadiframe, loadIntervalMs * i);
+        });
+        document.querySelector('.ptb tr').append(all);
+      })(3, 1000, 60000);
+      break;
+
+    case "s": // source
+      (function (loadTimeoutMs) {
+        if (parent !== window) {
+          let parentIframe = null;
+          parent.document.querySelectorAll('iframe').forEach(function (iframe) {
+            if (iframe.contentWindow === window) parentIframe = iframe;
+          })
+
+          if (parentIframe !== null) {
+            parentIframe.style.height = document.body.clientHeight + "px";
+            window.addEventListener("resize", function () {
+              parentIframe.style.height = document.body.clientHeight + "px";
+            });
+          }
+        }
+
+        let index = document.querySelector('#i2 .sn>div').innerText.split(" ").join("");
+        let loadstartTime = new Date();
+        let nextnl = document.querySelector('#loadfail').attributes.onclick.value.split("'")[1];
+        function nextload() {
+          let nls = decodeSearch(location.search).nl || [];
+          if (nls.indexOf(nextnl) === -1) nl(nextnl);
+          else location.search = "";
+        }
+
+        let img = document.querySelector('#img');
+        if (img.complete) console.log("image " + index + " load in cache");
+        img.addEventListener("load", function () {
+          console.log("image " + index + " load after " + (new Date() - loadstartTime) / 1000 + " seconds");
+        });
+        img.addEventListener("error", function () {
+          console.log("image " + index + " error after " + (new Date() - loadstartTime) / 1000 + " seconds");
+          nextload();
+        });
+        setTimeout(function () {
+          if (!img.complete) {
+            console.log("image " + index + " timeout after " + (new Date() - loadstartTime) / 1000 + " seconds");
+            nextload();
+          }
+        }, loadTimeoutMs);
+
+        document.querySelector('#i1').innerHTML =
+          '<div class="c3">' + index + " :: " + document.querySelector('#i2').lastChild.innerHTML + '</div>' +
+          '<div class="c4">Reload</div>' +
+          document.querySelector('#i3').outerHTML;
+        document.querySelector('.ip').remove();
+        document.querySelector('#i1>.c4').addEventListener("click", function () {
+          location.replace(location);
+        });
+      })(120000);
+      break;
+  }
 })();
