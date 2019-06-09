@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         exhentai_gallery
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      1.1
+// @version      1.1.1
 // @description  View all images from a gallery on one page.
 // @author       centixkadon
 // @match        https://exhentai.org/g/*
@@ -111,14 +111,20 @@
           }
         }, loadTimeoutMs);
 
+        let prev = document.querySelector('#prev').attributes.onclick.value.split("(")[1].split("')")[0].split(", '");
+        let next = document.querySelector('#next').attributes.onclick.value.split("(")[1].split("')")[0].split(", '");
+        prev = "/s/" + prev[1] + "/" + gid + "-" + prev[0];
+        next = "/s/" + next[1] + "/" + gid + "-" + next[0];
+
         document.querySelector('#i1').innerHTML =
           '<div class="c3">' + index + " :: " + document.querySelector('#i2').lastChild.innerHTML + '</div>' +
-          '<div class="c4">Reload</div>' +
+          '<div class="c4"><span id="prev">Prev</span> <span id="next">Next</span> <span id="error">Error</span> <span id="reload">Reload</span></div>' +
           document.querySelector('#i3').outerHTML;
         document.querySelector('.ip').remove();
-        document.querySelector('#i1>.c4').addEventListener("click", function () {
-          location.replace(location);
-        });
+        document.querySelector('#i1>.c4>#prev').addEventListener("click", function () { location.pathname = prev; });
+        document.querySelector('#i1>.c4>#next').addEventListener("click", function () { location.pathname = next; });
+        document.querySelector('#i1>.c4>#error').addEventListener("click", nextload);
+        document.querySelector('#i1>.c4>#reload').addEventListener("click", function () { location.replace(location); });
       })(120000);
       break;
   }
