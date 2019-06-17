@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili_subscribe
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.2.3
+// @version      0.2.4
 // @description  Highlight subscribe.
 // @author       centixkadon
 // @match        https://space.bilibili.com/*/bangumi
@@ -15,7 +15,7 @@
 
     setTimeout(function () {
       let $follow = $('.pgc-space-follow-page');
-      if ($follow.length === 0) {
+      if ($follow.length !== 1 || !$follow[0].__vue__) {
         setTimeout(arguments.callee, 33);
         return;
       }
@@ -44,10 +44,10 @@
                 let newEp = item.new_ep.title;
                 if (!isNaN(parseInt(newEp))) newEp = "第" + newEp + "话";
 
-                console.log({ i: index, now: nowEp, new: newEp });
+                console.log({ i: index, item: item, now: nowEp, new: newEp });
                 if (nowEp === "" && newEp !== undefined && !item.is_new) {
                   $state.addClass("watch-state-2");
-                } else if (item.is_new || nowEp !== "看完" + newEp) {
+                } else if (item.is_new || nowEp !== "已看完" + newEp) {
                   $state.addClass("watch-state-1");
                 } else {
                   $state.addClass("watch-state-3");

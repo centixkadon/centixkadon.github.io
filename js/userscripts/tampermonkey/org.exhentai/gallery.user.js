@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         exhentai_gallery
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      1.1.1
+// @version      1.1.2
 // @description  View all images from a gallery on one page.
 // @author       centixkadon
 // @match        https://exhentai.org/g/*
@@ -26,9 +26,31 @@
   switch (location.pathname.split('/')[1]) {
     case "g": // gallery
       (function (loadCount, loadIntervalMs, loadTimeoutMs) {
+        let handles = (function () {
+          let intervalHandles = [];
+          let timeoutHandles = [];
+          return {
+            setInterval: function (handler, interval, ...arguments) { return intervalHandles.push(setInterval(handler, interval, ...arguments)); },
+            setTimeout: function (handler, timeout, ...arguments) { return timeoutHandles.push(setTimeout(handler, timeout, ...arguments)); },
+            clearIntervals: function () {
+              for (let handle of intervalHandles) clearInterval(handle);
+              intervalHandles = [];
+            },
+            clearTimeouts: function () {
+              for (let handle of timeoutHandles) clearTimeout(handle);
+              timeoutHandles = [];
+            },
+            clear: function () {
+              this.clearIntervals();
+              this.clearTimeouts();
+            },
+          }
+        })();
+
         let all = document.createElement("td");
         all.innerHTML = "All";
         all.addEventListener("click", function () {
+          handles.clear();
           document.querySelectorAll('iframe').forEach(function (iframe) { iframe.remove(); });
 
           let hrefs = [];
@@ -48,10 +70,10 @@
             let complete = false;
             iframe.addEventListener("load", function (e) {
               console.log("iframe " + index + " load");
-              setTimeout(loadiframe, loadIntervalMs);
+              handles.setTimeout(loadiframe, loadIntervalMs);
               complete = true;
             });
-            setTimeout(function () {
+            handles.setTimeout(function () {
               if (!complete) {
                 console.log("iframe " + index + " timeout");
                 loadiframe();
@@ -64,7 +86,7 @@
             ++hrefsIndex;
           }
 
-          for (let i = 0; i < loadCount; ++i) setTimeout(loadiframe, loadIntervalMs * i);
+          for (let i = 0; i < loadCount; ++i) handles.setTimeout(loadiframe, loadIntervalMs * i);
         });
         document.querySelector('.ptb tr').append(all);
       })(3, 1000, 60000);
