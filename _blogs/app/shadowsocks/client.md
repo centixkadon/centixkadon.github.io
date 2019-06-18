@@ -57,7 +57,7 @@ Extract the app file from the zip package, drag it to Finder → Applications, a
    - Encryption: choose a encryption.
    - Remarks: fill something.
    - Click OK.
-1. Right click the shadowsocks icon → System Proxy → PAC.
+1. Right click the shadowsocks icon → System Proxy → Disable.
 1. Do somethine more:
    - Right click the shadowsocks icon → Help → Verbose Logging.
    - Right click the shadowsocks icon → PAC → Update Local PAC from GFWList.
