@@ -41,12 +41,12 @@ Extract the app file from the zip package, drag it to Finder → Applications, a
 
 ### Surfing when using system
 
+{% include lang/zh/shadowsocks.md abbr='menu config'%}
+
 #### Windows
 
 *[tray icon]: 系统托盘图标
 *[notification area]: 通知区域
-
-{% include lang/zh/shadowsocks.md abbr='menu config'%}
 
 1. Double click shadowsocks.exe (e.g. D:\Portable\shadowsocks\shadowsocks.exe).
 1. Find shadowsocks tray icon in the notification area.
@@ -57,13 +57,13 @@ Extract the app file from the zip package, drag it to Finder → Applications, a
    - Encryption: choose a encryption.
    - Remarks: fill something.
    - Click OK.
-1. Right click the shadowsocks icon → System Proxy → Disable.
+1. Right click the shadowsocks icon → System Proxy → PAC.
 1. Do somethine more:
    - Right click the shadowsocks icon → Help → Verbose Logging.
    - Right click the shadowsocks icon → PAC → Update Local PAC from GFWList.
-   - Right click the shadowsocks icon → PAC → unselect Secure Local PAC.
-1. Test [Google](https://www.google.com/) and success.
-1. Query [ip](https://www.baidu.com/s?wd=ip) and show the same ip as before enabling shadowsocks.
+   - Right click the shadowsocks icon → PAC → uncheck Secure Local PAC.
+1. Visit [Google](https://www.google.com/) and success. This means you can visit google through shadowsocks.
+1. Query [ip in Baidu](https://www.baidu.com/s?wd=ip) and show the same ip as before enabling shadowsocks. This means you can visit baidu directly.
 1. Now you could surf the Internet.
 
 #### macOS
@@ -81,13 +81,17 @@ Extract the app file from the zip package, drag it to Finder → Applications, a
 1. Click the shadowsocks icon → Turn Shadowsocks On.
 1. Do somethine more:
    - Click the shadowsocks icon → Update PAC from GFW List.
-1. Test [Google](https://www.google.com/) and success.
-1. Query [ip](https://www.baidu.com/s?wd=ip) and show the same ip as before enabling shadowsocks.
+1. Visit [Google](https://www.google.com/) and success. This means you can visit google through shadowsocks.
+1. Query [ip in Baidu](https://www.baidu.com/s?wd=ip) and show the same ip as before enabling shadowsocks. This means you can visit baidu directly.
 1. Now you could surf the Internet.
 
 ### Then only surfing when using browser (Windows)
 
-Recommends: [Firefox](https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US), [Chrome](https://www.google.com/intl/en/chrome/?standalone=1) or Safari.
+Recommends: [Firefox](https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US) or [Chrome](https://www.google.com/intl/en/chrome/?standalone=1).
+
+You should do this step at first in Windows:
+
+1. Right click the shadowsocks icon → System Proxy → Disable.
 
 #### Firefox
 
@@ -95,6 +99,7 @@ Recommends: [Firefox](https://download.mozilla.org/?product=firefox-latest-ssl&o
 
 If you use Firefox, it is easy to configure.
 
+1. Due to technical limitations in the latest Firefox, it is not possible to enable PAC using add-ons. So you should delete or disable all add-ons about proxy in Firefox before the next steps.
 1. Find Open menu icon.
 1. Click the Open menu icon → Options.
 1. Find Network Settings.
@@ -115,21 +120,21 @@ Or if you have to use Chrome for some unreasonable reasons, follow this tons of 
 1. Click the SwitchyOmega icon → Options.
 1. Delete auto switch profile.
 1. Delete proxy profile.
-1. New profile..\. → Profile name: Shadowsocks All → select Proxy Profile → click Create.
+1. New profile..\. → Profile name: Shadowsocks All → check Proxy Profile → click Create.
 1. Configure:
    - Protocol: SOCKS5.
    - Server: 127.0.0.1.
    - Port: 1080.
    - Click Apply changes.
-1. New profile..\. → Profile name: Shadowsocks → select Switch Profile → click Create.
+1. New profile..\. → Profile name: Shadowsocks → check Switch Profile → click Create.
 1. Click Add a rule list and configure:
    - Rule List Format: AutoProxy.
    - Rule List URL: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt.
    - Click Download Profile Now.
    - Switch rules → Condition Type → Rule list rules → Shadowsocks All.
    - Click Apply changes.
-1. Right click the shadowsocks icon → unselect Enable System Proxy.
-1. Click the SwitchyOmega icon and select different profiles, test [Google](https://www.google.com/) and query [ip](https://www.baidu.com/s?wd=ip) to see difference.
+1. Right click the shadowsocks icon → uncheck Enable System Proxy.
+1. Click the SwitchyOmega icon and check different profiles, test [Google](https://www.google.com/) and query [ip](https://www.baidu.com/s?wd=ip) to see difference.
 1. Now you could only surf the Internet when using the browser.
 
 ### Optional
