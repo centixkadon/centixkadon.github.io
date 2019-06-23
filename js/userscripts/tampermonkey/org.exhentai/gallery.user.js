@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         exhentai_gallery
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      1.1.2
+// @version      1.1.3
 // @description  View all images from a gallery on one page.
 // @author       centixkadon
 // @match        https://exhentai.org/g/*
@@ -89,7 +89,7 @@
           for (let i = 0; i < loadCount; ++i) handles.setTimeout(loadiframe, loadIntervalMs * i);
         });
         document.querySelector('.ptb tr').append(all);
-      })(3, 1000, 60000);
+      })(3, 10000, 90000);
       break;
 
     case "s": // source
@@ -135,16 +135,17 @@
 
         let prev = document.querySelector('#prev').attributes.onclick.value.split("(")[1].split("')")[0].split(", '");
         let next = document.querySelector('#next').attributes.onclick.value.split("(")[1].split("')")[0].split(", '");
-        prev = "/s/" + prev[1] + "/" + gid + "-" + prev[0];
-        next = "/s/" + next[1] + "/" + gid + "-" + next[0];
+        prev = location.origin + "/s/" + prev[1] + "/" + gid + "-" + prev[0];
+        next = location.origin + "/s/" + next[1] + "/" + gid + "-" + next[0];
 
         document.querySelector('#i1').innerHTML =
-          '<div class="c3">' + index + " :: " + document.querySelector('#i2').lastChild.innerHTML + '</div>' +
-          '<div class="c4"><span id="prev">Prev</span> <span id="next">Next</span> <span id="error">Error</span> <span id="reload">Reload</span></div>' +
+          '<div class="c3">' + index + " :: " + document.querySelector('#i2').lastChild.innerHTML + " :: " + location.search + '</div>' +
+          '<div class="c4"><span id="reset">Reset</span> <span id="prev">Prev</span> <span id="next">Next</span> <span id="error">Error</span> <span id="reload">Reload</span></div>' +
           document.querySelector('#i3').outerHTML;
         document.querySelector('.ip').remove();
-        document.querySelector('#i1>.c4>#prev').addEventListener("click", function () { location.pathname = prev; });
-        document.querySelector('#i1>.c4>#next').addEventListener("click", function () { location.pathname = next; });
+        document.querySelector('#i1>.c4>#reset').addEventListener("click", function () { location.search = ""; });
+        document.querySelector('#i1>.c4>#prev').addEventListener("click", function () { location.href = prev; });
+        document.querySelector('#i1>.c4>#next').addEventListener("click", function () { location.href = next; });
         document.querySelector('#i1>.c4>#error').addEventListener("click", nextload);
         document.querySelector('#i1>.c4>#reload').addEventListener("click", function () { location.replace(location); });
       })(120000);
