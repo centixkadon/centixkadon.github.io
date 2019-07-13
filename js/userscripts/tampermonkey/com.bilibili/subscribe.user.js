@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         bilibili_subscribe
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.2.5
+// @version      0.3
 // @description  Highlight subscribe.
 // @author       centixkadon
 // @match        https://space.bilibili.com/*/bangumi
 // @match        https://space.bilibili.com/*/cinema
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
-(function () {
+(function (pageSize) {
   if (document.cookie.match(/(^| )DedeUserID=([^;]*)(;|$)/)[2] === location.pathname.split("/")[1]) {
-    $('head').append($('<style>').html(".pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-1 { color: #FB7299; } .pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-2 { color: #00A1D6; } .pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-3 { }"));
+    GM_addStyle(".pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-1 { color: #FB7299; } .pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-2 { color: #00A1D6; } .pgc-space-follow-item .pgc-item-info .pgc-item-state .watch-state.watch-state-3 { }");
 
     setTimeout(function () {
       let $follow = $('.pgc-space-follow-page');
@@ -20,18 +20,14 @@
         return;
       }
 
-      $(document).ajaxSuccess(function (event, deferred, settings) {
+      $(document).ajaxSuccess(function (_, deferred, settings) {
         if (settings.url.indexOf("https://api.bilibili.com/x/space/bangumi/follow/list") === 0) {
           deferred.done(function (data) {
-            setTimeout(function () {
-              let $follow = $('.pgc-follow-list');
-              if ($follow.length === 0) {
-                setTimeout(arguments.callee, 33);
-                return;
-              }
+            if (data.data.list.length !== pageSize) return;
 
-              let $items = $follow.children('.pgc-space-follow-item');
-              if ($items.length !== data.data.list.length) {
+            setTimeout(function () {
+              let $items = $('.pgc-space-follow-item');
+              if ($items.length !== pageSize) {
                 setTimeout(arguments.callee, 33);
                 return;
               }
@@ -63,10 +59,10 @@
       });
 
       $follow.each(function () {
-        this.__vue__.pageSize = 50;
+        this.__vue__.pageSize = pageSize;
         this.__vue__.pageChanged();
       });
     }, 33);
 
   }
-})();
+})(50);
