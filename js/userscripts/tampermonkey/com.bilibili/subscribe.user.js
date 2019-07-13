@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili_subscribe
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.3
+// @version      0.3.1
 // @description  Highlight subscribe.
 // @author       centixkadon
 // @match        https://space.bilibili.com/*/bangumi
@@ -26,8 +26,9 @@
             if (data.data.list.length !== pageSize) return;
 
             setTimeout(function () {
+              let $follow = $('.pgc-follow-list');
               let $items = $('.pgc-space-follow-item');
-              if ($items.length !== pageSize) {
+              if ($follow.length === 0 || $items.length !== pageSize) {
                 setTimeout(arguments.callee, 33);
                 return;
               }
