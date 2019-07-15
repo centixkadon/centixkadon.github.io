@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         nju_portal
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      1.0
+// @version      1.0.1
 // @description  Auto login NJU Real-Name Authentication System (p.nju.edu.cn).
 // @author       centixkadon
 // @match        http://p.nju.edu.cn/portal/index.html*
@@ -16,6 +16,7 @@
     username: data.username || $('#username').val() || "",
     password: data.password || $('#password').val() || "",
     interval: data.interval || 1000 * 60 * 2,
+    logout: false,
   };
 
   (function (g) {
@@ -34,9 +35,13 @@
     let handler = -1;
     function request() {
       if (globalVar.userinfo !== null && g.username !== "" && globalVar.userinfo.username.toLowerCase() !== g.username.toLowerCase()) {
-        logoutRequest();
-        console.log(new Date().format("yyyy-MM-dd hh:mm:ss") + ": logout.");
-        handler = setTimeout(arguments.callee, 33);
+        if (g.logout) {
+          logoutRequest();
+          console.log(new Date().format("yyyy-MM-dd hh:mm:ss") + ": logout.");
+          handler = setTimeout(arguments.callee, 33);
+        } else {
+          handler = setTimeout(arguments.callee, g.interval);
+        }
       } else {
         if (g.username !== "") $('#username').val(g.username);
         if (g.password !== "") $('#password').val(g.password);
