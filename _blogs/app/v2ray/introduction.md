@@ -159,7 +159,7 @@ ip 和 domain 分别是 ip地址 和 域名，有多种表示形式，详见[路
 1. 选择 SOCKS v5 。
 1. 点击 OK 。
 
-更高级的代理配置，可以在上述配置的基础上，安装 [Proxy SwitchyOmega – Get this Extension for 🦊 Firefox (en-US)](https://addons.mozilla.org/en-US/firefox/addon/switchyomega/) ，插件配置方法略过不提。
+更高级的代理配置，不应直接使用浏览器自带配置。可以安装 [Proxy SwitchyOmega – Get this Extension for 🦊 Firefox (en-US)](https://addons.mozilla.org/en-US/firefox/addon/switchyomega/) ，插件配置方法略过不提。
 
 ### Chrome
 
@@ -167,7 +167,7 @@ ip 和 domain 分别是 ip地址 和 域名，有多种表示形式，详见[路
 
 ## 全局配置
 
-一般不建议全局配置，因为这样会让电脑上三教九流的软件都可能经过 v2ray 。如果其中有什么流氓软件，也许会带来安全隐患。另外，下文提到的最简单的配置方法是非强制的，软件完全可以自己选择听不听，所以这种配置对网络连接不可控。如果非要做全局配置，比如为了查找错误什么的，可以尝试一下。
+一般不建议全局配置，因为这样会导致电脑上三教九流的软件都可能经过 v2ray 。如果其中有什么流氓软件，也许会带来安全隐患。另外，下文提到的最简单的配置方法是非强制的，软件完全可以自己选择听不听，所以这种配置对网络连接不可控。如果非要做全局配置，比如为了查找错误什么的，可以尝试一下。
 
 1. Windows 10 下，按 Windows 键，输入 Internet 选项，回车。
 1. 点击 连接。
