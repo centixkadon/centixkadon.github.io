@@ -17,6 +17,8 @@ v2ray 是 Project V 的核心工具。Project V 是一个工具集合，它可�
 
 见[下载安装 · Project V 官方网站](https://www.v2ray.com/chapter_00/install.html)或 [Project V · Project V 官方网站](https://www.v2ray.com/)。
 
+Project V 官方网站需要翻墙。简单说明就是 Windows 平台下载 .zip 文件，解压出文件夹直接运行即可； Linux 平台执行脚本安装即可。
+
 ## v2ray 配置
 
 v2ray 的配置非常简单，将其他人提供的 config.json 替换掉原来的文件，重新运行即可。
