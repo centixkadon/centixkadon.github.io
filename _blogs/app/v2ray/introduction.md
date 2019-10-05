@@ -17,137 +17,19 @@ v2ray 是 Project V 的核心工具。Project V 是一个工具集合，它可�
 
 见[下载安装 · Project V 官方网站](https://www.v2ray.com/chapter_00/install.html)或 [Project V · Project V 官方网站](https://www.v2ray.com/)。
 
-Project V 官方网站需要翻墙。简单说明就是 Windows 平台下载 .zip 文件，解压出文件夹直接运行即可； Linux 平台执行脚本安装即可。
+上述两个 Project V 官方网站需要翻墙。简单说明就是 Windows 平台下载 v2ray-windows-64.zip 文件，解压出文件夹直接运行即可；若不能使用则下载 v2ray-windows-32.zip 文件； Linux 平台执行脚本安装即可。
 
-## v2ray 配置
+## v2ray 电脑客户端配置
 
-v2ray 的配置非常简单，将其他人提供的 config.json 替换掉原来的文件，重新运行即可。
+Windows 和 Linux 平台的 v2ray 客户端配置非常简单，将其他人提供的 config.json 替换掉原来的文件，重新运行即可。
 
 诶，怎么配置？这不是这篇文章的重点。如果想深入学习，请去 [Project V · Project V 官方网站](https://www.v2ray.com/)从头学起。
 
-### 在提供的 config.json 基础上修改
+### 浏览器配置
 
-如果不添加反向代理等支持、只配置最简单通信的话， Windows 客户端的 config.json 会形如以下示例：
+连接 v2ray 入口的方法是配置代理，而各个应用程序有各个应用程序的代理配置方法。以下基于原生的 v2ray ，用 Firefox 配置 socks 代理举例，其它应用程序和代理协议同理。也有各平台的第三方 GUI 工具，在[神一样的工具们 · Project V 官方网站](https://www.v2ray.com/awesome/tools.html)列出了部分推荐。
 
-```json
-{
-  "log": {
-    "access": "log/access.log",
-    "error": "log/error.log",
-    "loglevel": "warning"
-  },
-  "outbounds": [
-    {
-      "protocol": "blackhole",
-      "tag": "block"
-    },
-    {
-      "protocol": "freedom",
-      "tag": "direct"
-    },
-    {
-      "protocol": "vmess",
-      "tag": "vmess1"
-    }
-  ],
-  "inbounds": [
-    {
-      "listen": "127.0.0.1",
-      "port": 1081,
-      "protocol": "socks",
-      "tag": "socks1"
-    }
-  ],
-  "routing": {
-    "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "type": "field",
-        "ip": [ "geoip:blabla" ],
-        "outboundTag": "block"
-      },
-      {
-        "type": "field",
-        "domain": [ "geosite:blabla" ],
-        "outboundTag": "block"
-      },
-      {
-        "type": "field",
-        "ip": [ "geoip:blabla" ],
-        "outboundTag": "direct"
-      },
-      {
-        "type": "field",
-        "domain": [ "geosite:blabla" ],
-        "outboundTag": "direct"
-      },
-      {
-        "type": "field",
-        "domain": [ "geosite:blabla" ],
-        "outboundTag": "vmess1"
-      },
-      {
-        "type": "field",
-        "outboundTag": "direct"
-      }
-    ]
-  }
-}
-```
-
-文件分成几块， log 是日志， outbounds 是出口， inbounds 是入口， routing 是路由。
-
-### log 日志
-
-log 配置了 v2ray 日志的输出位置和输出级别。
-
-示例中 access 和 error 是相对路径，也可以改成绝对路径。相对路径的基于程序运行目录的。 Windows 下可通过设置快捷方式的 起始位置 来更改。
-
-更改该设置时，推荐将路径中的 `\` 改成 `/` 。因为 json 文件中会对 `\` 转义，所以改成 `\\` 也可以，就是长了一点。
-
-### outbounds 出口
-
-outbounds 是连接服务器的设置。
-
-protocol 是协议。其中 blackhole 是断开连接， freedom 是直接连接， vmess 一般是连接到某个中转服务器。
-
-tag 是标签，会在 routing 中用到。
-
-### inbounds 入口
-
-inbounds 是被应用程序连接的设置。
-
-listen 是监听地址。 127.0.0.1 一般表示只有本机的应用程序可以连接， 0.0.0.0 一般表示局域网的电脑都可以连接。
-
-port 是相应的监听端口。 不同入口设置的端口不能重复。
-
-protocol 是协议。 socks 被大部分浏览器支持。
-
-tag 是标签，会在 routing 中用到。
-
-### routing 路由
-
-routing 是入口到出口的设置，它规定了入口的流量要往哪个出口走。在示例中，即到底要断开连接，要直接连接，还是要转发到其它服务器再说呢。
-
-domainStrategy 决定如何解析域名。 AsIs 表示在路由中不解析域名。
-
-rules 是规则列表，优先从第一个匹配到最后一个，哪个先匹配到就走哪个出口。如果都没有匹配到，那在 domainStrategy 为 AsIs 的情况下，会将流量导向第一个 outbound 。
-
-type 目前只支持 field 。
-
-ip 、 domain 、 inboundTag 三项都是列表，各项内部的各条为或关系，即只要满足一条则算满足该项。
-
-三项之间为与关系，即同时满足所有项才算满足。如果某一项没有，说明满足该项。
-
-outboundTag 是满足该规则的出口。 
-
-ip 和 domain 分别是 ip地址 和 域名，有多种表示形式，详见[路由配置 · Project V 官方网站](https://www.v2ray.com/chapter_02/03_routing.html)。 outboundTag 和 inboundTag 分别是 outbounds 和 inbounds 中的 tag 。
-
-## 浏览器配置
-
-连接 v2ray 入口的方法是配置代理，而各个应用程序有各个应用程序的代理配置方法。以下基于原生的 v2ray ，用 Firefox 举例，其它应用程序同理。也有各平台的第三方 GUI 工具，在[神一样的工具们 · Project V 官方网站](https://www.v2ray.com/awesome/tools.html)列出了部分推荐。
-
-### Firefox
+#### Firefox
 
 {% include lang/zh/firefox.md %}
 
@@ -163,21 +45,72 @@ ip 和 domain 分别是 ip地址 和 域名，有多种表示形式，详见[路
 
 更高级的代理配置，不应直接使用浏览器自带配置。可以安装 [Proxy SwitchyOmega – Get this Extension for 🦊 Firefox (en-US)](https://addons.mozilla.org/en-US/firefox/addon/switchyomega/) ，插件配置方法略过不提。
 
-### Chrome
+#### Chrome
 
 一般直接安装 [Proxy SwitchyOmega - Chrome Web Store](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif) ，做高级的代理配置。
 
-## 全局配置
+### 全局配置
 
 一般不建议全局配置，因为这样会导致电脑上三教九流的软件都可能经过 v2ray 。如果其中有什么流氓软件，也许会带来安全隐患。另外，下文提到的最简单的配置方法是非强制的，软件完全可以自己选择听不听，所以这种配置对网络连接不可控。如果非要做全局配置，比如为了查找错误什么的，可以尝试一下。
 
 1. Windows 10 下，按 Windows 键，输入 Internet 选项，回车。
 1. 点击 连接。
 1. 点击 局域网设置。
-1. 选择 为 LAN 使用代理服务器。
-1. 地址： 127.0.0.1 。
-1. 端口： config.json 中 inbound 的 port 。
+1. 选择 为 LAN 使用代理服务器：
+   - 地址： 127.0.0.1 。
+   - 端口： config.json 中 inbound 的 port 。
 1. 将 config.json 中 inbound 的 protocol 改成 http 。
+
+### 开机启动
+
+Windows 平台的 v2ray 二进制文件有 v2ray.exe 和 wv2ray.exe ，其中 v2ray.exe 运行时保留命令行界面，可以直接关闭， wv2ray.exe 在后台运行，一般通过任务管理器关闭。
+
+可以右键单击 wv2ray.exe 创建快捷方式，并将快捷方式复制到 %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup 实现后台开机启动。
+
+## v2ray 手机端配置
+
+全局配置需要局域网中有一台运行 v2ray 的电脑，不要求手机安装任何 v2ray 客户端；客户端配置不需要电脑。
+
+### 全局配置
+
+1. 将手机和运行 v2ray 的电脑连到同一局域网。
+1. 将电脑客户端 config.json 中 inbound 的 listen 改成 0.0.0.0 。
+1. 将电脑客户端 config.json 中 inbound 的 protocol 改成 http 。
+1. 重启电脑客户端的 v2ray 。
+1. 进入手机 WLAN 设置，修改网络。
+1. 配置代理为手动：
+   - 地址：电脑的 ip 地址
+   - 端口：电脑客户端 config.json 中 inbound 的 port 。
+1. 重新连接手机 WLAN 。
+
+### 客户端配置
+
+[神一样的工具们 · Project V 官方网站](https://www.v2ray.com/awesome/tools.html)有许多手机客户端推荐。 Android 平台可以在 Google Play 免费下载 v2rayNG 或 Kitsunebi ， iOS 平台应用均需要付费，其中 Kitsunebi 应该和 Android 客户端一样。
+
+下面以 v2rayNG 为例：
+
+1. 点击 右上角的添加配置。
+1. 手动输入\[Vmess\]，并根据 config.json 中 outbounds 里 protocol 为 vmess 一项的键值配置以下内容：
+   - 别名：随便写。
+   - 地址： settings.vnext.address 。
+   - 端口： settings.vnext.port 。
+   - 用户 ID ： settings.vnext.users.id 。
+   - 额外 ID ： settings.vnext.users.alterId 。
+   - 加密方式： settings.vnext.users.security 。
+   - 传输协议： streamSettings.network （没有则留空）。
+   - 伪装域名： streamSettings.xxxSettings.host （没有则留空）。
+   - path ： streamSettings.xxxSettings.path （没有则留空）。
+   - 底层传输安全： streamSettings.security （没有则留空）。
+   - 点击 右上角的保存配置。
+1. 点击 左上角 并进入 设置：
+   1. 点击 分应用代理：
+      - 选择 分应用代理。
+      - 点击 右上角的更多选项。
+      - 点击 自动选中需代理应用。
+      - 点击 左上角。
+   1. 路由设置：
+      - 点击 域名策略： AsIs 。
+      - 点击 路由模式：绕过局域网及大陆网址。
 
 ## 常见问题
 
