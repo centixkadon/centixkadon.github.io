@@ -11,13 +11,19 @@ v2ray 是 Project V 的核心工具。Project V 是一个工具集合，它可�
 
 在 [Releases · v2ray/v2ray-core · GitHub](https://github.com/v2ray/v2ray-core/releases) 下载最新的 v2ray 二进制文件。其原生支持许多桌面和服务器平台，包括 Linux 和 Windows 。 Linux 还支持脚本安装到系统， Windows 和 macOS 则是一份可直接运行的命令行程序。
 
-然后在 [Releases · v2ray/domain-list-community · GitHub](https://github.com/v2ray/domain-list-community/releases) 下载最新的 dlc.dat 文件，替换掉文件夹中原来的 geosite.dat 。这是 v2ray 工具的一部分，专门负责维护域名列表，其更新频率目前比 v2ray 高，所以 v2ray 中自带的 .dat 文件可能已经很旧了。
+然后在 [Releases · v2ray/domain-list-community · GitHub](https://github.com/v2ray/domain-list-community/releases) 下载最新的 dlc.dat 文件，重命名为 geosite.dat 并替换掉文件夹中原来的 geosite.dat 。这是 v2ray 工具的一部分，专门负责维护域名列表，其更新频率目前比 v2ray 高，所以 v2ray 中自带的 .dat 文件可能已经很旧了。
 
 ## 平台支持、安装和运行
 
 见[下载安装 · Project V 官方网站](https://www.v2ray.com/chapter_00/install.html)或 [Project V · Project V 官方网站](https://www.v2ray.com/)。
 
-上述两个 Project V 官方网站需要翻墙。简单说明就是 Windows 平台下载 v2ray-windows-64.zip 文件，解压出文件夹直接运行即可；若不能使用则下载 v2ray-windows-32.zip 文件； Linux 平台执行脚本安装即可。
+上述两个网站需要翻墙。简单说明就是 Windows 平台下载 v2ray-windows-64.zip 文件，解压出文件夹直接运行 v2ray.exe 即可；若不能使用则下载 v2ray-windows-32.zip 文件； Linux 平台执行脚本安装即可。
+
+### 开机启动
+
+Windows 平台的 v2ray 二进制文件有 v2ray.exe 和 wv2ray.exe ，两者均可以双击运行。运行 v2ray.exe 时能保留命令行界面，可以直接关闭；运行 wv2ray.exe 时没有界面，一般通过任务管理器结束进程。
+
+可以右键单击 wv2ray.exe 创建快捷方式，并将快捷方式复制到 %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup 实现后台开机启动。
 
 ## v2ray 电脑客户端配置
 
@@ -60,12 +66,6 @@ Windows 和 Linux 平台的 v2ray 客户端配置非常简单，将其他人提�
    - 地址： 127.0.0.1 。
    - 端口： config.json 中 inbound 的 port 。
 1. 将 config.json 中 inbound 的 protocol 改成 http 。
-
-### 开机启动
-
-Windows 平台的 v2ray 二进制文件有 v2ray.exe 和 wv2ray.exe ，其中 v2ray.exe 运行时保留命令行界面，可以直接关闭， wv2ray.exe 在后台运行，一般通过任务管理器关闭。
-
-可以右键单击 wv2ray.exe 创建快捷方式，并将快捷方式复制到 %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup 实现后台开机启动。
 
 ## v2ray 手机端配置
 
@@ -114,6 +114,10 @@ Windows 平台的 v2ray 二进制文件有 v2ray.exe 和 wv2ray.exe ，其中 v2
 
 ## 常见问题
 
+1. 运行 v2ray 发现闪退/没有界面。
+   - 一般是配置文件有问题；其次可能电脑上已经运行了 v2ray 或 wv2ray ，请通过任务管理器结束所有相关进程。
+1. 运行 wv2ray 发现没有界面。
+   - wv2ray 是在后台运行，没有界面，所以这种情况是正常的。
 1. 我拿到客户端配置文件之后可以改哪里？
    - outbounds 是和其它服务器通信的配置，所以只有客户端的配置文件一般无需也不能更改。
    - log 一般也不会自己看，能找到那两个文件即可。
