@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         nga_better
 // @namespace    https://github.com/centixkadon/centixkadon.github.io/tree/master/js/userscripts/tampermonkey
-// @version      0.2
+// @version      0.3
 // @description  Redirect to one https site, fix parseTableClip function
 // @author       centixkadon
 // @match        *://ngabbs.com/*
@@ -9,12 +9,15 @@
 // @match        *://bbs.ngacn.cc/*
 // @match        *://nga.178.com/*
 // @match        *://club.178.com/*
+// @match        *://bbs.nga.cn/misc/adpage_insert_2.html*
 // @grant        none
 // ==/UserScript==
 
 (function () {
-  if (location.origin !== "https://bbs.nga.cn") {
-    location.replace(location.href.replace(location.origin, "https://bbs.nga.cn"));
+  if (location.pathname === "/misc/adpage_insert_2.html") {
+    location.replace(location.search.slice(1));
+  } else if (location.origin !== "https://bbs.nga.cn") {
+    location.replace("https://bbs.nga.cn" + location.pathname + location.search);
   } else {
     ({
       setAutostop: function (f, t) {
