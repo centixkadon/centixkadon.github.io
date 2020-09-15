@@ -1,0 +1,10 @@
+@startuml v2ray
+autonumber
+application as "a) application\n(firefox/chrome)" -> v2ray_client as "b) v2ray client\n(127.0.0.1:*)" : socks/http
+v2ray_client -> web_server as "c) web server\n(apache/nginx,\n0.0.0.0:443)" : vmess\nover websocket\nover tls/https
+web_server -> v2ray_server as "d) v2ray server\n(127.0.0.1:*)" : vmess\nover websocket
+v2ray_server -> website as "e) website\n(google)" : direct
+
+autonumber stop
+application <-- website : response
+@enduml
