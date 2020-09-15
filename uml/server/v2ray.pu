@@ -1,10 +1,22 @@
 @startuml v2ray
+
+box local #LightCyan
+  participant application as "a) application\n(firefox/chrome)"
+  participant v2ray_client as "b) v2ray client\n(127.0.0.1:*)"
+end box
+box remote #LightCyan
+  participant web_server as "c) web server\n(apache/nginx,\n0.0.0.0:443)"
+  participant v2ray_server as "d) v2ray server\n(127.0.0.1:*)"
+  participant website as "e) website\n(google)"
+end box
+
 autonumber
-application as "a) application\n(firefox/chrome)" -> v2ray_client as "b) v2ray client\n(127.0.0.1:*)" : socks/http
-v2ray_client -> web_server as "c) web server\n(apache/nginx,\n0.0.0.0:443)" : vmess\nover websocket\nover tls/https
-web_server -> v2ray_server as "d) v2ray server\n(127.0.0.1:*)" : vmess\nover websocket
-v2ray_server -> website as "e) website\n(google)" : direct
+application -> v2ray_client : socks/http
+v2ray_client -> web_server : vmess\nover websocket\nover tls/https
+web_server -> v2ray_server : vmess\nover websocket
+v2ray_server -> website : direct
 
 autonumber stop
 application <-- website : response
+
 @enduml
