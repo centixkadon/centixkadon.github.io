@@ -1,0 +1,35 @@
+---
+layout: default
+scripts: js/tools/crypt.js
+---
+
+{% raw %}
+<div id="app">
+  <div class="row my-3">
+    <div class="col">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">password</span>
+        </div>
+        <input type="password" class="form-control" v-model="password">
+        <div class="input-group-append">
+          <span class="input-group-text" v-if="password_status_message !== null">{{ password_status_message }}</span>
+          <button class="btn btn-secondary text-white" v-bind:class="{ 'btn-success': decrypt, 'btn-danger': encrypt }" v-on:click="toggle_encrypt">{{ encrypt_message }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <div class="input-group">
+        <textarea class="form-control" rows="20" v-model="input"></textarea>
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group">
+        <textarea class="form-control" rows="20" v-model="output"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+{% endraw %}

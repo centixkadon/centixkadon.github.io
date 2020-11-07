@@ -73,6 +73,9 @@ collections:
   blogs:
     output: true
     permalink: /b/:path/
+  tools:
+    output: true
+    permalink: /t/:path/
   navs:
     output: true
     permalink: /:title/

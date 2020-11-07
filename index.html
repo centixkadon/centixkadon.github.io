@@ -4,16 +4,16 @@ title: centixkadon
 ---
 
 <h1>{{ page.title }}</h1>
-
-{%- assign blogs = site.blogs | sort: 'date' | reverse -%}
-{%- for blog in blogs -%}
+{% assign blogs = site.blogs | sort: 'date' | reverse %}
+{% for blog in blogs %}
 <div class="card my-3">
   <div class="card-header d-flex justify-content-between select-none">
     <div>
       <a class="link" href="{{ blog.url }}">{{ blog.title }}</a>
     </div>
     <div>
-      <span class="mr-2">{{ blog.id | remove_first: '/b/' | split: '/' | pop | join: ' - ' }}</span><span class="ml-5 text-muted">{{ blog.date | date: '%b %-d, %Y' }}</span>
+      <span class="mr-2">{{ blog.id | remove_first: '/b/' | split: '/' | pop | join: ' - ' }}</span>
+      <span class="ml-5 text-muted">{{ blog.date | date: '%b %-d, %Y' }}</span>
     </div>
   </div>
   <div class="card-body">
@@ -22,4 +22,4 @@ title: centixkadon
     </div>
   </div>
 </div>
-{%- endfor -%}
+{% endfor %}

@@ -2,7 +2,7 @@
 layout: default
 slug: about
 title: About
-index: 50
+index: 90
 ---
 
 # About

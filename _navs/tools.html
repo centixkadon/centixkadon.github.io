@@ -1,0 +1,12 @@
+---
+layout: default
+index: 1
+---
+
+{% for tool in site.tools %}
+<div class="row">
+  <div class="col">
+    <a href="{{ tool.url }}">{{ tool.title }}</a>
+  </div>
+</div>
+{% endfor %}

@@ -165,9 +165,3 @@ If there are many _System.Net.Sockets.SocketException_ s, please contact shadows
 Read <a href="https://github.com/shadowsocks/shadowsocks-windows/blob/master/README.md">shadowsocks-windows README.md</a>.
 
 Find <a href="http://shadowsocks.org/en/download/clients.html">clients</a> for other platforms.
-
-## page keys
-
-{%- for key in page %}
-{{ key }}
-{%- endfor %}
