@@ -24,7 +24,13 @@ def main():
       hash.update(r.content)
       encode = base64.b64encode(hash.digest()).decode()
 
-    print(f'<script src="{url}" integrity="sha384-{encode}" crossorigin="anonymous"></script>')
+    _, fileext = os.path.splitext(filepath)
+    if fileext == ".js":
+      print(f'<script src="{url}" integrity="sha384-{encode}" crossorigin="anonymous"></script>')
+    elif fileext == ".css":
+      print(f'<link rel="stylesheet" href="{url}" integrity="sha384-{encode}" crossorigin="anonymous">')
+    else:
+      print(f'{fileext} {url} integrity="sha384-{encode}"')
 
 if __name__ == "__main__":
   main()
