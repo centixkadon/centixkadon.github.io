@@ -1,6 +1,7 @@
 ---
 layout: default
-scripts: js/tools/crypt.js
+title: 加解密
+excerpt: ""
 ---
 
 {% raw %}
@@ -13,8 +14,8 @@ scripts: js/tools/crypt.js
         </div>
         <input type="password" class="form-control" v-model="password">
         <div class="input-group-append">
-          <span class="input-group-text" v-if="password_status_message !== null">{{ password_status_message }}</span>
-          <button class="btn btn-secondary text-white" v-bind:class="{ 'btn-success': decrypt, 'btn-danger': encrypt }" v-on:click="toggle_encrypt">{{ encrypt_message }}</button>
+          <span class="input-group-text" v-if="passwordStatusMessage !== null">{{ passwordStatusMessage }}</span>
+          <button class="btn btn-secondary text-white" v-bind:class="{ 'btn-success': !encrypt, 'btn-danger': encrypt }" v-on:click="toggleCrypt">{{ cryptMessage }}</button>
         </div>
       </div>
     </div>
@@ -32,4 +33,106 @@ scripts: js/tools/crypt.js
     </div>
   </div>
 </div>
+
+<script>
+  $(() => {
+    const localStorageKey = "tool_crypt";
+    const iolock = "io";
+
+    window.vm = new Vue({
+      el: "#app",
+
+      data: {
+        encrypt: false,
+        password: "",
+        password_status: false,
+        input: "",
+        output: "",
+        locked: true,
+      },
+      created() {
+        this.output = JSON.stringify(this.load(localStorageKey).output) || "";
+      },
+
+      watch: {
+        password() {
+          this.alock(iolock, async () => {
+            if (this.encrypt) {
+              await this.encryptText();
+            } else {
+              await this.decryptText();
+            }
+          });
+        },
+        input() {
+          this.alock(iolock, async () => {
+            await this.encryptText();
+            this.encrypt = true;
+          });
+        },
+        output() {
+          this.alock(iolock, async () => {
+            await this.decryptText();
+            this.encrypt = false;
+          });
+        },
+      },
+
+      computed: {
+        passwordStatusMessage() {
+          if (!this.encrypt && this.password) {
+            return this.password_status ? "✔" : "❌";
+          } else {
+            return null;
+          }
+        },
+
+        cryptMessage() {
+          return this.encrypt ? "encrypt" : "decrypt";
+        },
+      },
+
+      methods: {
+        toggleCrypt() {
+          this.encrypt = !this.encrypt;
+        },
+
+        async encryptText() {
+          if (this.input && this.password) {
+            const decrypt = JSON.stringify({
+              input: this.input,
+              hash: await this.hash(this.input)
+            });
+            const encrypt = await this.aesGcmEncrypt(decrypt, this.password);
+            this.output = JSON.stringify(encrypt);
+
+            this.store(localStorageKey, { output: encrypt });
+          }
+        },
+
+        async decryptText() {
+          if (this.output && this.password) {
+            try {
+              const encrypt = JSON.parse(this.output);
+              const decrypt = JSON.parse(await this.aesGcmDecrypt(encrypt, this.password));
+              console.log("decrypt", decrypt);
+              if (decrypt.input && decrypt.hash && decrypt.hash === await this.hash(decrypt.input)) {
+                this.input = decrypt.input;
+                this.password_status = true;
+                return;
+              }
+            } catch (error) { }
+            this.password_status = false;
+          }
+        },
+
+        async hash(message) {
+          return this.hexToString(await this.sha1(message));
+        },
+
+      },
+    });
+
+  });
+</script>
 {% endraw %}

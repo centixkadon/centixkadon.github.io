@@ -3,10 +3,12 @@ layout: default
 index: 1
 ---
 
-{% for tool in site.tools %}
 <div class="row">
   <div class="col">
-    <a href="{{ tool.url }}">{{ tool.title }}</a>
+    <ul class="list-group">
+      {% for tool in site.tools %}
+      <li class="list-group-item"><a href="{{ tool.url }}">{{ tool.slug }} - {{ tool.title }}</a></li>
+      {% endfor%}
+    </ul>
   </div>
 </div>
-{% endfor %}

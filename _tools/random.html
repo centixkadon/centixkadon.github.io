@@ -1,0 +1,86 @@
+---
+layout: default
+title: 随机数生成器
+excerpt: ""
+---
+
+{% raw %}
+<div id="app">
+  <div class="row mb-3">
+    <div class="col-sm col-lg col-xl input-group">
+      <div class="input-group-prepend mb-1">
+        <span class="input-group-text">下界(含)</span>
+      </div>
+      <input type="number" class="form-control" placeholder="下界" v-model.number="lowerBound">
+    </div>
+    <div class="col-sm col-lg col-xl input-group">
+      <div class="input-group-prepend mb-1">
+        <span class="input-group-text">上界(含)</span>
+      </div>
+      <input type="number" class="form-control" placeholder="上界" v-model.number="upperBound">
+    </div>
+    <div class="col-sm col-lg-3 col-xl-2 input-group">
+      <div class="input-group-prepend mb-1">
+        <span class="input-group-text">字体大小</span>
+      </div>
+      <input type="number" class="form-control" placeholder="字体" v-model.number="fontSize">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="text-center" v-bind:style="{'font-size': `${fontSize}em`}" v-on:click="clickRandom" v-on:keydown="clickRandom">{{ number }}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    window.vm = new Vue({
+      el: "#app",
+      data: {
+        lowerBound: 0,
+        upperBound: 100,
+        fontSize: 15,
+        number: 0,
+        interval: 0,
+      },
+      watch: {
+        lowerBound(value, old) {
+          if (value === "") {
+            this.lowerBound = old;
+          }
+        },
+        upperBound(value, old) {
+          if (value === "") {
+            this.upperBound = old;
+          }
+        },
+        fontSize(value, old) {
+          if (value === "") {
+            this.fontSize = old;
+          }
+        },
+      },
+      methods: {
+        clickRandom() {
+          if (this.interval === 0) {
+            this.interval = setInterval(() => {
+              this.number = this.randomNumber();
+            });
+          } else {
+            clearInterval(this.interval);
+            this.interval = 0;
+            this.number = this.randomNumber();
+          }
+        },
+        randomNumber() {
+          const n1 = this.lowerBound;
+          const n2 = this.upperBound;
+          return Math.floor(Math.min(n1, n2) + this.random() * (Math.abs(n1 - n2) + 1));
+        },
+      },
+    });
+  });
+</script>
+
+{% endraw %}

@@ -1,0 +1,113 @@
+---
+layout: default
+title: json 解析
+excerpt: ""
+---
+
+{% raw %}
+<div id="app">
+  <div class="row">
+    <div class="col">
+      <json-view prefix="" v-bind:data="data" v-bind:indent="0" target="json"></json-view>
+    </div>
+  </div>
+</div>
+
+<template id="json-view">
+  <div>
+    <div>
+      <span v-bind:style="{ 'margin-right': `${marginRight}rem` }"></span>
+      <template>
+        <span class="mr-4">
+          <a v-if="isArray || isObject" href="#" class="badge position-absolute" data-toggle="collapse" v-bind:data-target="`#${target}`">></a>
+        </span>
+      </template>
+      <span v-if="prefix">"{{ prefix }}":</span>
+      <template>
+        <span v-if="isNumber">{{ data }},</span>
+        <span v-if="isString">"{{ data }}",</span>
+        <span v-if="isArray">[</span>
+        <span v-if="isObject">{</span>
+      </template>
+    </div>
+    <div v-bind:id="`${target}`" class="collapse show">
+      <template v-if="isArray">
+        <template v-for="(elem, index) in data">
+          <json-view v-bind:data="elem" v-bind:indent="indent + 1" v-bind:target="`${target}-${index}`"></json-view>
+        </template>
+      </template>
+      <template v-if="isObject">
+        <template v-for="(value, key) in data">
+          <json-view v-bind:prefix="key" v-bind:data="value" v-bind:indent="indent + 1" v-bind:target="`${target}-${key}`"></json-view>
+        </template>
+      </template>
+      <div v-if="isArray || isObject">
+        <span v-bind:style="{ 'margin-right': `${marginRight}rem` }"></span>
+        <span class="mr-4"></span>
+        <template>
+          <span v-if="isArray">],</span>
+          <span v-if="isObject">},</span>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  $(function () {
+    window.vm = new Vue({
+      components: {
+        "json-view": {
+          name: "json-view",
+          props: ["prefix", "data", "indent", "target"],
+          computed: {
+            marginRight() {
+              return this.indent * 2;
+            },
+            type() {
+              if (this.data === null) return "null";
+              if (typeof this.data === "number") return "number";
+              if (typeof this.data === "string") return "string";
+              if (this.data instanceof Array) return "array";
+              return "object";
+            },
+            isNumber() {
+              return this.type === "number";
+            },
+            isString() {
+              return this.type === "string";
+            },
+            isArray() {
+              return this.type === "array";
+            },
+            isObject() {
+              return this.type === "object";
+            },
+          },
+          template: "#json-view",
+        },
+      },
+
+      el: "#app",
+      data: {
+        data: {
+          a: 1,
+          b: "s",
+          c: [1, 2, 3],
+          d: {
+            k1: "v1",
+            k2: "v2",
+          },
+          e: [
+            1,
+            {
+              key: "value",
+            },
+            3
+          ],
+        },
+      },
+    });
+  });
+</script>
+{% endraw %}
