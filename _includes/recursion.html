@@ -1,10 +1,29 @@
-{%- if include.obj.first -%}
-<ul>
-  {%- for kv in include.obj %}
-  {%- assign obj = include.obj[kv] -%}
-  <li>{{ kv }}
-    {% include recursion.html obj = obj %}
-  </li>
-  {%- endfor %}
-</ul>
-{%- endif -%}
+{% if include.indent < 4 %}
+<div>
+  <span style="margin-right: {{ include.indent }}rem"></span>
+  {% if include.prefix %}
+  <span>{{ include.prefix }}:</span>
+  {% endif %}
+  {% if include.data.first %}
+  <span>[</span>
+  {% else %}
+  <span>{{ include.data }},</span>
+  {% endif %}
+  <div>
+    {% if include.data.first %}
+    {%   for elem in include.data %}
+    {%     assign indent_next = include.indent | plus: 1 %}
+    {%     if include.data[elem.first] == elem.last and elem.last and elem.first %}
+    {%       include recursion.html prefix=elem.first data=elem.last indent=indent_next %}
+    {%     else %}
+    {%       include recursion.html data=elem indent=indent_next %}
+    {%     endif %}
+    {%   endfor %}
+    <div>
+      <span style="margin-right: {{ include.indent }}rem"></span>
+      <span>],</span>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

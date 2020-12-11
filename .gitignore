@@ -1,8 +1,9 @@
 
+/javascript
+/test
+
 # jekyll
 Gemfile.lock
 _site
 .bundle
-
-/javascript
-/test
+.sass-cache

@@ -1,0 +1,167 @@
+---
+layout: default
+title: Debug
+unpublished: true
+index: 99
+---
+
+<h1>Debug</h1>
+
+<div class="row">
+  <div class="col">
+    <h2>Browser</h2>
+    <h3>Parameters</h3>
+    {% raw %}
+    <div id="parameters">
+      <p>Window size: {{ width }} x {{ height }}</p>
+      <button class="btn btn-primary" v-on:click="click">Get Parameters</button>
+    </div>
+    {% endraw %}
+
+    <h2>Types</h2>
+
+    <h3>String</h3>
+    {% assign my_string = "Hello World!" %}
+    <p>my_string "{{ my_string }}"</p>
+    <p>my_string.size "{{ my_string.size }}"</p>
+    <p>my_string.first "{{ my_string.first }}"</p>
+
+    <h3>Number</h3>
+    {% assign my_int = 1 %}
+    {% assign my_float = 2.0 %}
+    <p>my_int "{{ my_int }}"</p>
+    <p>my_int.size "{{ my_int.size }}"</p>
+    <p>my_int.first "{{ my_int.first }}"</p>
+    <p>my_float "{{ my_float }}"</p>
+    <p>my_float.size "{{ my_float.size }}"</p>
+    <p>my_float.first "{{ my_float.first }}"</p>
+    <p>float_string plus int "{{ "1.1" | plus: 2 }}"</p>
+    <p>int plus int_string "{{ 1 | plus: "2" }}"</p>
+
+    <h3>Boolean</h3>
+    {% assign my_true = true %}
+    {% assign my_false = false %}
+    <p>my_true "{{ my_true }}" my_false "{{ my_false }}"</p>
+
+    <h3>Nil</h3>
+    {% assign my_nil = nil %}
+    <p>my_nil "{{ my_nil }}" if my_nil "{% if my_nil %}true{% else %}false{% endif %}"</p>
+
+    <h3>Array</h3>
+    {% assign my_array = "An boy calm down end flying goal" | split: " " %}
+    <p>my_array "{{ my_array }}"</p>
+    <p>my_array.first "{{ my_array.first }}"</p>
+    <p>my_array.last "{{ my_array.last }}"</p>
+    <p>my_array.size "{{ my_array.size }}"</p>
+    <p>my_array[0] "{{ my_array[0] }}"</p>
+    <p>my_array[0] {% if my_array[0] == my_array.first %}=={% else %}!={% endif %} my_array.first</p>
+    <p>for elem in my_array</p>
+    <ul class="list-group">
+      {% for elem in my_array %}
+      <li class="list-group-item">{{ elem }}</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Object</h3>
+    {% assign my_object = site.data.object.all %}
+    <p>my_object.first "{{ my_object.first}}"</p>
+    <p>my_object.last "{{ my_object.last}}"</p>
+    <p>my_object.size "{{ my_object.size }}"</p>
+    <p>my_object[0] "{{ my_object[0] }}"</p>
+    <p>for elem in my_object</p>
+    <ul class="list-group">
+      {% for elem in my_object %}
+      <li class="list-group-item">
+        <span>my_object[elem.first] {% if my_object[elem.first] == elem.last %}=={% else %}!={% endif %} elem.last</span>
+        <span class="ml-5">{{ elem.first }}: {{ elem.last }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% include recursion.html data=my_object indent=0%}
+
+    <h3>Jekyll</h3>
+    <p>jekyll "{{ jekyll }}"</p>
+    <p>jekyll.environment "{{ jekyll.environment }}"</p>
+
+    <h3>Page</h3>
+    <p>
+      <span>for key in page:</span>
+      {% for key in page %}
+      <span>{{ key }},</span>
+      {% endfor %}
+    </p>
+
+    <h3>Site</h3>
+    <p>
+      <span>for key in site:</span>
+      {% for key in site %}
+      <span>{{ key }},</span>
+      {% endfor %}
+    </p>
+
+    <h3>Paginator</h3>
+    <p>paginator.first "{{ paginator.first }}"</p>
+    <p>paginator.last "{{ paginator.last }}"</p>
+    <p>paginator.size "{{ paginator.size }}"</p>
+    <p>
+      <span>for key in paginator:</span>
+      {% for key in paginator %}
+      <span>{{ key }},</span>
+      {% endfor %}
+    </p>
+
+  </div>
+</div>
+
+{{ '0 1 2 3 4 5 6 7 8 9' | split: ' ' | slice: 2, 100 | join: ', ' | prepend: '[' | append: ']' }}
+{{ page.path }}
+
+categories: {% assign categories = site.blogs | map: 'id' | uniq %}
+{%- for category in categories %}
+{{ category | remove_first: '/b/' | split: '/' | pop | join: '-' }}{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+
+url: {{ site.blogs | map: 'url' | uniq | join: ', ' }}
+
+id: {{ site.blogs | map: 'id' | uniq | join: ', ' }}
+
+relative_path: {{ site.blogs | map: 'relative_path' | uniq | join: ', ' }}
+
+path: {{ site.blogs | map: 'path' | uniq | join: ', ' }}
+
+collection: {{ site.blogs | map: 'collection' | uniq | join: ', ' }}
+
+categories: {{ site.blogs | map: 'categories' | uniq | join: ', ' }}
+
+layout: {{ site.blogs | map: 'layout' | uniq | join: ', ' }}
+
+title: {{ site.blogs | map: 'title' | uniq | join: ', ' }}
+
+date: {{ site.blogs | map: 'date' | uniq | join: ', ' }}
+
+tags: {{ site.blogs | map: 'tags' | uniq | join: ', ' }}
+
+slug: {{ site.blogs | map: 'slug' | uniq | join: ', ' }}
+
+ext: {{ site.blogs | map: 'ext' | uniq | join: ', ' }}
+
+<script>
+  $(function () {
+    window.vm = new Vue({
+      el: "#parameters",
+      data: {
+        width: 0,
+        height: 0,
+      },
+      methods: {
+        click() {
+          this.width = $(window).width();
+          this.height = $(window).height();
+        },
+      },
+      created() {
+        this.click();
+      },
+    });
+  });
+</script>

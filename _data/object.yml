@@ -1,0 +1,15 @@
+all:
+  a: 1
+  b: b1
+  c:
+    - a
+    - b
+  d:
+    key1: value1
+    key2: value2
+  e:
+    - 1
+    - name: hhh
+      value: kkk
+    - 3.0
+    - b

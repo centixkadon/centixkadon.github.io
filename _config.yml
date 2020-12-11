@@ -49,14 +49,7 @@ incremental: false # Enable the experimental incremental build feature # https:/
 profile: true # Generate a Liquid rendering profile to help you identify performance bottlenecks
 strict_front_matter: true # Cause a build to fail if there is a YAML syntax error in a page's front matter
 plugins: # https://help.github.com/en/articles/configuring-jekyll-plugins
-  - jekyll-avatar
-  - jekyll-feed
-  - jekyll-include-cache
-  - jekyll-mentions
-  - jekyll-redirect-from
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jemoji
+  - github-pages
 
 # ===== Serve Command Options =====
 port: 4000 # Listen on the given port
@@ -79,3 +72,7 @@ collections:
   navs:
     output: true
     permalink: /:title/
+paginate: 10
+paginate_path: "/posts/:num/"
+sass:
+  style: compressed
