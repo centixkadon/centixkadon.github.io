@@ -55,9 +55,23 @@ main h6,
   font-style: italic;
 }
 
-.user-select-none {
-  user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
+// Utilities
+
+$user-selects: all, auto, none !default;
+
+// Interactions
+
+@each $value in $user-selects {
+  .user-select-#{$value} { user-select: $value !important; }
+}
+
+// Spacing
+
+.my-vh,
+.mt-vh {
+  margin-top: calc(100vh) !important;
+}
+.my-vh,
+.mb-vh {
+  margin-bottom: calc(100vh) !important;
 }
