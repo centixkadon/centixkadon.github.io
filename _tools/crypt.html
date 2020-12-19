@@ -36,8 +36,8 @@ excerpt: ""
 
 <script>
   $(() => {
-    const localStorageKey = "tool_crypt";
-    const iolock = "io";
+    const storageKey = "tool_crypt";
+    const inputLock = Symbol("lock inputs");
 
     window.vm = new Vue({
       el: "#app",
@@ -51,12 +51,12 @@ excerpt: ""
         locked: true,
       },
       created() {
-        this.output = JSON.stringify(this.load(localStorageKey).output) || "";
+        this.output = JSON.stringify(this.load(storageKey).output) || "";
       },
 
       watch: {
         password() {
-          this.alock(iolock, async () => {
+          this.alock(inputLock, async () => {
             if (this.encrypt) {
               await this.encryptText();
             } else {
@@ -65,13 +65,13 @@ excerpt: ""
           });
         },
         input() {
-          this.alock(iolock, async () => {
+          this.alock(inputLock, async () => {
             await this.encryptText();
             this.encrypt = true;
           });
         },
         output() {
-          this.alock(iolock, async () => {
+          this.alock(inputLock, async () => {
             await this.decryptText();
             this.encrypt = false;
           });
@@ -106,7 +106,7 @@ excerpt: ""
             const encrypt = await this.aesGcmEncrypt(decrypt, this.password);
             this.output = JSON.stringify(encrypt);
 
-            this.store(localStorageKey, { output: encrypt });
+            this.store(storageKey, { output: encrypt });
           }
         },
 
@@ -119,6 +119,8 @@ excerpt: ""
               if (decrypt.input && decrypt.hash && decrypt.hash === await this.hash(decrypt.input)) {
                 this.input = decrypt.input;
                 this.password_status = true;
+
+                this.store(storageKey, { output: encrypt });
                 return;
               }
             } catch (error) { }
