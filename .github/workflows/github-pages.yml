@@ -51,7 +51,9 @@ jobs:
       - name: Git Clone
         env:
           github_pages_user: ${{ secrets.JEKYLL_GITHUB_PAGES }}
-        run: git clone --branch gh-pages --depth 1 https://${github_pages_user}@github.com/centixkadon/centixkadon.github.io.git
+        run: |
+          git clone --branch gh-pages --depth 1 https://${github_pages_user}@github.com/centixkadon/centixkadon.github.io.git _site
+          chmod 777 _site
 
       - name: Jekyll Build
         run: |
