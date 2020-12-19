@@ -61,20 +61,17 @@ jobs:
             ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
             ${{ runner.os }}-ruby-
 
-      - name: List Directories
-        run: ls -alF
-
       - name: Git Clone
         env:
           github_pages_user: ${{ secrets.JEKYLL_GITHUB_PAGES }}
         run: |
           git clone --branch gh-pages --depth 1 https://${github_pages_user}@github.com/centixkadon/centixkadon.github.io.git _site
-          chmod 777 _site
 
       - name: Jekyll Build
         run: |
           mkdir -p vendor/bundle
           chmod -R 777 vendor
+          chmod -R 777 _site
           docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=centixkadon/centixkadon.github.io bundle exec jekyll build --future"
 
       - name: Git Push
