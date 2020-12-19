@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: '0 5 * * *'
 
+env:
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_EVENT_NAME: ${{ github.event.pusher.name }}
+  GITHUB_EVENT_EMAIL: ${{ github.event.pusher.email }}
+
 jobs:
   github-pages:
     runs-on: ubuntu-latest
@@ -50,7 +55,9 @@ jobs:
 
       - name: Git Log
         id: git-log
-        run: echo "::set-output name=commit::$(git log --max-count=1 --pretty=%H%n%n%s)"
+        run: |
+          echo "::set-output name=commit-hash::$(git log --max-count=1 --pretty=%H)"
+          echo "::set-output name=commit-title::$(git log --max-count=1 --pretty=%s)"
 
       - name: Cache Ruby
         uses: actions/cache@v2
@@ -63,25 +70,30 @@ jobs:
 
       - name: Git Clone
         env:
-          github_pages_user: ${{ secrets.JEKYLL_GITHUB_PAGES }}
+          GITHUB_PAGES_USER: ${{ secrets.JEKYLL_GITHUB_PAGES }}
         run: |
-          git clone --branch gh-pages --depth 1 https://${github_pages_user}@github.com/centixkadon/centixkadon.github.io.git _site
+          git clone --branch gh-pages --depth 1 https://${GITHUB_PAGES_USER}@github.com/${GITHUB_REPOSITORY}.git _site
+          mkdir --parents empty
+          rsync --recursive --del --exclude .git empty/ _site
 
       - name: Jekyll Build
         run: |
-          mkdir -p vendor/bundle
-          chmod -R 777 vendor
-          chmod -R 777 _site
-          docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=centixkadon/centixkadon.github.io bundle exec jekyll build --future"
+          mkdir --parents vendor/bundle
+          chmod --recursive 777 vendor
+          chmod 777 _site
+          docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --future"
 
       - name: Git Push
         env:
-          commit: ${{ steps.git-log.outputs.commit }}
+          COMMIT_HASH: ${{ steps.git-log.outputs.commit-hash }}
+          COMMIT_TITLE: ${{ steps.git-log.outputs.commit-title }}
         run: |
           cd _site
-          git config --global user.name centixkadon
-          git config --global user.email centixkadon@gmail.com
+          git config --global user.name "${GITHUB_EVENT_NAME}"
+          git config --global user.email "${GITHUB_EVENT_EMAIL}"
           git add .
-          git commit --message "update: ${commit}"
+          git commit --message "update by ${COMMIT_HASH}
+
+          ${COMMIT_TITLE}"
           git push --force-with-lease
           cd -
