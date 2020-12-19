@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Debug | centixkadon</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Debug" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Debug" />
+<meta property="og:description" content="Debug" />
+<link rel="canonical" href="https://github.com/pages/centixkadon/debug/" />
+<meta property="og:url" content="https://github.com/pages/centixkadon/debug/" />
+<meta property="og:site_name" content="centixkadon" />
+<script type="application/ld+json">
+{"url":"https://github.com/pages/centixkadon/debug/","@type":"WebPage","headline":"Debug","description":"Debug","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin></script>
+  
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">C</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/posts/">Posts</a>
+      </li>
+      
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/tools/">Tools</a>
+      </li>
+      
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      
+      
+      
+      
+    </ul>
+  </nav>
+  <div class="container">
+    <main class="my-5">
+      <h1>Debug</h1>
+
+<div class="row">
+  <div class="col">
+    <h2>Browser</h2>
+    <h3>Parameters</h3>
+    
+    <div id="parameters">
+      <p>Window size: {{ width }} x {{ height }}</p>
+      <button class="btn btn-primary" v-on:click="click">Get Parameters</button>
+    </div>
+    
+
+    <h2>Types</h2>
+
+    <h3>String</h3>
+    
+    <p>my_string "Hello World!"</p>
+    <p>my_string.size "12"</p>
+    <p>my_string.first ""</p>
+
+    <h3>Number</h3>
+    
+    
+    <p>my_int "1"</p>
+    <p>my_int.size "8"</p>
+    <p>my_int.first ""</p>
+    <p>my_float "2.0"</p>
+    <p>my_float.size ""</p>
+    <p>my_float.first ""</p>
+    <p>float_string plus int "3.1"</p>
+    <p>int plus int_string "3"</p>
+
+    <h3>Boolean</h3>
+    
+    
+    <p>my_true "true" my_false "false"</p>
+
+    <h3>Nil</h3>
+    
+    <p>my_nil "" if my_nil "false"</p>
+
+    <h3>Array</h3>
+    
+    <p>my_array "Anboycalmdownendflyinggoal"</p>
+    <p>my_array.first "An"</p>
+    <p>my_array.last "goal"</p>
+    <p>my_array.size "7"</p>
+    <p>my_array[0] "An"</p>
+    <p>my_array[0] == my_array.first</p>
+    <p>for elem in my_array</p>
+    <ul class="list-group">
+      
+      <li class="list-group-item">An</li>
+      
+      <li class="list-group-item">boy</li>
+      
+      <li class="list-group-item">calm</li>
+      
+      <li class="list-group-item">down</li>
+      
+      <li class="list-group-item">end</li>
+      
+      <li class="list-group-item">flying</li>
+      
+      <li class="list-group-item">goal</li>
+      
+    </ul>
+
+    <h3>Object</h3>
+    
+    <p>my_object.first "a1"</p>
+    <p>my_object.last ""</p>
+    <p>my_object.size "5"</p>
+    <p>my_object[0] ""</p>
+    <p>for elem in my_object</p>
+    <ul class="list-group">
+      
+      <li class="list-group-item">
+        <span>my_object[elem.first] == elem.last</span>
+        <span class="ml-5">a: 1</span>
+      </li>
+      
+      <li class="list-group-item">
+        <span>my_object[elem.first] == elem.last</span>
+        <span class="ml-5">b: b1</span>
+      </li>
+      
+      <li class="list-group-item">
+        <span>my_object[elem.first] == elem.last</span>
+        <span class="ml-5">c: ab</span>
+      </li>
+      
+      <li class="list-group-item">
+        <span>my_object[elem.first] == elem.last</span>
+        <span class="ml-5">d: {"key1"=>"value1", "key2"=>"value2"}</span>
+      </li>
+      
+      <li class="list-group-item">
+        <span>my_object[elem.first] == elem.last</span>
+        <span class="ml-5">e: 1{"name"=>"hhh", "value"=>"kkk"}3.0b</span>
+      </li>
+      
+    </ul>
+    
+<div>
+  <span style="margin-right: 0rem"></span>
+  
+  
+  <span>[</span>
+  
+  <div>
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 1rem"></span>
+  
+  <span>a:</span>
+  
+  
+  <span>1,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 1rem"></span>
+  
+  <span>b:</span>
+  
+  
+  <span>b1,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 1rem"></span>
+  
+  <span>c:</span>
+  
+  
+  <span>[</span>
+  
+  <div>
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>a,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>b,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    <div>
+      <span style="margin-right: 1rem"></span>
+      <span>],</span>
+    </div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 1rem"></span>
+  
+  <span>d:</span>
+  
+  
+  <span>[</span>
+  
+  <div>
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  <span>key1:</span>
+  
+  
+  <span>value1,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  <span>key2:</span>
+  
+  
+  <span>value2,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    <div>
+      <span style="margin-right: 1rem"></span>
+      <span>],</span>
+    </div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 1rem"></span>
+  
+  <span>e:</span>
+  
+  
+  <span>[</span>
+  
+  <div>
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>1,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>[</span>
+  
+  <div>
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 3rem"></span>
+  
+  <span>name:</span>
+  
+  
+  <span>hhh,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 3rem"></span>
+  
+  <span>value:</span>
+  
+  
+  <span>kkk,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    <div>
+      <span style="margin-right: 2rem"></span>
+      <span>],</span>
+    </div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>3.0,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<div>
+  <span style="margin-right: 2rem"></span>
+  
+  
+  <span>b,</span>
+  
+  <div>
+    
+  </div>
+</div>
+
+    
+    
+    <div>
+      <span style="margin-right: 1rem"></span>
+      <span>],</span>
+    </div>
+    
+  </div>
+</div>
+
+    
+    
+    <div>
+      <span style="margin-right: 0rem"></span>
+      <span>],</span>
+    </div>
+    
+  </div>
+</div>
+
+
+    <h3>Jekyll</h3>
+    <p>jekyll "Jekyll::Drops::JekyllDrop"</p>
+    <p>jekyll.environment "production"</p>
+
+    <h3>Page</h3>
+    <p>
+      <span>for key in page:</span>
+      
+      <span>relative_path,</span>
+      
+      <span>url,</span>
+      
+      <span>id,</span>
+      
+      <span>excerpt,</span>
+      
+      <span>next,</span>
+      
+      <span>path,</span>
+      
+      <span>collection,</span>
+      
+      <span>content,</span>
+      
+      <span>output,</span>
+      
+      <span>previous,</span>
+      
+      <span>draft,</span>
+      
+      <span>categories,</span>
+      
+      <span>layout,</span>
+      
+      <span>title,</span>
+      
+      <span>unpublished,</span>
+      
+      <span>index,</span>
+      
+      <span>slug,</span>
+      
+      <span>ext,</span>
+      
+      <span>tags,</span>
+      
+    </p>
+
+    <h3>Site</h3>
+    <p>
+      <span>for key in site:</span>
+      
+      <span>data,</span>
+      
+      <span>static_files,</span>
+      
+      <span>categories,</span>
+      
+      <span>collections,</span>
+      
+      <span>pages,</span>
+      
+      <span>posts,</span>
+      
+      <span>html_pages,</span>
+      
+      <span>documents,</span>
+      
+      <span>tags,</span>
+      
+      <span>related_posts,</span>
+      
+      <span>time,</span>
+      
+      <span>config,</span>
+      
+      <span>source,</span>
+      
+      <span>destination,</span>
+      
+      <span>collections_dir,</span>
+      
+      <span>plugins_dir,</span>
+      
+      <span>layouts_dir,</span>
+      
+      <span>data_dir,</span>
+      
+      <span>includes_dir,</span>
+      
+      <span>safe,</span>
+      
+      <span>include,</span>
+      
+      <span>exclude,</span>
+      
+      <span>keep_files,</span>
+      
+      <span>encoding,</span>
+      
+      <span>markdown_ext,</span>
+      
+      <span>strict_front_matter,</span>
+      
+      <span>show_drafts,</span>
+      
+      <span>limit_posts,</span>
+      
+      <span>future,</span>
+      
+      <span>unpublished,</span>
+      
+      <span>whitelist,</span>
+      
+      <span>plugins,</span>
+      
+      <span>markdown,</span>
+      
+      <span>highlighter,</span>
+      
+      <span>lsi,</span>
+      
+      <span>excerpt_separator,</span>
+      
+      <span>incremental,</span>
+      
+      <span>detach,</span>
+      
+      <span>port,</span>
+      
+      <span>host,</span>
+      
+      <span>baseurl,</span>
+      
+      <span>show_dir_listing,</span>
+      
+      <span>permalink,</span>
+      
+      <span>paginate_path,</span>
+      
+      <span>timezone,</span>
+      
+      <span>quiet,</span>
+      
+      <span>verbose,</span>
+      
+      <span>defaults,</span>
+      
+      <span>liquid,</span>
+      
+      <span>rdiscount,</span>
+      
+      <span>redcarpet,</span>
+      
+      <span>kramdown,</span>
+      
+      <span>jailed,</span>
+      
+      <span>theme,</span>
+      
+      <span>sass,</span>
+      
+      <span>title,</span>
+      
+      <span>email,</span>
+      
+      <span>description,</span>
+      
+      <span>github_username,</span>
+      
+      <span>profile,</span>
+      
+      <span>paginate,</span>
+      
+      <span>serving,</span>
+      
+      <span>gist,</span>
+      
+      <span>github,</span>
+      
+      <span>url,</span>
+      
+    </p>
+
+    <h3>Paginator</h3>
+    <p>paginator.first ""</p>
+    <p>paginator.last ""</p>
+    <p>paginator.size ""</p>
+    <p>
+      <span>for key in paginator:</span>
+      
+    </p>
+
+  </div>
+</div>
+
+[2, 3, 4, 5, 6, 7, 8, 9]
+_navs/debug.html
+
+categories: 
+app-shadowsocks,
+markdown,
+markdown,
+app-v2ray
+
+url: /b/app/shadowsocks/client/, /b/markdown/test/, /b/markdown/syntax/, /b/app/v2ray/introduction/
+
+id: /b/app/shadowsocks/client, /b/markdown/test, /b/markdown/syntax, /b/app/v2ray/introduction
+
+relative_path: _blogs/app/shadowsocks/client.md, _blogs/markdown/test.md, _blogs/markdown/syntax.md, _blogs/app/v2ray/introduction.md
+
+path: _blogs/app/shadowsocks/client.md, _blogs/markdown/test.md, _blogs/markdown/syntax.md, _blogs/app/v2ray/introduction.md
+
+collection: blogs
+
+categories: 
+
+layout: blog
+
+title: Shadowsocks Client Setup Guide, Test Github Pages, Github Markdown Syntax, v2ray 使用简介
+
+date: 2018-10-15 15:00:00 +0800, 2018-10-24 21:00:00 +0800, 2018-10-24 22:00:00 +0800, 2019-08-23 00:00:00 +0800
+
+tags: 
+
+slug: client, test, syntax, introduction
+
+ext: .md
+
+<script>
+  $(function () {
+    window.vm = new Vue({
+      el: "#parameters",
+      data: {
+        width: 0,
+        height: 0,
+      },
+      methods: {
+        click() {
+          this.width = $(window).width();
+          this.height = $(window).height();
+        },
+      },
+      created() {
+        this.click();
+      },
+    });
+  });
+</script>
+    </main>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js" integrity="sha384-9MzmvphdUvLZJKasjD7VqYE4SqffhZDOwDTMyokP2tx+fjBo59ljvrlgUAaaME44" crossorigin></script>
+  
+  <script src="js/vue.js"></script>
+  
+</body>
+
+</html>

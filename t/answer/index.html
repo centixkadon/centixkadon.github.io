@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>求求你别问了 | centixkadon</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="求求你别问了" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Twenty four, student." />
+<meta property="og:description" content="Twenty four, student." />
+<link rel="canonical" href="https://github.com/pages/centixkadon/t/answer/" />
+<meta property="og:url" content="https://github.com/pages/centixkadon/t/answer/" />
+<meta property="og:site_name" content="centixkadon" />
+<script type="application/ld+json">
+{"url":"https://github.com/pages/centixkadon/t/answer/","@type":"WebPage","headline":"求求你别问了","description":"Twenty four, student.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin></script>
+  
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">C</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/posts/">Posts</a>
+      </li>
+      
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/tools/">Tools</a>
+      </li>
+      
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      
+      
+      
+      
+    </ul>
+  </nav>
+  <div class="container">
+    <main class="my-5">
+      <h1 class="mb-4">去哪找答案？</h1>
+
+<div id="app">
+  <div id="tip" class="mb-3" v-bind:class="{ 'd-none': !display.tip }">
+    <p>{{ word }}是什么？{{ word }}是什么意思出自哪里？如何使用{{ word }}？{{ word }}这个梗又是从何而来？为什么一下子就有好多人说起{{ word }}？</p>
+    <p>{{ word }}这个在很多的网站上面已经有很久的知名度了，甚至还收集了许多和{{ word }}有关的知识，不过还是很少人知道{{ word }}。</p>
+    <p>那么{{ word }}到底是什么呢？相信不少同学都很想了解{{ word }}，下面就让小编给大家带来{{ word }}的详细内容，我们一起了解一下{{ word }}。</p>
+    <p>好了，这就是小编给大家分享的{{ word }}是什么。事实就是如此，小编也非常奇怪。希望大家看完这篇由小编精心整理的内容后，能对{{ word }}的相关知识有所了解，解决你的困惑。</p>
+  </div>
+  <button id="tellme" class="btn btn-secondary mb-3" v-on:click="tellme" v-bind:class="{ active: active.tellme }">求求你告诉我！</button>
+  <div id="answer" v-bind:class="{ 'd-none': !display.answer }">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="这里填问题" v-model="input">
+      <button id="search" class="btn btn-primary ml-1" v-bind:class="{ active: active.search, 'd-none': !display.search }" v-on:click="search">搜索一下</button>
+    </div>
+    <div id="generate" v-bind:class="{ 'd-none': !display.generate }">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="这里找答案" v-model="output">
+      </div>
+      <button id="copy" class="btn btn-secondary mb-3" v-bind:class="{ 'd-none': !display.copy }">复制</button>
+      <button id="jump" class="btn btn-secondary mb-3" v-on:click="jump">去找答案</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/suffix.js"></script>
+<script>
+  $(function () {
+    const t = 40;
+    const [tInstant, tPause, tClick, tWait] = [t, t * 4, t * 8, t * 16];
+    window.vm = new Vue({
+      el: "#app",
+      data: {
+        active: {
+          tellme: false,
+          search: false,
+        },
+        display: {
+          tip: false,
+          answer: false,
+          search: false,
+          generate: false,
+          copy: false,
+        },
+        word: "",
+        input: "",
+      },
+      computed: {
+        search() {
+          return {
+            wd: this.input,
+          };
+        },
+        output() {
+          return location.origin + location.pathname + this.searchUrl;
+        },
+        searchUrl() {
+          const kvs = Object.entries(this.search).map(kv => kv.map(x => encodeURIComponent(x)).join("=")).join("&");
+          return kvs === "" ? "" : `?${kvs}`;
+        },
+      },
+      methods: {
+        async tellme() {
+          const word = this.word;
+          if (word === "") {
+            this.display.answer = true;
+            this.display.generate = true;
+          } else {
+            this.display.answer = true;
+
+            await this.timeout(tInstant);
+            this.input = "";
+            for (let s of word) {
+              await this.timeout(tPause);
+              this.input += s;
+            }
+
+            await this.timeout(tClick);
+            this.display.search = true;
+
+            await this.timeout(tWait);
+            this.active.search = true;
+            await this.timeout(tClick);
+            this.active.search = false;
+
+            await this.timeout(tInstant);
+            location.href = "https://www.baidu.com/s" + this.searchUrl;
+          }
+        },
+        jump() {
+          location.href = this.output;
+        },
+        timeout(timeout, ...values) {
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve(...values);
+            }, timeout);
+          });
+        },
+      },
+      async created() {
+        const kvs = location.search.slice(1).split("&").filter(x => x);
+        const search = Object.fromEntries(kvs.map(kv => kv.split("=").map(x => decodeURIComponent(x))));
+        const word = search.wd || this.input;
+        if (word !== "") {
+          const titleSuffix = titleSuffixs[Math.trunc(Math.random() * titleSuffixs.length)];
+          $("title").html(`${search.wd}（${titleSuffix}`);
+          this.display.tip = true;
+          this.word = word;
+        }
+
+        await this.timeout(tWait * 2);
+        this.active.tellme = true;
+        await this.timeout(tClick);
+        this.active.tellme = false;
+
+        await this.timeout(tInstant);
+        // await this.tellme();
+      },
+    });
+
+  });
+</script>
+
+
+    </main>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js" integrity="sha384-9MzmvphdUvLZJKasjD7VqYE4SqffhZDOwDTMyokP2tx+fjBo59ljvrlgUAaaME44" crossorigin></script>
+  
+  <script src="js/vue.js"></script>
+  
+</body>
+
+</html>
