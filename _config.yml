@@ -59,6 +59,11 @@ detach: false # Detach the server from the terminal
 show_dir_listing: false
 
 # ===== Where things are =====
+exclude:
+  - test
+  - vendor/bundle
+  - Gemfile
+  - Gemfile.lock
 includes_dir: _includes
 layouts_dir: _layouts
 data_dir: _data

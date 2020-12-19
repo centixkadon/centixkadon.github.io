@@ -1,0 +1,79 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    environment: github-pages
+
+    steps:
+      - name: Environment Linux
+        run: uname --all
+
+      - name: Environment Ubuntu
+        run: lsb_release --all
+
+      - name: Environment Ruby
+        run: ruby --version
+
+      - name: Environment Gem
+        run: gem --version
+
+      - name: Environment Bundle
+        run: |
+          gem install bundler
+          bundle --version
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Show Directory
+        run: pwd
+
+      - name: List Parent Directories
+        run: ls -alF ..
+
+      - name: Git Log
+        id: git-log
+        run: echo "::set-output name=commit::$(git log --max-count=1 --pretty=%s)"
+
+      - name: Cache Ruby
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-ruby-v${{ env.RUBY }}-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
+            ${{ runner.os }}-ruby-v${{ env.RUBY }}-
+
+      - name: List Directories
+        run: ls -alF ..
+
+      - name: Dependency Bundle
+        run: bundle install --jobs=4 --retry=3 --clean
+
+      - name: Git Clone
+        env:
+          github_pages_user: ${{ secrets.JEKYLL_GITHUB_PAGES }}
+        run: git clone --branch gh-pages --depth 1 https://${github_pages_user}@github.com:centixkadon/centixkadon.github.io.git ../github-pages
+
+      - name: Jekyll Build
+        run: bundle exec jekyll build --future --destination ../github-pages
+
+      - name: Git push
+        env:
+          commit: ${{ steps.git-log.outputs.commit }}
+        run: |
+          cd ../github-pages
+          git add .
+          git commit -m "update for ${commit}"
+          git push --force-with-lease
+          cd -
