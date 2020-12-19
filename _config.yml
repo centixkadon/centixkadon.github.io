@@ -29,6 +29,7 @@ destination: ./_site # Change the directory where Jekyll will write files
 exclude: # Exclude directories and/or files from the conversion
   - Gemfile
   - Gemfile.lock
+  - vendor/bundle
   - node_modules
   - test
 include: # Force inclusion of directories and/or files in the conversion
@@ -59,11 +60,6 @@ detach: false # Detach the server from the terminal
 show_dir_listing: false
 
 # ===== Where things are =====
-exclude:
-  - test
-  - vendor/bundle
-  - Gemfile
-  - Gemfile.lock
 includes_dir: _includes
 layouts_dir: _layouts
 data_dir: _data
