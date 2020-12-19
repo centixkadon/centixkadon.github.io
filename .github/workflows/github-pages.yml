@@ -15,14 +15,13 @@ jobs:
     environment: github-pages
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Show Directory
         run: pwd
 
-      - name: List Parent Directories
-        run: ls -alF ..
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # /home/runner/work/centixkadon.github.io/centixkadon.github.io
 
       - name: Environment Linux
         run: uname --all
@@ -43,8 +42,11 @@ jobs:
           path: vendor/bundle
           key: ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-ruby-v${{ env.RUBY }}-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
-            ${{ runner.os }}-ruby-v${{ env.RUBY }}-
+            ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
+            ${{ runner.os }}-ruby-
+
+      - name: List Directories
+        run: ls -alF
 
       - name: Git Clone
         env:
@@ -53,6 +55,8 @@ jobs:
 
       - name: Jekyll Build
         run: |
+          mkdir -p vendor/bundle
+          chmod -R 777 vendor
           docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle install --jobs=4 --retry=3 --clean && PAGES_REPO_NWO=centixkadon/centixkadon.github.io bundle exec jekyll build --future"
 
       - name: Git push
