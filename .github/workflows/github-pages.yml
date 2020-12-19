@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+  schedule:
+    - cron: '0 5 * * *'
+
 jobs:
   github-pages:
     runs-on: ubuntu-latest
@@ -17,8 +20,21 @@ jobs:
     steps:
       # /home/runner/work/centixkadon.github.io/centixkadon.github.io
 
-      - name: Show Directory
-        run: pwd
+      - name: Dump Context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          JOB_CONTEXT: ${{ toJson(job) }}
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: |
+          echo ${GITHUB_CONTEXT}
+          echo ${JOB_CONTEXT}
+          echo ${STEPS_CONTEXT}
+          echo ${RUNNER_CONTEXT}
+          echo ${STRATEGY_CONTEXT}
+          echo ${MATRIX_CONTEXT}
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -34,7 +50,7 @@ jobs:
 
       - name: Git Log
         id: git-log
-        run: echo "::set-output name=commit::$(git log --max-count=1 --pretty=%s)"
+        run: echo "::set-output name=commit::$(git log --max-count=1 --pretty=%H%n%n%s)"
 
       - name: Cache Ruby
         uses: actions/cache@v2
@@ -59,9 +75,9 @@ jobs:
         run: |
           mkdir -p vendor/bundle
           chmod -R 777 vendor
-          docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle install --jobs=4 --retry=3 --clean && PAGES_REPO_NWO=centixkadon/centixkadon.github.io bundle exec jekyll build --future"
+          docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=centixkadon/centixkadon.github.io bundle exec jekyll build --future"
 
-      - name: Git push
+      - name: Git Push
         env:
           commit: ${{ steps.git-log.outputs.commit }}
         run: |
@@ -69,6 +85,6 @@ jobs:
           git config --global user.name centixkadon
           git config --global user.email centixkadon@gmail.com
           git add .
-          git commit --message "update for ${commit}"
+          git commit --message "update: ${commit}"
           git push --force-with-lease
           cd -
