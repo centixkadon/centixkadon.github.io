@@ -10,7 +10,8 @@ on:
       - master
 
   schedule:
-    - cron: '0 5 * * *'
+    # 05:00 +0800
+    - cron: '0 21 * * *'
 
 env:
   GITHUB_REPOSITORY: ${{ github.repository }}
@@ -87,6 +88,7 @@ jobs:
             ${{ runner.os }}-ruby-v${{ steps.ruby.outputs.version }}-
 
       - name: Git Clone
+        if: ${{ github.event_name != 'schedule' }}
         env:
           GITHUB_PAGES_USER: ${{ secrets.JEKYLL_GITHUB_PAGES }}
         run: |
@@ -95,6 +97,7 @@ jobs:
           rsync --recursive --del --exclude .git empty/ _site
 
       - name: Jekyll Build
+        if: ${{ github.event_name != 'schedule' }}
         run: |
           mkdir --parents vendor/bundle
           chmod --recursive 777 vendor
@@ -102,6 +105,7 @@ jobs:
           docker run --volume ${GITHUB_WORKSPACE}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --future"
 
       - name: Git Push
+        if: ${{ github.event_name != 'schedule' }}
         env:
           COMMIT_HASH: ${{ steps.git-log.outputs.commit-hash }}
           COMMIT_TITLE: ${{ steps.git-log.outputs.commit-title }}
@@ -114,6 +118,3 @@ jobs:
 
           ${COMMIT_TITLE}" || echo nothing to commit
           git push --force-with-lease
-
-      - name: Show Directory
-        run: pwd
