@@ -1,8 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "github-pages", :group => :jekyll_plugins
-
-group :jekyll_plugins do
-  gem "ffi", "1.13.1"
-end
+gem "jekyll", "~>4"
+gem "ffi", "1.13.1"
+gem "jekyll-seo-tag"
+gem "jekyll-paginate"

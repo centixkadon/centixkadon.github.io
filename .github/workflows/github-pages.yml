@@ -100,9 +100,10 @@ jobs:
         if: ${{ github.event_name != 'schedule' }}
         run: |
           mkdir --parents vendor/bundle
-          chmod --recursive 777 vendor
+          chmod --recursive 777 vendor/bundle
+          chmod 777 .
           chmod 777 _site
-          docker run --volume ${GITHUB_WORKSPACE}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --future"
+          docker run --volume ${GITHUB_WORKSPACE}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --trace --future"
 
       - name: Git Push
         if: ${{ github.event_name != 'schedule' }}

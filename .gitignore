@@ -2,10 +2,16 @@
 /javascript
 /test
 
-# bundle
-.bundle
-vendor/bundle
-
 # jekyll
 _site
-.sass-cache
+
+.sass-cache/
+.jekyll-cache/
+gemfiles/
+Gemfile
+Gemfile.lock
+node_modules/
+vendor/bundle/
+vendor/cache/
+vendor/gems/
+vendor/ruby/
