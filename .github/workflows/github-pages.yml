@@ -1,3 +1,4 @@
+
 name: Github Pages
 
 on:
@@ -15,6 +16,11 @@ env:
   GITHUB_REPOSITORY: ${{ github.repository }}
   GITHUB_EVENT_NAME: ${{ github.event.pusher.name }}
   GITHUB_EVENT_EMAIL: ${{ github.event.pusher.email }}
+  GITHUB_WORKSPACE: ${{ github.workspace }}
+
+# directory /home/runner/work/centixkadon.github.io/centixkadon.github.io
+# bash_account runner.docker
+# docker_account runneradmin.runneradmin
 
 jobs:
   github-pages:
@@ -23,8 +29,6 @@ jobs:
     environment: github-pages
 
     steps:
-      # /home/runner/work/centixkadon.github.io/centixkadon.github.io
-
       - name: Dump Context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -34,15 +38,15 @@ jobs:
           STRATEGY_CONTEXT: ${{ toJson(strategy) }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: |
-          echo ${GITHUB_CONTEXT}
-          echo ${JOB_CONTEXT}
-          echo ${STEPS_CONTEXT}
-          echo ${RUNNER_CONTEXT}
-          echo ${STRATEGY_CONTEXT}
-          echo ${MATRIX_CONTEXT}
+          echo github ${GITHUB_CONTEXT}
+          echo job ${JOB_CONTEXT}
+          echo steps ${STEPS_CONTEXT}
+          echo runner ${RUNNER_CONTEXT}
+          echo strategy ${STRATEGY_CONTEXT}
+          echo matrix ${MATRIX_CONTEXT}
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Environment Bash
+        run: bash --version
 
       - name: Environment Linux
         run: uname --all
@@ -50,12 +54,26 @@ jobs:
       - name: Environment Ubuntu
         run: lsb_release --all
 
+      - name: Environment Git
+        run: git --version
+
+      - name: Environment Ruby
+        id: ruby
+        run: |
+          ruby --version
+          echo "::set-output name=version::$(ruby <<< puts\ RUBY_VERSION)"
+
       - name: Environment Docker
         run: docker --version
+
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Git Log
         id: git-log
         run: |
+          echo commit-hash "$(git log --max-count=1 --pretty=%H)"
+          echo commit-title "$(git log --max-count=1 --pretty=%s)"
           echo "::set-output name=commit-hash::$(git log --max-count=1 --pretty=%H)"
           echo "::set-output name=commit-title::$(git log --max-count=1 --pretty=%s)"
 
@@ -63,10 +81,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
+          key: ${{ runner.os }}-ruby-v${{ steps.ruby.outputs.version }}-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-ruby-${{ hashFiles('Gemfile') }}-${{ hashFiles('Gemfile.lock') }}
-            ${{ runner.os }}-ruby-
+            ${{ runner.os }}-ruby-v${{ steps.ruby.outputs.version }}-${{ hashFiles('Gemfile.lock') }}
+            ${{ runner.os }}-ruby-v${{ steps.ruby.outputs.version }}-
 
       - name: Git Clone
         env:
@@ -81,7 +99,7 @@ jobs:
           mkdir --parents vendor/bundle
           chmod --recursive 777 vendor
           chmod 777 _site
-          docker run --volume $(pwd):/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --future"
+          docker run --volume ${GITHUB_WORKSPACE}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --future"
 
       - name: Git Push
         env:
@@ -94,6 +112,8 @@ jobs:
           git add .
           git commit --message "update by ${COMMIT_HASH}
 
-          ${COMMIT_TITLE}"
+          ${COMMIT_TITLE}" || echo nothing to commit
           git push --force-with-lease
-          cd -
+
+      - name: Show Directory
+        run: pwd
