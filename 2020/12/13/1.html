@@ -29,39 +29,58 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <a class="navbar-brand" href="/">C</a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/posts/">Posts</a>
-      </li>
-      
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/tools/">Tools</a>
-      </li>
-      
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/about/">About</a>
-      </li>
-      
-      
-      
-      
-    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/posts/">Posts</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/tools/">Tools</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">About</a>
+        </li>
+        
+        
+        
+        
+      </ul>
+    </div>
   </nav>
-  <div class="container">
-    <main class="my-5">
-      <h1>思想的变化</h1>
-<p>老婆的思想是会变的，我的思想也是会变的。而我不变的是：</p>
+  <div class="container-fluid">
+    <main>
+      <div class="row">
+  <div class="col">
+    <h1 id="思想的变化">思想的变化</h1>
+    <p>老婆的思想是会变的，我的思想也是会变的。而我不变的是：</p>
 
 <p>我听老婆的。</p>
 
+  </div>
+</div>
     </main>
   </div>
+
+  <script>
+    $(function () {
+      $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
+      $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
+      $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
+      $('main h3, main .h3').addClass("mt-4 mb-4");
+      $('main h4, main .h4').addClass("mt-4 mb-4");
+    });
+  </script>
 
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>

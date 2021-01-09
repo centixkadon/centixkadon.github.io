@@ -29,34 +29,41 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <a class="navbar-brand" href="/">C</a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/posts/">Posts</a>
-      </li>
-      
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/tools/">Tools</a>
-      </li>
-      
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/about/">About</a>
-      </li>
-      
-      
-      
-      
-    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/posts/">Posts</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/tools/">Tools</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/about/">About</a>
+        </li>
+        
+        
+        
+        
+      </ul>
+    </div>
   </nav>
-  <div class="container">
-    <main class="my-5">
-      <h1 id="记一次全程网办南京户口迁移">记一次全程网办南京户口迁移</h1>
-<p>一开始只是不想自己回南京办户口迁移，没想到竟然会发生这样的事……</p>
+  <div class="container-fluid">
+    <main>
+      <div class="row">
+  <div class="col">
+    <h1 id="记一次全程网办南京户口迁移">记一次全程网办南京户口迁移</h1>
+    <p>一开始只是不想自己回南京办户口迁移，没想到竟然会发生这样的事……</p>
 
 <h2 id="太长不看">太长不看</h2>
 
@@ -259,8 +266,20 @@
 <p>最后呢，有一个原则，就是户口迁移全靠准迁证这张绿纸，所有要填的信息全围绕这张纸展开就不会错。
 祝你们好运，用系统时不抛异常😏</p>
 
+  </div>
+</div>
     </main>
   </div>
+
+  <script>
+    $(function () {
+      $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
+      $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
+      $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
+      $('main h3, main .h3').addClass("mt-4 mb-4");
+      $('main h4, main .h4').addClass("mt-4 mb-4");
+    });
+  </script>
 
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
