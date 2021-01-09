@@ -14,11 +14,11 @@
 <meta property="og:description" content="Debug" />
 <meta property="og:site_name" content="centixkadon" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-12-20T23:16:25+08:00" />
+<meta property="article:published_time" content="2021-01-09T17:45:50+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Debug" />
 <script type="application/ld+json">
-{"headline":"Debug","url":"/debug/","dateModified":"2020-12-20T23:16:25+08:00","datePublished":"2020-12-20T23:16:25+08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/debug/"},"description":"Debug","@context":"https://schema.org"}</script>
+{"url":"/debug/","headline":"Debug","dateModified":"2021-01-09T17:45:50+08:00","datePublished":"2021-01-09T17:45:50+08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/debug/"},"description":"Debug","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -55,16 +55,24 @@
   </nav>
   <div class="container">
     <main class="my-5">
-      <h1>Debug</h1>
-
-<div class="row">
+      <div class="row">
   <div class="col">
+    <h1>Debug</h1>
+
     <h2>Browser</h2>
     <h3>Parameters</h3>
     
     <div id="parameters">
-      <p>Window size: {{ width }} x {{ height }}</p>
       <button class="btn btn-primary" v-on:click="click">Get Parameters</button>
+      <p>window: {</p>
+      <p v-for="(value, key) in window"><span class="ml-4"></span>{{ key }}: {{ value }},</p>
+      <p>}</p>
+      <p>screen: {</p>
+      <p v-for="(value, key) in screen"><span class="ml-4"></span>{{ key }}: {{ value }},</p>
+      <p>}</p>
+      <p>jquery window: {</p>
+      <p v-for="(value, key) in jqueryWindow"><span class="ml-4"></span>{{ key }}: {{ value }},</p>
+      <p>}</p>
     </div>
     
 
@@ -684,17 +692,61 @@ ext: .md
     window.vm = new Vue({
       el: "#parameters",
       data: {
-        width: 0,
-        height: 0,
+        window: {
+          outerWidth: 0,
+          outerHeight: 0,
+          innerWidth: 0,
+          innerHeight: 0,
+          devicePixelRatio: 0,
+          scrollX: 0,
+          scrollY: 0,
+          screenLeft: 0,
+          screenTop: 0,
+        },
+        screen: {
+          width: 0,
+          height: 0,
+          availWidth: 0,
+          availHeight: 0,
+          colorDepth: 0,
+          pixelDepth: 0,
+        },
+        jqueryWindow: {
+          width: 0,
+          height: 0,
+          outerWidth: 0,
+          outerHeight: 0,
+          innerWidth: 0,
+          innerHeight: 0,
+          scrollLeft: 0,
+          scrollTop: 0,
+        },
       },
       methods: {
         click() {
-          this.width = $(window).width();
-          this.height = $(window).height();
+          for (const key in this.window) {
+            this.window[key] = window[key];
+          }
+
+          for (const key in this.screen) {
+            this.screen[key] = screen[key];
+          }
+
+          for (const key in this.jqueryWindow) {
+            this.jqueryWindow[key] = $(window)[key]();
+          }
+
         },
       },
       created() {
-        this.click();
+        const interval = setInterval(() => {
+          try {
+            this.click();
+          } catch (e) {
+            clearInterval(interval);
+            throw e;
+          }
+        });
       },
     });
   });
