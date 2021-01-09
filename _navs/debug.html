@@ -7,7 +7,17 @@ index: 99
 
 <div class="row">
   <div class="col">
-    <h1>{{ page.title }}</h1>
+    <h1 id="{{ page.title }}">{{ page.title }}</h1>
+
+    <h2>Width</h2>
+    <div>
+      width (px):
+      <span class="d-inline d-sm-none">[0, 576)</span>
+      <span class="d-none d-sm-inline d-md-none">sm [576, 768)</span>
+      <span class="d-none d-md-inline d-lg-none">md [768, 992)</span>
+      <span class="d-none d-lg-inline d-xl-none">lg [992, 1200)</span>
+      <span class="d-none d-xl-inline">xl [1200, +∞)</span>
+    </div>
 
     <h2>Browser</h2>
     <h3>Parameters</h3>
