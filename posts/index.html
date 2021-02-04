@@ -9,16 +9,12 @@ title: Posts
     {% for post in paginator.posts %}
     <div class="card my-3">
       <div class="card-header d-flex justify-content-between user-select-none">
-        <div>
-          <a class="link" href="{{ post.url }}">{{ post.title }}</a>
-        </div>
-        <div>
-          <span class="ml-5 text-muted">{{ post.date | date: '%b %-d, %Y' }}</span>
-        </div>
+        <a class="link" href="{{ post.url }}">{{ post.title }}</a>
       </div>
       <div class="card-body">
         <div class="card-text">
-          <p>{{ post.excerpt }}</p>
+          <p class="text-right text-muted">{{ post.date | date: '%Y-%m-%d' }}</p>
+          {{ post.excerpt }}
         </div>
       </div>
     </div>

@@ -7,18 +7,13 @@ title: centixkadon
 {% assign blogs = site.blogs | sort: 'date' | reverse %}
 {% for blog in blogs %}
 <div class="card my-3">
-  <div class="card-header d-flex justify-content-between user-select-none">
-    <div>
-      <a class="link" href="{{ blog.url }}">{{ blog.title }}</a>
-    </div>
-    <div>
-      <span class="mr-2">{{ blog.id | remove_first: '/b/' | split: '/' | pop | join: ' - ' }}</span>
-      <span class="ml-5 text-muted">{{ blog.date | date: '%b %-d, %Y' }}</span>
-    </div>
+  <div class="card-header user-select-none">
+    <a class="link" href="{{ blog.url }}">{{ blog.title }}</a>
   </div>
   <div class="card-body">
     <div class="card-text">
-      <p>{{ blog.excerpt }}</p>
+      <p class="text-right text-muted">{{ blog.date | date: '%Y-%m-%d' }}</p>
+      {{ blog.excerpt }}
     </div>
   </div>
 </div>
