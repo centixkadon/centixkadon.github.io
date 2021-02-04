@@ -31,20 +31,13 @@ jobs:
 
     steps:
       - name: Dump Context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-          JOB_CONTEXT: ${{ toJson(job) }}
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: |
-          echo github ${GITHUB_CONTEXT}
-          echo job ${JOB_CONTEXT}
-          echo steps ${STEPS_CONTEXT}
-          echo runner ${RUNNER_CONTEXT}
-          echo strategy ${STRATEGY_CONTEXT}
-          echo matrix ${MATRIX_CONTEXT}
+          echo github "${{ toJson(github) }}"
+          echo job "${{ toJson(job) }}"
+          echo steps "${{ toJson(steps) }}"
+          echo runner "${{ toJson(runner) }}"
+          echo strategy "${{ toJson(strategy) }}"
+          echo matrix "${{ toJson(matrix) }}"
 
       - name: Environment Bash
         run: bash --version
@@ -89,21 +82,21 @@ jobs:
 
       - name: Git Clone
         if: ${{ github.event_name != 'schedule' }}
-        env:
-          GITHUB_PAGES_USER: ${{ secrets.JEKYLL_GITHUB_PAGES }}
         run: |
-          git clone --branch gh-pages --depth 1 https://${GITHUB_PAGES_USER}@github.com/${GITHUB_REPOSITORY}.git _site
-          mkdir --parents empty
-          rsync --recursive --del --exclude .git empty/ _site
+          git clone --branch gh-pages --depth 1 https://${{ secrets.JEKYLL_GITHUB_PAGES }}@github.com/${{ github.repository }}.git ${{ github.workspace }}/_site
+          mkdir --parents ${{ github.workspace }}/empty
+          rsync --recursive --del --exclude .git ${{ github.workspace }}/empty/ ${{ github.workspace }}/_site
+          mkdir --parents ${{ github.workspace }}/vendor/bundle
+          chmod --recursive 777 ${{ github.workspace }}/vendor/bundle
+          chmod 777 ${{ github.workspace }}
+          chmod 777 ${{ github.workspace }}/Gemfile.lock
+          chmod 777 ${{ github.workspace }}/_site
 
       - name: Jekyll Build
         if: ${{ github.event_name != 'schedule' }}
         run: |
-          mkdir --parents vendor/bundle
-          chmod --recursive 777 vendor/bundle
-          chmod 777 .
-          chmod 777 _site
-          docker run --volume ${GITHUB_WORKSPACE}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${GITHUB_REPOSITORY} bundle exec jekyll build --trace --future"
+          tree -lpugFL 3 ..
+          docker run --volume ${{ github.workspace }}:/srv/jekyll jekyll/builder:latest /bin/bash -c "bundle config set path vendor/bundle && bundle config set clean true && bundle install --jobs=4 --retry=3 && PAGES_REPO_NWO=${{ github.repository }} bundle exec jekyll build --trace --future"
 
       - name: Git Push
         if: ${{ github.event_name != 'schedule' }}
@@ -111,7 +104,7 @@ jobs:
           COMMIT_HASH: ${{ steps.git-log.outputs.commit-hash }}
           COMMIT_TITLE: ${{ steps.git-log.outputs.commit-title }}
         run: |
-          cd _site
+          cd ${{ github.workspace }}/_site
           git config --global user.name "${GITHUB_EVENT_NAME}"
           git config --global user.email "${GITHUB_EVENT_EMAIL}"
           git add .
