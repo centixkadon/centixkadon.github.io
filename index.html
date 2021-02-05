@@ -20,44 +20,47 @@
 <!-- End Jekyll SEO tag -->
 
   
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin></script>
   
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand" href="/">C</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/posts/">Posts</a>
-        </li>
-        
-        
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/tools/">Tools</a>
-        </li>
-        
-        
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/about/">About</a>
-        </li>
-        
-        
-        
-        
-      </ul>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <main>
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <a class="navbar-brand" href="/">C</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/">Posts</a>
+          </li>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tools/">Tools</a>
+          </li>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+          
+          
+          
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container-fluid">
       <h1>centixkadon</h1>
 
 
@@ -113,24 +116,173 @@
   </div>
 </div>
 
-    </main>
-  </div>
-
-  <script>
-    $(function () {
-      $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
-      $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
-      $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
-      $('main h3, main .h3').addClass("mt-4 mb-4");
-      $('main h4, main .h4').addClass("mt-4 mb-4");
-    });
-  </script>
+    </div>
+  </main>
+  
+  <footer class="fixed-bottom">
+    <div class="container-fluid">
+      <div class="row justify-content-end">
+        <div class="col d-flex">
+          <div class="ml-auto py-3">
+            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up" v-on:click="scrollTop"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
 
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js" integrity="sha384-9MzmvphdUvLZJKasjD7VqYE4SqffhZDOwDTMyokP2tx+fjBo59ljvrlgUAaaME44" crossorigin></script>
   
-  <script src="js/vue.js"></script>
+  
+<script>
+  $(function () {
+    $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
+    $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
+    $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
+    $('main h3, main .h3').addClass("mt-4 mb-4");
+    $('main h4, main .h4').addClass("mt-4 mb-4");
+
+    const locks = {};
+
+    Vue.mixin({
+      methods: {
+        random() {
+          const b = Math.pow(0.5, 32);
+          const array = crypto.getRandomValues(new Uint32Array(4));
+          return Array.from(array).reduce((n, x) => (n + x) * b, 0);
+        },
+
+        // code
+        arrayFromString(string) {
+          return new TextEncoder().encode(string);
+        },
+        arrayToString(array) {
+          return new TextDecoder().decode(array);
+        },
+        hexFromString(string) {
+          return new Uint8Array(string.match(/[\da-fA-F]{1,2}/g).map(x => parseInt(x, 16)));
+        },
+        hexToString(array) {
+          return Array.from(array).map(x => x.toString(16).padStart(2, '0')).join('');
+        },
+        base64FromString(string) {
+          return Uint8Array.from(atob(string), c => c.charCodeAt(0));
+        },
+        base64ToString(array) {
+          return btoa(String.fromCharCode(...new Uint8Array(array)));
+        },
+        base64urlFromString(string) {
+          return this.base64FromString(string.replace(/-/g, "+").replace(/_/g, "/"));
+        },
+        base64urlToString(array) {
+          return this.base64ToString(array).replace(/\+/g, "-").replace(/\//g, "_").replace("=", "");
+        },
+        base64Encode(string) {
+          return this.base64ToString(this.arrayFromString(string));
+        },
+        base64Decode(string) {
+          return this.arrayToString(this.base64FromString(string));
+        },
+
+        // digest
+        async digest(message, algorithm) {
+          return new Uint8Array(await crypto.subtle.digest(algorithm, this.arrayFromString(message)));
+        },
+        async sha1(message) {
+          return await this.digest(message, "SHA-1");
+        },
+        async sha256(message) {
+          return await this.digest(message, "SHA-256");
+        },
+        async sha384(message) {
+          return await this.digest(message, "SHA-384");
+        },
+        async sha512(message) {
+          return await this.digest(message, "SHA-512");
+        },
+
+        // crypt
+        async aesGcmKey(password) {
+          const hashArray = (await this.sha512(password)).slice(0, 32);
+          const jwk = {
+            k: this.base64urlToString(hashArray),
+            kty: ""
+          };
+          return await crypto.subtle.importKey("jwk", jwk, { name: "AES-GCM" }, true, ["encrypt", "decrypt"]);
+        },
+        async aesGcmEncrypt(message, password) {
+          const ivArray = crypto.getRandomValues(new Uint8Array(12));
+          const algorithm = { name: "AES-GCM", iv: ivArray };
+          const key = await this.aesGcmKey(password);
+          const decryptArray = this.arrayFromString(message);
+          const encryptArray = await crypto.subtle.encrypt(algorithm, key, decryptArray);
+          return {
+            data: this.base64ToString(encryptArray),
+            iv: this.hexToString(ivArray)
+          };
+        },
+        async aesGcmDecrypt({ data: data, iv: iv }, password) {
+          const ivArray = this.hexFromString(iv);
+          const algorithm = { name: "AES-GCM", iv: ivArray };
+          const key = await this.aesGcmKey(password);
+          const encryptArray = this.base64FromString(data);
+          const decryptArray = await crypto.subtle.decrypt(algorithm, key, encryptArray);
+          return this.arrayToString(decryptArray);
+        },
+
+        // lock
+        lock(key, func) {
+          if (!locks[key]) {
+            locks[key] = true;
+            func.apply(this);
+            vm.$nextTick(() => {
+              locks[key] = false;
+            });
+          }
+        },
+        async alock(key, afunc) {
+          if (!locks[key]) {
+            locks[key] = true;
+            await afunc.apply(this);
+            vm.$nextTick(() => {
+              locks[key] = false;
+            });
+          }
+        },
+
+        // load, store
+        load(key, defaultJson) {
+          defaultJson = defaultJson || "{}";
+          return JSON.parse(localStorage.getItem(key) || defaultJson);
+        },
+        store(key, json) {
+          if (json == undefined) {
+            localStorage.removeItem(key);
+          } else {
+            localStorage.setItem(key, JSON.stringify(json));
+          }
+        },
+      }
+    });
+
+    window.vm = new Vue({
+      el: "footer",
+      data: {
+        test: "hello",
+      },
+      methods: {
+        scrollTop() {
+          $('html').animate({ scrollTop: 0 })
+        }
+      },
+    })
+
+  });
+</script>
+
   
 </body>
 
