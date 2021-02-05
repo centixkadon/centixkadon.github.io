@@ -26,7 +26,7 @@ def main():
 
     _, fileext = os.path.splitext(filepath)
     if fileext == ".js":
-      print(f'<script src="{url}" integrity="sha384-{encode}" crossorigin="anonymous"></script>')
+      print(f'<script src="{url}" integrity="sha384-{encode}" crossorigin></script>')
     elif fileext == ".css":
       print(f'<link rel="stylesheet" href="{url}" integrity="sha384-{encode}" crossorigin>')
     else:

@@ -7,52 +7,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   {% seo %}
   {% if jekyll.environment == "production" %}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin></script>
   {% else %}
   <link rel="stylesheet" href="javascript/bootstrap4/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
   <script src="javascript/jquery/jquery.js"></script>
   {% endif %}
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand" href="/">C</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link{% if page.url == '/posts/' %} active{% endif %}" href="/posts/">Posts</a>
-        </li>
-        {% assign navs = site.navs | sort: 'index' %}
-        {% for nav in navs %}
-        {% if site.unpublished or nav.unpublished == nil %}
-        <li class="nav-item">
-          <a class="nav-link{% if page.url == nav.url %} active{% endif %}" href="{{ nav.url }}">{{ nav.title }}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <main>
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <a class="navbar-brand" href="/">C</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link{% if page.url == '/posts/' %} active{% endif %}" href="/posts/">Posts</a>
+          </li>
+          {% assign navs = site.navs | sort: 'index' %}
+          {% for nav in navs %}
+          {% if site.unpublished or nav.unpublished == nil %}
+          <li class="nav-item">
+            <a class="nav-link{% if page.url == nav.url %} active{% endif %}" href="{{ nav.url }}">{{ nav.title }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container-fluid">
       {{ content }}
-    </main>
-  </div>
-
-  <script>
-    $(function () {
-      $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
-      $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
-      $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
-      $('main h3, main .h3').addClass("mt-4 mb-4");
-      $('main h4, main .h4').addClass("mt-4 mb-4");
-    });
-  </script>
+    </div>
+  </main>
+  {% raw %}
+  <footer class="fixed-bottom">
+    <div class="container-fluid">
+      <div class="row justify-content-end">
+        <div class="col d-flex">
+          <div class="ml-auto py-3">
+            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up" v-on:click="scrollTop"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% endraw %}
 
   {% if jekyll.environment == "production" %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
@@ -61,7 +68,7 @@
   <script src="javascript/bootstrap4/js/bootstrap.bundle.js"></script>
   <script src="javascript/vue/vue.js"></script>
   {% endif %}
-  <script src="js/vue.js"></script>
+  {% include script.html %}
   {% for script in page.scripts %}
   <script src="{{ script }}"></script>
   {% endfor %}
