@@ -318,14 +318,24 @@ Python3 也能在微软应用商店装，没想到吧，本来有了 WSL 写写�
       }
     });
 
-    window.vm = new Vue({
+    new Vue({
       el: "footer",
       data: {
-        test: "hello",
+        scroll: true,
       },
       methods: {
         scrollTop() {
-          $('html').animate({ scrollTop: 0 })
+          const vm = this;
+          if (vm.scroll) {
+            for (const selector of ['html', 'body']) {
+              if ($(selector).scrollTop() !== 0) {
+                vm.scroll = false;
+                $(selector).animate({ scrollTop: 0 }, function () {
+                  vm.scroll = true;
+                });
+              }
+            }
+          }
         }
       },
     })

@@ -224,14 +224,24 @@
       }
     });
 
-    window.vm = new Vue({
+    new Vue({
       el: "footer",
       data: {
-        test: "hello",
+        scroll: true,
       },
       methods: {
         scrollTop() {
-          $('html').animate({ scrollTop: 0 })
+          const vm = this;
+          if (vm.scroll) {
+            for (const selector of ['html', 'body']) {
+              if ($(selector).scrollTop() !== 0) {
+                vm.scroll = false;
+                $(selector).animate({ scrollTop: 0 }, function () {
+                  vm.scroll = true;
+                });
+              }
+            }
+          }
         }
       },
     })
