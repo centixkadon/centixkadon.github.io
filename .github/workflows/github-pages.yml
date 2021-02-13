@@ -13,12 +13,6 @@ on:
     # 05:00 +0800
     - cron: '0 21 * * *'
 
-env:
-  GITHUB_REPOSITORY: ${{ github.repository }}
-  GITHUB_EVENT_NAME: ${{ github.event.pusher.name }}
-  GITHUB_EVENT_EMAIL: ${{ github.event.pusher.email }}
-  GITHUB_WORKSPACE: ${{ github.workspace }}
-
 # directory /home/runner/work/centixkadon.github.io/centixkadon.github.io
 # bash_account runner.docker
 # docker_account runneradmin.runneradmin
@@ -32,12 +26,24 @@ jobs:
     steps:
       - name: Dump Context
         run: |
-          echo github "${{ toJson(github) }}"
-          echo job "${{ toJson(job) }}"
-          echo steps "${{ toJson(steps) }}"
-          echo runner "${{ toJson(runner) }}"
-          echo strategy "${{ toJson(strategy) }}"
-          echo matrix "${{ toJson(matrix) }}"
+          cat << EOF
+          github: ${{ toJson(github) }}
+          EOF
+          cat << EOF
+          job: ${{ toJson(job) }}
+          EOF
+          cat << EOF
+          steps: ${{ toJson(steps) }}
+          EOF
+          cat << EOF
+          runner: ${{ toJson(runner) }}
+          EOF
+          cat << EOF
+          strategy: ${{ toJson(strategy) }}
+          EOF
+          cat << EOF
+          matrix: ${{ toJson(matrix) }}
+          EOF
 
       - name: Environment Bash
         run: bash --version
@@ -62,14 +68,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Git Log
-        id: git-log
-        run: |
-          echo commit-hash "$(git log --max-count=1 --pretty=%H)"
-          echo commit-title "$(git log --max-count=1 --pretty=%s)"
-          echo "::set-output name=commit-hash::$(git log --max-count=1 --pretty=%H)"
-          echo "::set-output name=commit-title::$(git log --max-count=1 --pretty=%s)"
 
       - name: Cache Ruby
         uses: actions/cache@v2
@@ -100,15 +98,12 @@ jobs:
 
       - name: Git Push
         if: ${{ github.event_name != 'schedule' }}
-        env:
-          COMMIT_HASH: ${{ steps.git-log.outputs.commit-hash }}
-          COMMIT_TITLE: ${{ steps.git-log.outputs.commit-title }}
         run: |
           cd ${{ github.workspace }}/_site
-          git config --global user.name "${GITHUB_EVENT_NAME}"
-          git config --global user.email "${GITHUB_EVENT_EMAIL}"
+          git config --global user.name "${{ github.event.pusher.name }}"
+          git config --global user.email "${{ github.event.pusher.email }}"
           git add .
-          git commit --message "update by ${COMMIT_HASH}
+          git commit --message "update by ${{ github.event.head_commit.id }}
 
-          ${COMMIT_TITLE}" || echo nothing to commit
+          ${{ github.event.head_commit.message }}" || echo nothing to commit
           git push --force-with-lease
