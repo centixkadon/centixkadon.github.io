@@ -8,7 +8,7 @@
   {% seo %}
   {% if jekyll.environment == "production" %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.min.css" integrity="sha384-+SaL1xc9boZlGbUEAl92ACLIk5BlfrVnmWPv7eP6F06LCqdArNVrEzSMlf648EkB" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin></script>
   {% else %}
   <link rel="stylesheet" href="javascript/bootstrap4/css/bootstrap.css">
@@ -19,8 +19,8 @@
 </head>
 
 <body>
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
+    <div class="container">
       <a class="navbar-brand" href="/">C</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
         <span class="navbar-toggler-icon"></span>
@@ -40,20 +40,37 @@
           {% endfor %}
         </ul>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
   <main>
     <div class="container-fluid">
       {{ content }}
     </div>
   </main>
-  {% raw %}
-  <footer class="fixed-bottom">
+  <footer>
     <div class="container-fluid">
-      <div class="row justify-content-end">
+      <div class="row">
         <div class="col d-flex">
-          <div class="ml-auto py-3">
-            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up" v-on:click="scrollTop"></button>
+          <div class="mr-auto mt-auto mb-3">© {{ 'now' | date: '%Y' }} centixkadon</div>
+        </div>
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% raw %}
+  <footer class="fixed-bottom pointer-events-none">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+        <div class="col d-flex">
+          <div class="ml-auto mt-auto mb-3">
+            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up pointer-events-all" v-on:click="scrollTop"></button>
           </div>
         </div>
       </div>
@@ -70,7 +87,7 @@
   {% endif %}
   {% include script.html %}
   {% for script in page.scripts %}
-  <script src="{{ script }}"></script>
+  {% include scripts/{{ script }} %}
   {% endfor %}
 </body>
 

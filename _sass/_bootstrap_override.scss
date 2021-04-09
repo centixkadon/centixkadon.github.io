@@ -1,52 +1,11 @@
-main h1,
-.h1 {
-  font-size: 2.5rem;
-}
-
-main h2,
-.h2 {
-  font-size: 2rem;
-}
-
-main h3,
-.h3 {
-  font-size: 1.5rem;
-}
-
-main h4,
-.h4 {
-  font-size: 1.25rem;
-  font-weight: bolder;
-}
-
-main h5,
-.h5 {
-  font-size: 1.25rem;
-}
-
-main h6,
-.h6 {
-  font-size: 1rem;
-  font-style: italic;
-}
-
 // Utilities
 
 $user-selects: all, auto, none !default;
-
-// Interactions
-
 @each $value in $user-selects {
   .user-select-#{$value} { user-select: $value !important; }
 }
 
-// Spacing
-
-.my-vh,
-.mt-vh {
-  margin-top: calc(100vh) !important;
-}
-.my-vh,
-.mb-vh {
-  margin-bottom: calc(100vh) !important;
+$pointer-events: all, auto, none !default;
+@each $value in $pointer-events {
+  .pointer-events-#{$value} { pointer-events: $value !important; }
 }

@@ -52,6 +52,12 @@ strict_front_matter: true # Cause a build to fail if there is a YAML syntax erro
 plugins: # https://help.github.com/en/articles/configuring-jekyll-plugins
   - jekyll-seo-tag
   - jekyll-paginate
+kramdown:
+  math_engine: katex
+  math_engine_opts:
+    displayMode: true
+    display_mode: true
+    output: mathml
 
 # ===== Serve Command Options =====
 port: 4000 # Listen on the given port

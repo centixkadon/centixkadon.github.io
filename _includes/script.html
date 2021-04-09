@@ -6,6 +6,9 @@
     $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
     $('main h3, main .h3').addClass("mt-4 mb-4");
     $('main h4, main .h4').addClass("mt-4 mb-4");
+    $('main blockquote').addClass("blockquote alert alert-primary");
+    $('main blockquote p').addClass("mb-0");
+    $('main blockquote footer').addClass("blockquote-footer text-right");
 
     const locks = {};
 
@@ -131,7 +134,7 @@
     });
 
     new Vue({
-      el: "footer",
+      el: "footer.fixed-bottom",
       data: {
         scroll: true,
       },

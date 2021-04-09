@@ -126,9 +126,12 @@ Check out [emoji cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/
 
 ### Math
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+$$ a ^ 2 = 3 $$
+
+$$ a ^ 2 = 3 $$
+
 $$
-\begin{align*}
+\begin{aligned}
   & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
   = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
   & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
@@ -141,5 +144,5 @@ $$
       \vdots \\
       y_n
     \end{array} \right)
-\end{align*}
+\end{aligned}
 $$

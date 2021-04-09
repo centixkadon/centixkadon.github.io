@@ -3,18 +3,26 @@ layout: default
 title: centixkadon
 ---
 
-<h1>{{ page.title }}</h1>
-{% assign blogs = site.blogs | sort: 'date' | reverse %}
-{% for blog in blogs %}
-<div class="card my-3">
-  <div class="card-header user-select-none">
-    <a class="link" href="{{ blog.url }}">{{ blog.title }}</a>
-  </div>
-  <div class="card-body">
-    <div class="card-text">
-      <p class="text-right text-muted">{{ blog.date | date: '%Y-%m-%d' }}</p>
-      {{ blog.excerpt }}
-    </div>
+<div class="row">
+  <div class="col">
+    <h1>{{ page.title }}</h1>
   </div>
 </div>
-{% endfor %}
+<div class="row row-cols-1">
+  {% assign blogs = site.blogs | sort: 'date' | reverse %}
+  <div class="col">
+    {% for blog in blogs %}
+    <div class="card my-3">
+      <div class="card-header user-select-none">
+        <a class="link" href="{{ blog.url }}">{{ blog.title }}</a>
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p class="text-right text-muted">{{ blog.date | date: '%Y-%m-%d' }}</p>
+          {{ blog.excerpt }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

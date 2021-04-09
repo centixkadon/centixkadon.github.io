@@ -2,6 +2,7 @@
 layout: default
 title: 加解密
 excerpt: ""
+scripts: tools/crypt.html
 ---
 
 {% raw %}
@@ -33,108 +34,4 @@ excerpt: ""
     </div>
   </div>
 </div>
-
-<script>
-  $(() => {
-    const storageKey = "tool_crypt";
-    const inputLock = Symbol("lock inputs");
-
-    window.vm = new Vue({
-      el: "#app",
-
-      data: {
-        encrypt: false,
-        password: "",
-        password_status: false,
-        input: "",
-        output: "",
-        locked: true,
-      },
-      created() {
-        this.output = JSON.stringify(this.load(storageKey).output) || "";
-      },
-
-      watch: {
-        password() {
-          this.alock(inputLock, async () => {
-            if (this.encrypt) {
-              await this.encryptText();
-            } else {
-              await this.decryptText();
-            }
-          });
-        },
-        input() {
-          this.alock(inputLock, async () => {
-            await this.encryptText();
-            this.encrypt = true;
-          });
-        },
-        output() {
-          this.alock(inputLock, async () => {
-            await this.decryptText();
-            this.encrypt = false;
-          });
-        },
-      },
-
-      computed: {
-        passwordStatusMessage() {
-          if (!this.encrypt && this.password) {
-            return this.password_status ? "✔" : "❌";
-          } else {
-            return null;
-          }
-        },
-
-        cryptMessage() {
-          return this.encrypt ? "encrypt" : "decrypt";
-        },
-      },
-
-      methods: {
-        toggleCrypt() {
-          this.encrypt = !this.encrypt;
-        },
-
-        async encryptText() {
-          if (this.input && this.password) {
-            const decrypt = JSON.stringify({
-              input: this.input,
-              hash: await this.hash(this.input)
-            });
-            const encrypt = await this.aesGcmEncrypt(decrypt, this.password);
-            this.output = JSON.stringify(encrypt);
-
-            this.store(storageKey, { output: encrypt });
-          }
-        },
-
-        async decryptText() {
-          if (this.output && this.password) {
-            try {
-              const encrypt = JSON.parse(this.output);
-              const decrypt = JSON.parse(await this.aesGcmDecrypt(encrypt, this.password));
-              console.log("decrypt", decrypt);
-              if (decrypt.input && decrypt.hash && decrypt.hash === await this.hash(decrypt.input)) {
-                this.input = decrypt.input;
-                this.password_status = true;
-
-                this.store(storageKey, { output: encrypt });
-                return;
-              }
-            } catch (error) { }
-            this.password_status = false;
-          }
-        },
-
-        async hash(message) {
-          return this.hexToString(await this.sha1(message));
-        },
-
-      },
-    });
-
-  });
-</script>
 {% endraw %}
