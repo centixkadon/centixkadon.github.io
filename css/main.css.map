@@ -7,8 +7,8 @@
 	],
 	"sourcesContent": [
 		"@import \"bootstrap_override\";\n",
-		"main h1,\n.h1 {\n  font-size: 2.5rem;\n}\n\nmain h2,\n.h2 {\n  font-size: 2rem;\n}\n\nmain h3,\n.h3 {\n  font-size: 1.5rem;\n}\n\nmain h4,\n.h4 {\n  font-size: 1.25rem;\n  font-weight: bolder;\n}\n\nmain h5,\n.h5 {\n  font-size: 1.25rem;\n}\n\nmain h6,\n.h6 {\n  font-size: 1rem;\n  font-style: italic;\n}\n\n// Utilities\n\n$user-selects: all, auto, none !default;\n\n// Interactions\n\n@each $value in $user-selects {\n  .user-select-#{$value} { user-select: $value !important; }\n}\n\n// Spacing\n\n.my-vh,\n.mt-vh {\n  margin-top: calc(100vh) !important;\n}\n.my-vh,\n.mb-vh {\n  margin-bottom: calc(100vh) !important;\n}\n"
+		"// Utilities\n\n$user-selects: all, auto, none !default;\n@each $value in $user-selects {\n  .user-select-#{$value} { user-select: $value !important; }\n}\n\n$pointer-events: all, auto, none !default;\n@each $value in $pointer-events {\n  .pointer-events-#{$value} { pointer-events: $value !important; }\n}"
 	],
 	"names": [],
-	"mappings": "ACAA,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,MAAM,CAClB,AAED,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,IAAI,CAChB,AAED,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,MAAM,CAClB,AAED,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,OAAO,CAClB,WAAW,CAAE,MAAM,CACpB,AAED,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,OAAO,CACnB,AAED,AAAA,IAAI,CAAC,EAAE,CACP,GAAG,AAAC,CACF,SAAS,CAAE,IAAI,CACf,UAAU,CAAE,MAAM,CACnB,AA9BD,AAuCE,gBAvCc,AAuCN,CAAE,WAAW,CALR,GAAG,CAKc,UAAU,CAAI,AAvC9C,AAuCE,iBAvCe,AAuCP,CAAE,WAAW,CALH,IAAI,CAKQ,UAAU,CAAI,AAvC9C,AAuCE,iBAvCe,AAuCP,CAAE,WAAW,CALG,IAAI,CAKE,UAAU,CAAI,AAK9C,AAAA,MAAM,CACN,MAAM,AAAC,CACL,UAAU,CAAE,WAAW,CAAC,UAAU,CACnC,AACD,AAAA,MAAM,CACN,MAAM,AAAC,CACL,aAAa,CAAE,WAAW,CAAC,UAAU,CACtC"
+	"mappings": "ACAA,AAIE,gBAJc,AAIN,CAAE,WAAW,CAFR,GAAG,CAEc,UAAU,CAAI,AAJ9C,AAIE,iBAJe,AAIP,CAAE,WAAW,CAFH,IAAI,CAEQ,UAAU,CAAI,AAJ9C,AAIE,iBAJe,AAIP,CAAE,WAAW,CAFG,IAAI,CAEE,UAAU,CAAI,AAJ9C,AASE,mBATiB,AAST,CAAE,cAAc,CAFT,GAAG,CAEe,UAAU,CAAI,AATjD,AASE,oBATkB,AASV,CAAE,cAAc,CAFJ,IAAI,CAES,UAAU,CAAI,AATjD,AASE,oBATkB,AASV,CAAE,cAAc,CAFE,IAAI,CAEG,UAAU,CAAI"
 }

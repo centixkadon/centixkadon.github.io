@@ -18,20 +18,20 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Github Markdown Syntax" />
 <script type="application/ld+json">
-{"dateModified":"2018-10-24T22:00:00+08:00","datePublished":"2018-10-24T22:00:00+08:00","url":"/b/markdown/syntax/","description":"This guide is based on Writing on GitHub - Github Help.","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/b/markdown/syntax/"},"headline":"Github Markdown Syntax","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"/b/markdown/syntax/"},"url":"/b/markdown/syntax/","description":"This guide is based on Writing on GitHub - Github Help.","@type":"BlogPosting","headline":"Github Markdown Syntax","dateModified":"2018-10-24T22:00:00+08:00","datePublished":"2018-10-24T22:00:00+08:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.min.css" integrity="sha384-+SaL1xc9boZlGbUEAl92ACLIk5BlfrVnmWPv7eP6F06LCqdArNVrEzSMlf648EkB" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin></script>
   
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
+    <div class="container">
       <a class="navbar-brand" href="/">C</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
         <span class="navbar-toggler-icon"></span>
@@ -59,8 +59,8 @@
           
         </ul>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
   <main>
     <div class="container-fluid">
       <div class="row">
@@ -240,9 +240,11 @@ Check out <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">emoji che
 
 <h3 id="math">Math</h3>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a ^ 2 = 3</annotation></semantics></math></span>
 
-\[\begin{align*}
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a ^ 2 = 3</annotation></semantics></math></span>
+
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>ϕ</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>ϕ</mi><mrow><mo fence="true">(</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><msub><mi>e</mi><mi>i</mi></msub><mo separator="true">,</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>y</mi><mi>j</mi></msub><msub><mi>e</mi><mi>j</mi></msub><mo fence="true">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mi>j</mi></msub><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>e</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>e</mi><mi>j</mi></msub><mo stretchy="false">)</mo><mo>=</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mrow><mo fence="true">(</mo><mtable rowspacing="0.15999999999999992em" columnalign="center center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mo lspace="0em" rspace="0em">⋯</mo></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mo lspace="0em" rspace="0em">⋱</mo></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>e</mi><mi>n</mi></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mo lspace="0em" rspace="0em">⋯</mo></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>e</mi><mi>n</mi></msub><mo separator="true">,</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow><mrow><mo fence="true">(</mo><mtable rowspacing="0.15999999999999992em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>y</mi><mn>1</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>y</mi><mi>n</mi></msub></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
   &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
   = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
   &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
@@ -255,19 +257,36 @@ Check out <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">emoji che
       \vdots \\
       y_n
     \end{array} \right)
-\end{align*}\]
+\end{aligned}</annotation></semantics></math></span>
 
   </div>
 </div>
     </div>
   </main>
-  
-  <footer class="fixed-bottom">
+  <footer>
     <div class="container-fluid">
-      <div class="row justify-content-end">
+      <div class="row">
         <div class="col d-flex">
-          <div class="ml-auto py-3">
-            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up" v-on:click="scrollTop"></button>
+          <div class="mr-auto mt-auto mb-3">© 2021 centixkadon</div>
+        </div>
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <footer class="fixed-bottom pointer-events-none">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+        <div class="col d-flex">
+          <div class="ml-auto mt-auto mb-3">
+            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up pointer-events-all" v-on:click="scrollTop"></button>
           </div>
         </div>
       </div>
@@ -287,6 +306,9 @@ Check out <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">emoji che
     $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
     $('main h3, main .h3').addClass("mt-4 mb-4");
     $('main h4, main .h4').addClass("mt-4 mb-4");
+    $('main blockquote').addClass("blockquote alert alert-primary");
+    $('main blockquote p').addClass("mb-0");
+    $('main blockquote footer').addClass("blockquote-footer text-right");
 
     const locks = {};
 
@@ -412,7 +434,7 @@ Check out <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">emoji che
     });
 
     new Vue({
-      el: "footer",
+      el: "footer.fixed-bottom",
       data: {
         scroll: true,
       },

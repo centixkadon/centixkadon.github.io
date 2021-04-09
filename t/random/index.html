@@ -14,24 +14,24 @@
 <meta property="og:description" content="Twenty four, student." />
 <meta property="og:site_name" content="centixkadon" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-02-13T22:10:24+08:00" />
+<meta property="article:published_time" content="2021-04-10T02:03:53+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="随机数生成器" />
 <script type="application/ld+json">
-{"dateModified":"2021-02-13T22:10:24+08:00","datePublished":"2021-02-13T22:10:24+08:00","url":"/t/random/","description":"Twenty four, student.","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/t/random/"},"headline":"随机数生成器","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"/t/random/"},"url":"/t/random/","description":"Twenty four, student.","@type":"BlogPosting","headline":"随机数生成器","dateModified":"2021-04-10T02:03:53+08:00","datePublished":"2021-04-10T02:03:53+08:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" integrity="sha384-YdM/o2MTG+kIKs1sV/gSEWXZo5d1DdBeuo/6s8qMJd5I5FKkStdHSXeNukljrWUZ" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.min.css" integrity="sha384-+SaL1xc9boZlGbUEAl92ACLIk5BlfrVnmWPv7eP6F06LCqdArNVrEzSMlf648EkB" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin></script>
   
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
+    <div class="container">
       <a class="navbar-brand" href="/">C</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
         <span class="navbar-toggler-icon"></span>
@@ -59,8 +59,8 @@
           
         </ul>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
   <main>
     <div class="container-fluid">
       
@@ -145,13 +145,30 @@
 
     </div>
   </main>
-  
-  <footer class="fixed-bottom">
+  <footer>
     <div class="container-fluid">
-      <div class="row justify-content-end">
+      <div class="row">
         <div class="col d-flex">
-          <div class="ml-auto py-3">
-            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up" v-on:click="scrollTop"></button>
+          <div class="mr-auto mt-auto mb-3">© 2021 centixkadon</div>
+        </div>
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <footer class="fixed-bottom pointer-events-none">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <div class="py-3"></div>
+          <div class="py-3"></div>
+        </div>
+        <div class="col d-flex">
+          <div class="ml-auto mt-auto mb-3">
+            <button class="btn btn-outline-secondary rounded-circle bi-arrow-up pointer-events-all" v-on:click="scrollTop"></button>
           </div>
         </div>
       </div>
@@ -171,6 +188,9 @@
     $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
     $('main h3, main .h3').addClass("mt-4 mb-4");
     $('main h4, main .h4').addClass("mt-4 mb-4");
+    $('main blockquote').addClass("blockquote alert alert-primary");
+    $('main blockquote p').addClass("mb-0");
+    $('main blockquote footer').addClass("blockquote-footer text-right");
 
     const locks = {};
 
@@ -296,7 +316,7 @@
     });
 
     new Vue({
-      el: "footer",
+      el: "footer.fixed-bottom",
       data: {
         scroll: true,
       },

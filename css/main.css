@@ -1,3 +1,3 @@
-main h1,.h1{font-size:2.5rem}main h2,.h2{font-size:2rem}main h3,.h3{font-size:1.5rem}main h4,.h4{font-size:1.25rem;font-weight:bolder}main h5,.h5{font-size:1.25rem}main h6,.h6{font-size:1rem;font-style:italic}.user-select-all{user-select:all !important}.user-select-auto{user-select:auto !important}.user-select-none{user-select:none !important}.my-vh,.mt-vh{margin-top:calc(100vh) !important}.my-vh,.mb-vh{margin-bottom:calc(100vh) !important}
+.user-select-all{user-select:all !important}.user-select-auto{user-select:auto !important}.user-select-none{user-select:none !important}.pointer-events-all{pointer-events:all !important}.pointer-events-auto{pointer-events:auto !important}.pointer-events-none{pointer-events:none !important}
 
 /*# sourceMappingURL=main.css.map */
