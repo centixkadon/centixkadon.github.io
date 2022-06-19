@@ -5,24 +5,24 @@
   <base href="/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <!-- Begin Jekyll SEO tag v2.7.1 -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Posts | centixkadon</title>
-<meta name="generator" content="Jekyll v4.2.0" />
+<meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="Posts" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Twenty four, student." />
 <meta property="og:description" content="Twenty four, student." />
 <meta property="og:site_name" content="centixkadon" />
+<meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Posts" />
 <script type="application/ld+json">
-{"url":"/posts/","description":"Twenty four, student.","@type":"WebPage","headline":"Posts","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Twenty four, student.","headline":"Posts","url":"/posts/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.min.css" integrity="sha384-+SaL1xc9boZlGbUEAl92ACLIk5BlfrVnmWPv7eP6F06LCqdArNVrEzSMlf648EkB" crossorigin>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.min.css" integrity="sha384-kFHJmrKG9yBg+A4HPuKUdTgXd7SDmjlrPWHN0ORWH8OnniDPipnDcm2R5wYw0RZw" crossorigin>
   
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -146,7 +146,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col d-flex">
-          <div class="mr-auto mt-auto mb-3">© 2021 centixkadon</div>
+          <div class="mr-auto mt-auto mb-3">© 2022 centixkadon</div>
         </div>
         <div class="col-1">
           <div class="py-3"></div>
@@ -174,20 +174,44 @@
   
 
   
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js" integrity="sha384-9MzmvphdUvLZJKasjD7VqYE4SqffhZDOwDTMyokP2tx+fjBo59ljvrlgUAaaME44" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js" integrity="sha384-ULpZhk1pvhc/UK5ktA9kwb2guy9ovNSTyxPNHANnA35YjBQgdwI+AhLkixDvdlw4" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin></script>
   
   
 <script>
-  $(function () {
-    $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
-    $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
-    $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
-    $('main h3, main .h3').addClass("mt-4 mb-4");
-    $('main h4, main .h4').addClass("mt-4 mb-4");
-    $('main blockquote').addClass("blockquote alert alert-primary");
-    $('main blockquote p').addClass("mb-0");
-    $('main blockquote footer').addClass("blockquote-footer text-right");
+  document.addEventListener("readystatechange", async function () {
+    if (this.readyState !== "interactive") {
+      return;
+    }
+
+    document.querySelectorAll('main').forEach($dom => $dom.classList.add(..."mx-sm-3 mx-md-4 mx-lg-5".split(" ")));
+    document.querySelectorAll('main h1, main .h1').forEach($dom => $dom.classList.add(..."mt-4 mt-lg-5 mb-4".split(" ")));
+    document.querySelectorAll('main h2, main .h2').forEach($dom => $dom.classList.add(..."mt-4 mt-lg-5 mb-4".split(" ")));
+    document.querySelectorAll('main h3, main .h3').forEach($dom => $dom.classList.add(..."mt-4 mb-4".split(" ")));
+    document.querySelectorAll('main h4, main .h4').forEach($dom => $dom.classList.add(..."mt-4 mb-4".split(" ")));
+    document.querySelectorAll('main blockquote').forEach($dom => $dom.classList.add(..."blockquote alert alert-primary".split(" ")));
+    document.querySelectorAll('main blockquote p').forEach($dom => $dom.classList.add(..."mb-0".split(" ")));
+    document.querySelectorAll('main blockquote footer').forEach($dom => $dom.classList.add(..."blockquote-footer text-right".split(" ")));
+
+    const headings = {};
+    document.querySelectorAll('main h2').forEach($dom => {
+      headings[$dom.id] = $dom;
+    });
+
+    document.addEventListener("scroll", function () {
+      const [id, $heading] = Object.entries(headings).reduce(([id, $heading], [newId, $newHeading]) => {
+        if ($heading.offsetTop < $newHeading.offsetTop && $newHeading.offsetTop <= scrollY) {
+          return [newId, $newHeading];
+        }
+        return [id, $heading];
+      }, ["", { offsetTop: 0 }]);
+      if (decodeURIComponent(location.hash.slice(1)) !== id) {
+        const hash = id === "" ? "" : `#${encodeURIComponent(id)}`;
+        const url = `${location.origin}${location.pathname}${hash}`;
+        history.replaceState({ a: 1 }, "", url);
+      }
+    });
 
     const locks = {};
 
