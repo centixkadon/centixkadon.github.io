@@ -77,7 +77,7 @@ jobs:
       - name: Git Clone
         if: ${{ github.event_name != 'schedule' }}
         run: |
-          git clone --branch gh-pages --depth 1 https://${{ secrets.JEKYLL_GITHUB_PAGES }}@github.com/${{ github.repository }}.git ${{ github.workspace }}/_site
+          git clone --branch gh-pages --depth 1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ github.workspace }}/_site
           mkdir --parents ${{ github.workspace }}/empty
           rsync --recursive --del --exclude .git ${{ github.workspace }}/empty/ ${{ github.workspace }}/_site
           mkdir --parents ${{ github.workspace }}/vendor/bundle
