@@ -1,14 +1,37 @@
 {% raw %}
 <script>
-  $(function () {
-    $('main').addClass("mx-sm-3 mx-md-4 mx-lg-5");
-    $('main h1, main .h1').addClass("mt-4 mt-lg-5 mb-4");
-    $('main h2, main .h2').addClass("mt-4 mt-lg-5 mb-4");
-    $('main h3, main .h3').addClass("mt-4 mb-4");
-    $('main h4, main .h4').addClass("mt-4 mb-4");
-    $('main blockquote').addClass("blockquote alert alert-primary");
-    $('main blockquote p').addClass("mb-0");
-    $('main blockquote footer').addClass("blockquote-footer text-right");
+  document.addEventListener("readystatechange", async function () {
+    if (this.readyState !== "interactive") {
+      return;
+    }
+
+    document.querySelectorAll('main').forEach($dom => $dom.classList.add(..."mx-sm-3 mx-md-4 mx-lg-5".split(" ")));
+    document.querySelectorAll('main h1, main .h1').forEach($dom => $dom.classList.add(..."mt-4 mt-lg-5 mb-4".split(" ")));
+    document.querySelectorAll('main h2, main .h2').forEach($dom => $dom.classList.add(..."mt-4 mt-lg-5 mb-4".split(" ")));
+    document.querySelectorAll('main h3, main .h3').forEach($dom => $dom.classList.add(..."mt-4 mb-4".split(" ")));
+    document.querySelectorAll('main h4, main .h4').forEach($dom => $dom.classList.add(..."mt-4 mb-4".split(" ")));
+    document.querySelectorAll('main blockquote').forEach($dom => $dom.classList.add(..."blockquote alert alert-primary".split(" ")));
+    document.querySelectorAll('main blockquote p').forEach($dom => $dom.classList.add(..."mb-0".split(" ")));
+    document.querySelectorAll('main blockquote footer').forEach($dom => $dom.classList.add(..."blockquote-footer text-right".split(" ")));
+
+    const headings = {};
+    document.querySelectorAll('main h2').forEach($dom => {
+      headings[$dom.id] = $dom;
+    });
+
+    document.addEventListener("scroll", function () {
+      const [id, $heading] = Object.entries(headings).reduce(([id, $heading], [newId, $newHeading]) => {
+        if ($heading.offsetTop < $newHeading.offsetTop && $newHeading.offsetTop <= scrollY) {
+          return [newId, $newHeading];
+        }
+        return [id, $heading];
+      }, ["", { offsetTop: 0 }]);
+      if (decodeURIComponent(location.hash.slice(1)) !== id) {
+        const hash = id === "" ? "" : `#${encodeURIComponent(id)}`;
+        const url = `${location.origin}${location.pathname}${hash}`;
+        history.replaceState({ a: 1 }, "", url);
+      }
+    });
 
     const locks = {};
 

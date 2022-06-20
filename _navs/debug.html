@@ -164,7 +164,11 @@ slug: {{ site.blogs | map: 'slug' | uniq | join: ', ' }}
 ext: {{ site.blogs | map: 'ext' | uniq | join: ', ' }}
 
 <script>
-  $(function () {
+  document.addEventListener("readystatechange", async function () {
+    if (this.readyState !== "interactive") {
+      return;
+    }
+
     window.vm = new Vue({
       el: "#parameters",
       data: {
@@ -215,13 +219,9 @@ ext: {{ site.blogs | map: 'ext' | uniq | join: ', ' }}
         },
       },
       created() {
-        const interval = setInterval(() => {
-          try {
-            this.click();
-          } catch (e) {
-            clearInterval(interval);
-            throw e;
-          }
+        const self = this;
+        document.addEventListener("scroll", function () {
+          self.click();
         });
       },
     });
